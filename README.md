@@ -11,7 +11,7 @@ I created this project to provide a simple, ad-free gaming experience and to exp
 
 ## Screenshots
 
-|                        Dashboard                         |                      Practice Mode                      |                        Multiplayer                         |                        Profile                         |
+|                        Home Page                         |                      Practice Mode                      |                        Multiplayer                         |                        Profile                         |
 |:--------------------------------------------------------:|:-------------------------------------------------------:|:----------------------------------------------------------:|:------------------------------------------------------:|
 | <img src="docs/screenshots/dashboard.png" width="200" /> | <img src="docs/screenshots/practice.png" width="200" /> | <img src="docs/screenshots/multiplayer.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
 
