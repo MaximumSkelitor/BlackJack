@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">BlackJack</string>
+
+    Screen Names
+    <string name="home">Home</string>
+    <string name="practice">Practice</string>
+    <string name="profile">Profile</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="settings">Settings</string>
+
+
+    Home
+    <string name="welcome_user">Welcome, %s</string>
+    <string name="practice_subtitle">Practice your Blackjack skills!</string>
+    <string name="ai_bots">AI Bots</string>
+    <string name="ai_bots_subtitle">Play against AI bots!</string>
+    <string name="multiplayer_subtitle">Play against other players!</string>
+
+    <string name="total_credits">%d Credits</string>
+
+    Gameplay
+    <string name="practice_mode">Practice Mode</string>
+    <string name="dealers_hand">Dealer\'s Hand</string>
+    <string name="dealer_total">Dealer\'s Total</string>
+    <string name="dealer_total_number" translatable="false">: %s</string>
+
+
+    <string name="your_turn">Your turn!</string>
+    <string name="dealer_wins">Dealer wins.</string>
+    <string name="dealer_blackjack">Dealer has Blackjack. You lose.</string>
+    <string name="player_bust">Bust! You lose.</string>
+    <string name="dealer_bust">Dealer busts! You win!</string>
+    <string name="welcome_blackjack">Welcome to BlackJack!</string>
+
+
+    <string name="your_hand">Your Hand</string>
+    <string name="player_total">Your Total</string>
+    <string name="player_total_number" translatable="false">: %s</string>
+
+
+    <string name="hit">Hit</string>
+    <string name="stand">Stand</string>
+    <string name="new_deal">New Deal</string>
+    <string name="player_win">You win!</string>
+    <string name="push">Push.</string>
+    <string name="push_both_blackjack">Push! Both have Blackjack.</string>
+    <string name="blackjack_win">Blackjack! You win!</string>
+
+
+
+    <string name="player1_hand">Player 1\'s Hand</string>
+    <string name="player2_hand">Player 2\'s Hand</string>
+    <string name="player1_turn">Player 1\'s Turn</string>
+    <string name="player2_turn">Player 2\'s Turn</string>
+    <string name="player1_wins">Player 1 Wins!</string>
+    <string name="player2_wins">Player 2 Wins!</string>
+    <string name="both_bust">Both players busted!</string>
+    <string name="tie">It\'s a tie!</string>
+    <string name="dealer_wins_all">Dealer wins against both!</string>
+
+    Profile
+    <string name="total_chips_profile">Total Credits: %d</string>
+    <string name="highest_chips_profile">Highest Credits: %d</string>
+
+    Settings
+    <string name="preferences">Preferences</string>
+    <string name="display_section">Display</string>
+    <string name="dark_mode">Dark</string>
+    <string name="light_mode">Light</string>
+    <string name="system_mode">System (Default)</string>
+
+    <string name="username">Username</string>
+    <string name="users_username" translatable="false">%s</string>
+    <string name="username_title">What should we call you?</string>
+    <string name="username_desc">You can change this at any time.</string>
+    <string name="save_username">Save Username</string>
+
+    <string name="language_section">Language</string>
+    <string name="english">English (Default)</string>
+    <string name="spanish">Español</string>
+    <string name="french">French</string>
+    <string name="dutch">Dutch</string>
+</resources>

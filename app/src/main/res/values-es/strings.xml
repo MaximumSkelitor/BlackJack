@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">BlackJack</string>
+
+    <!-- Screen Names -->
+    <string name="home">Inicio</string>
+    <string name="practice">Práctica</string>
+    <string name="profile">Perfil</string>
+    <string name="multiplayer">Multijugador</string>
+    <string name="settings">Configuración</string>
+
+    <!-- Home -->
+    <string name="welcome_user">Bienvenido, %s</string>
+    <string name="practice_subtitle">¡Practica tus habilidades en el blackjack!</string>
+    <string name="ai_bots">Bots de AI</string>
+    <string name="ai_bots_subtitle">¡Juega contra bots de AI!</string>
+    <string name="multiplayer_subtitle">¡Juega contra otros jugadores!</string>
+
+    <string name="total_credits">%d Créditos</string>
+
+    <!-- Gameplay -->
+    <string name="practice_mode">Modo de práctica</string>
+    <string name="dealers_hand">Mano del crupier</string>
+    <string name="dealer_total">Total del crupier</string>
+
+    <string name="your_turn">¡Te toca!</string>
+    <string name="dealer_wins">El crupier gana.</string>
+    <string name="dealer_blackjack">El crupier tiene Blackjack. Pierdes.</string>
+    <string name="player_bust">¡Te pasaste! Perdiste.</string>
+    <string name="dealer_bust">¡El crupier se pasa! ¡Tú ganas!</string>
+    <string name="welcome_blackjack">¡Bienvenido al blackjack!</string>
+
+    <string name="your_hand">Tu mano</string>
+    <string name="player_total">Su total</string>
+
+    <string name="hit">Golpear</string>
+    <string name="stand">Pararse</string>
+    <string name="new_deal">Nuevo trato</string>
+    <string name="player_win">¡Ganaste!</string>
+    <string name="push">Empujar.</string>
+    <string name="push_both_blackjack">¡Empate! Ambos tienen Blackjack.</string>
+    <string name="blackjack_win">¡Blackjack! ¡Has ganado!</string>
+
+    <string name="player1_hand">Mano del jugador 1</string>
+    <string name="player2_hand">Mano del jugador 2</string>
+    <string name="player1_turn">Turno del jugador 1</string>
+    <string name="player2_turn">Turno del jugador 2</string>
+    <string name="player1_wins">El jugador 1 gana!</string>
+    <string name="player2_wins">El jugador 2 gana!</string>
+    <string name="both_bust">¡Ambos jugadores quedaron eliminados!</string>
+    <string name="tie">¡Es un empate!</string>
+    <string name="dealer_wins_all">¡El crupier gana a ambos!</string>
+
+    <!-- Profile -->
+    <string name="total_chips_profile">Créditos totales: %d</string>
+    <string name="highest_chips_profile">Máximos créditos: %d</string>
+
+    <!-- Settings -->
+    <string name="preferences">Preferencias</string>
+    <string name="display_section">Pantalla</string>
+    <string name="dark_mode">Oscuro</string>
+    <string name="light_mode">Claro</string>
+    <string name="system_mode">Sistema (Por defecto)</string>
+    <string name="language_section">Idioma</string>
+    <string name="english">Inglés (Por defecto)</string>
+    <string name="spanish">Español</string>
+    <string name="french">Francés</string>
+    <string name="dutch">Holandés</string>
+
+    <string name="username">Nombre de usuario</string>
+    <string name="save_username">Guardar nombre de usuario</string>
+    <string name="username_title">¿Cómo deberíamos llamarle?</string>
+    <string name="username_desc">Puedes cambiar esto en cualquier momento.</string>
+</resources>

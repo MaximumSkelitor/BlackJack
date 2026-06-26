@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">BlackJack</string>
+
+    <!-- Screen Names -->
+    <string name="home">Startseite</string>
+    <string name="practice">Übung</string>
+    <string name="profile">Profil</string>
+    <string name="multiplayer">Mehrspieler</string>
+    <string name="settings">Einstellungen</string>
+
+    <!-- Home -->
+    <string name="welcome_user">Willkommen, %s</string>
+    <string name="practice_subtitle">Übe deine Blackjack-Fähigkeiten!</string>
+    <string name="ai_bots">KI-Bots</string>
+    <string name="ai_bots_subtitle">Spiele gegen KI-Bots!</string>
+    <string name="multiplayer_subtitle">Spiele gegen andere Spieler!</string>
+    <string name="total_credits">%d Credits</string>
+
+    <!-- Gameplay -->
+    <string name="practice_mode">Übungsmodus</string>
+    <string name="dealers_hand">Hand des Dealers</string>
+    <string name="dealer_total">Dealer Gesamt</string>
+    <string name="your_turn">Du bist dran!</string>
+    <string name="dealer_wins">Dealer gewinnt.</string>
+    <string name="dealer_blackjack">Dealer hat Blackjack. Du verlierst.</string>
+    <string name="player_bust">Überkauft! Du verlierst.</string>
+    <string name="dealer_bust">Dealer hat sich überkauft! Du gewinnst!</string>
+    <string name="welcome_blackjack">Willkommen bei BlackJack!</string>
+    <string name="your_hand">Deine Hand</string>
+    <string name="player_total">Dein Gesamtwert</string>
+    <string name="hit">Karte</string>
+    <string name="stand">Halten</string>
+    <string name="new_deal">Neues Spiel</string>
+    <string name="player_win">Du gewinnst!</string>
+    <string name="push">Unentschieden.</string>
+    <string name="push_both_blackjack">Unentschieden! Beide haben Blackjack.</string>
+    <string name="blackjack_win">Blackjack! Du gewinnst!</string>
+
+    <string name="player1_hand">Hand von Spieler 1</string>
+    <string name="player2_hand">Hand von Spieler 2</string>
+    <string name="player1_turn">Spieler 1 ist dran</string>
+    <string name="player2_turn">Spieler 2 ist dran</string>
+    <string name="player1_wins">Spieler 1 gewinnt!</string>
+    <string name="player2_wins">Spieler 2 gewinnt!</string>
+    <string name="both_bust">Beide Spieler haben sich überkauft!</string>
+    <string name="tie">Es ist ein Unentschieden!</string>
+    <string name="dealer_wins_all">Dealer gewinnt gegen beide!</string>
+
+    <!-- Profile -->
+    <string name="total_chips_profile">Gesamt-Credits: %d</string>
+    <string name="highest_chips_profile">Höchste Credits: %d</string>
+
+    <!-- Settings -->
+    <string name="preferences">Präferenzen</string>
+    <string name="display_section">Anzeige</string>
+    <string name="dark_mode">Dunkel</string>
+    <string name="light_mode">Hell</string>
+    <string name="system_mode">System (Standaard)</string>
+    <string name="username">Benutzername</string>
+    <string name="username_title">Wie sollen wir dich nennen?</string>
+    <string name="username_desc">Du kannst dies jederzeit ändern.</string>
+    <string name="save_username">Benutzername speichern</string>
+    <string name="language_section">Sprache</string>
+    <string name="english">Englisch (Standaard)</string>
+    <string name="spanish">Spanisch</string>
+    <string name="french">Frans</string>
+    <string name="dutch">Nederlands</string>
+</resources>
