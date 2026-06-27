@@ -18,6 +18,8 @@
     <string name="total_credits">%d Créditos</string>
 
     <!-- Gameplay -->
+    <string name="play_now_mode">Juega ahora</string>
+    <string name="play_now_subtitle">¡Juega ahora para tener la oportunidad de ganar más créditos!</string>
     <string name="practice_mode">Modo de práctica</string>
     <string name="dealers_hand">Mano del crupier</string>
     <string name="dealer_total">Total del crupier</string>

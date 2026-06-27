@@ -48,6 +48,9 @@ import com.weberpackage.blackjack.ui.theme.BlackJackTheme
 
 import com.weberpackage.blackjack.MainViewModel
 import com.weberpackage.blackjack.MainViewModelFactory
+import com.weberpackage.blackjack.screens.play_now.PlayNowScreen
+import com.weberpackage.blackjack.screens.play_now.PlayNowViewModel
+import com.weberpackage.blackjack.screens.play_now.PlayNowViewModelFactory
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -133,9 +136,14 @@ fun NavigationRoot3(
                     factory = PracticeViewModelFactory(preferenceManager)
                 )
                 DashboardScreen(
+                    onNavigateToPlayNow = {
+                        navController.navigate(NavigationItem.PlayNowScreen.name)
+                    },
+
                     onNavigateToPractice = {
                         navController.navigate(NavigationItem.PracticeScreen.name)
                     },
+
                     onNavigateToProfile = {
                         navController.navigate(NavigationItem.ProfileScreen.name) {
                             popUpTo(navController.graph.findStartDestination().id) {
@@ -145,9 +153,11 @@ fun NavigationRoot3(
                             restoreState = true
                         }
                     },
+
                     onNavigateToMultiplayer = {
                         navController.navigate(NavigationItem.MultiplayerScreen.name)
                     },
+
                     viewModel = practiceViewModel,
                     userUsername = preferenceManager.getUsername()
                 )
@@ -159,6 +169,15 @@ fun NavigationRoot3(
                 PracticeScreen(
                     onBack = { navController.navigateUp() },
                     viewModel = practiceViewModel
+                )
+            }
+            composable(NavigationItem.PlayNowScreen.name) {
+                val playNowViewModel: PlayNowViewModel = viewModel(
+                    factory = PlayNowViewModelFactory(preferenceManager)
+                )
+                PlayNowScreen(
+                    onBack = { navController.navigateUp() },
+                    viewModel = playNowViewModel
                 )
             }
             composable(NavigationItem.ProfileScreen.name) {

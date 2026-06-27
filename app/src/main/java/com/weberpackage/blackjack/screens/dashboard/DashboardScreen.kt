@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.filled.Casino
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -63,6 +64,7 @@ data class SelectionItem(
 
 @Composable
 private fun SelectionRowContainer(
+    onNavigateToPlayNow: () -> Unit,
     onNavigateToPractice: () -> Unit,
     onNavigateToMultiplayer: () -> Unit,
     modifier: Modifier = Modifier
@@ -71,12 +73,18 @@ private fun SelectionRowContainer(
         listOf(
             SelectionItem(
                 id = 1,
+                titleResId = R.string.play_now_mode,
+                subtitleResId = R.string.play_now_subtitle,
+                image = Icons.Filled.Casino
+            ),
+            SelectionItem(
+                id = 2,
                 titleResId = R.string.practice_mode,
                 subtitleResId = R.string.practice_subtitle,
                 image = Icons.AutoMirrored.Filled.MenuBook,
             ),
             SelectionItem(
-                id = 2,
+                id = 23,
                 titleResId = R.string.multiplayer,
                 subtitleResId = R.string.multiplayer_subtitle,
                 image = Icons.Filled.People,
@@ -128,8 +136,9 @@ private fun SelectionRowContainer(
                 item = item,
                 onClick = {
                     when (item.id) {
-                        1 -> onNavigateToPractice()
-                        2 -> onNavigateToMultiplayer()
+                        1 -> onNavigateToPlayNow()
+                        2 -> onNavigateToPractice()
+                        3 -> onNavigateToMultiplayer()
                     }
                 },
                 modifier = Modifier.graphicsLayer {
@@ -195,6 +204,7 @@ private fun SelectionCard(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
+    onNavigateToPlayNow: () -> Unit,
     onNavigateToPractice: () -> Unit,
     onNavigateToProfile: () -> Unit,
     onNavigateToMultiplayer: () -> Unit,
@@ -226,6 +236,7 @@ fun DashboardScreen(
                     style = MaterialTheme.typography.displayLarge
                 )
                 SelectionRowContainer(
+                    onNavigateToPlayNow = onNavigateToPlayNow,
                     onNavigateToPractice = onNavigateToPractice,
                     onNavigateToMultiplayer = onNavigateToMultiplayer
                 )
@@ -245,6 +256,7 @@ private fun DashboardScreenPreview() {
     )
     BlackJackTheme {
         DashboardScreen(
+            onNavigateToPlayNow = {},
             onNavigateToPractice = {},
             onNavigateToProfile = {},
             onNavigateToMultiplayer = {},

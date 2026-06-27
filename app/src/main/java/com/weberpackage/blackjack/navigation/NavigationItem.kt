@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.filled.Badge
+import androidx.compose.material.icons.filled.Casino
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Home
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.Casino
 import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Home
@@ -43,6 +45,11 @@ enum class NavigationItem(
     ),
 
     // Gameplay Screens
+    PlayNowScreen(
+        R.string.play_now_mode,
+        Icons.Filled.Casino,
+        Icons.Outlined.Casino
+    ),
     PracticeScreen(
         R.string.practice,
         Icons.AutoMirrored.Filled.MenuBook,

@@ -19,6 +19,8 @@
     <string name="total_credits">%d Credits</string>
 
     Gameplay
+    <string name="play_now_mode">Play Now</string>
+    <string name="play_now_subtitle">Play now for a chance to win more credits!</string>
     <string name="practice_mode">Practice Mode</string>
     <string name="dealers_hand">Dealer\'s Hand</string>
     <string name="dealer_total">Dealer\'s Total</string>
