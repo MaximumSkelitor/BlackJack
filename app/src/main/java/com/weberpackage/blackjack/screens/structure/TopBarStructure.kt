@@ -134,6 +134,7 @@ fun GameplayTopBar(
 fun SimpleTopBar(
     @StringRes screenTitle: Int,
     onBack: () -> Unit,
+    showBackButton: Boolean = true,
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -153,11 +154,13 @@ fun SimpleTopBar(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
+                    if (showBackButton) {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back"
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

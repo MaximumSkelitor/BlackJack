@@ -19,7 +19,7 @@ class PreferenceManager(context: Context) {
         val themeName = prefs.getString("app_theme", AppTheme.SYSTEM.name)
         return try {
             AppTheme.valueOf(themeName ?: AppTheme.SYSTEM.name)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             AppTheme.SYSTEM
         }
     }
@@ -49,15 +49,20 @@ class PreferenceManager(context: Context) {
     }
 
     fun saveUsername(username: String) {
-        prefs.edit().putString("username", username).apply()
+        prefs.edit { putString("username", username) }
+        prefs.edit { putBoolean("has_set_username", true) }
     }
 
     fun getUsername(): String {
         return prefs.getString("username", "Player") ?: "Player"
     }
 
+    fun hasSetUsername(): Boolean {
+        return prefs.getBoolean("has_set_username", false)
+    }
+
     fun saveLanguage(language: String) {
-        prefs.edit().putString("app_language", language).apply()
+        prefs.edit { putString("app_language", language) }
     }
 
     fun getLanguage(): String {

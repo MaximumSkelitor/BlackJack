@@ -5,7 +5,6 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.filled.Badge
 import androidx.compose.material.icons.filled.Casino
-import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -13,7 +12,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Casino
-import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -72,4 +70,9 @@ enum class NavigationItem(
         Icons.Filled.Badge,
         Icons.Outlined.Badge
     ),
+    FirstTimeLogin(
+        R.string.sign_up,
+        Icons.Filled.Badge,
+        Icons.Outlined.Badge
+    )
 }

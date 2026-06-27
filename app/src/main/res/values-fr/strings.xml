@@ -9,6 +9,8 @@
     <string name="settings">Paramètres</string>
 
     <!-- Home -->
+    <string name="sign_up">S\'inscrire</string>
+    <string name="continue_username">Continuer</string>
     <string name="welcome_user">Bienvenue, %s</string>
     <string name="practice_subtitle">Pratiquez vos compétences au Blackjack !</string>
     <string name="ai_bots">Bots IA</string>

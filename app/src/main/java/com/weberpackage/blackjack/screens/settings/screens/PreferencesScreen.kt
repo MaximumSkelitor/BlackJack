@@ -174,65 +174,6 @@ fun ThemeOption(
     }
 }
 
-//@Composable
-//internal fun LanguageSection(
-//    selectedLanguage: String,
-//    onClick: () -> Unit,
-//) {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .clip(RoundedCornerShape(24.dp))
-//            .background(MaterialTheme.colorScheme.inverseOnSurface)
-//    ) {
-//        Column(
-//            modifier = Modifier.fillMaxWidth(),
-//        ) {
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(horizontal = 16.dp, vertical = 10.dp),
-//                verticalArrangement = Arrangement.spacedBy(3.dp)
-//            ) {
-//                // Title
-//                Text(
-//                    text = stringResource(R.string.language_section),
-//                    style = MaterialTheme.typography.titleMedium,
-//                    fontWeight = FontWeight.ExtraBold,
-//                )
-//                Card(
-//                    modifier = Modifier
-//                        .width(150.dp)
-//                        .height(50.dp)
-//                        .clickable { onClick() },
-//                    shape = RoundedCornerShape(24.dp),
-//                    border = CardDefaults.CardBorder(),
-//                    colors = CardDefaults.CardColors(
-//                        containerColor = MaterialTheme.colorScheme.surface
-//                    )
-//                ) {
-//                    Box(
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .padding(horizontal = 10.dp),
-//                        contentAlignment = Alignment.CenterStart
-//                    ) {
-//                        Text(
-//                            text = selectedLanguage,
-//                            style = MaterialTheme.typography.bodyMedium
-//                        )
-//                        Icon(
-//                            Icons.Default.ArrowDropDown,
-//                            contentDescription = null,
-//                            modifier = Modifier.align(Alignment.CenterEnd),
-//                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-//                        )
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
 @Composable
 internal fun LanguageSection(
     selectedLanguage: String,

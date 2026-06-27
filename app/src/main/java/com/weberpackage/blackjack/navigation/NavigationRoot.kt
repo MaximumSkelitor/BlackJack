@@ -44,6 +44,7 @@ import com.weberpackage.blackjack.screens.profile.ProfileScreen
 import com.weberpackage.blackjack.screens.settings.SettingsScreen
 import com.weberpackage.blackjack.screens.settings.screens.PreferencesScreen
 import com.weberpackage.blackjack.screens.settings.screens.UsernameScreen
+import com.weberpackage.blackjack.screens.settings.screens.FirstTimeLoginScreen
 import com.weberpackage.blackjack.ui.theme.BlackJackTheme
 
 import com.weberpackage.blackjack.MainViewModel
@@ -70,7 +71,14 @@ fun NavigationRoot3(
                        currentRoute != NavigationItem.MultiplayerScreen.name &&
                        currentRoute != NavigationItem.SettingsScreen.name &&
                        currentRoute != NavigationItem.PreferencesScreen.name &&
-                       currentRoute != NavigationItem.UsernameScreen.name
+                       currentRoute != NavigationItem.UsernameScreen.name &&
+                       currentRoute != NavigationItem.FirstTimeLogin.name
+
+    val startDestination = if (preferenceManager.hasSetUsername()) {
+        NavigationItem.DashboardScreen.name
+    } else {
+        NavigationItem.FirstTimeLogin.name
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -129,8 +137,18 @@ fun NavigationRoot3(
         NavHost(
             modifier = Modifier.padding(paddingValues),
             navController = navController,
-            startDestination = NavigationItem.DashboardScreen.name,
+            startDestination = startDestination,
         ) {
+            composable(NavigationItem.FirstTimeLogin.name) {
+                FirstTimeLoginScreen(
+                    onBack = {
+                        navController.navigate(NavigationItem.DashboardScreen.name) {
+                            popUpTo(NavigationItem.FirstTimeLogin.name) { inclusive = true }
+                        }
+                    },
+                    preferenceManager = preferenceManager
+                )
+            }
             composable(NavigationItem.DashboardScreen.name) {
                 val practiceViewModel: PracticeViewModel = viewModel(
                     factory = PracticeViewModelFactory(preferenceManager)
@@ -143,6 +161,9 @@ fun NavigationRoot3(
                     onNavigateToPractice = {
                         navController.navigate(NavigationItem.PracticeScreen.name)
                     },
+                    onNavigateToMultiplayer = {
+                        navController.navigate(NavigationItem.MultiplayerScreen.name)
+                    },
 
                     onNavigateToProfile = {
                         navController.navigate(NavigationItem.ProfileScreen.name) {
@@ -152,10 +173,6 @@ fun NavigationRoot3(
                             launchSingleTop = true
                             restoreState = true
                         }
-                    },
-
-                    onNavigateToMultiplayer = {
-                        navController.navigate(NavigationItem.MultiplayerScreen.name)
                     },
 
                     viewModel = practiceViewModel,

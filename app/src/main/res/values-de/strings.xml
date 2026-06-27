@@ -9,6 +9,8 @@
     <string name="settings">Einstellungen</string>
 
     <!-- Home -->
+    <string name="sign_up">Aanmelden</string>
+    <string name="continue_username">Doorgaan</string>
     <string name="welcome_user">Willkommen, %s</string>
     <string name="practice_subtitle">Übe deine Blackjack-Fähigkeiten!</string>
     <string name="ai_bots">KI-Bots</string>

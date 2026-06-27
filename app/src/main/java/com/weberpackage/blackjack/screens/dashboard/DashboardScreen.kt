@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Casino
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -84,7 +86,7 @@ private fun SelectionRowContainer(
                 image = Icons.AutoMirrored.Filled.MenuBook,
             ),
             SelectionItem(
-                id = 23,
+                id = 3,
                 titleResId = R.string.multiplayer,
                 subtitleResId = R.string.multiplayer_subtitle,
                 image = Icons.Filled.People,
@@ -159,42 +161,44 @@ private fun SelectionCard(
     Card(
         modifier = modifier
             .width(300.dp)
-            .height(200.dp)
+            .heightIn(min = 200.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.inverseOnSurface
+        )
     ) {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.inverseOnSurface)
-                .padding(16.dp)
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+            Icon(
+                modifier = Modifier.size(80.dp),
+                imageVector = item.image,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface
+            )
+            // Bottom textual elements
             Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceEvenly
+                verticalArrangement = Arrangement.Center,
             ) {
-                Icon(
-                    modifier = Modifier.size(80.dp),
-                    imageVector = item.image,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurface
+                Text(
+                    text = stringResource(item.titleResId),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 28.sp
                 )
-                // Bottom textual elements
-                Column {
-                    Text(
-                        text = stringResource(item.titleResId),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(item.subtitleResId),
-                        color = MaterialTheme.colorScheme.onSurface.copy(0.8f),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = stringResource(item.subtitleResId),
+                    color = MaterialTheme.colorScheme.onSurface.copy(0.8f),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    lineHeight = 22.sp
+                )
             }
         }
     }
@@ -206,8 +210,8 @@ private fun SelectionCard(
 fun DashboardScreen(
     onNavigateToPlayNow: () -> Unit,
     onNavigateToPractice: () -> Unit,
-    onNavigateToProfile: () -> Unit,
     onNavigateToMultiplayer: () -> Unit,
+    onNavigateToProfile: () -> Unit,
     viewModel: PracticeViewModel,
     userUsername: String
 ) {

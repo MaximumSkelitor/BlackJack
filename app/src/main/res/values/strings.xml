@@ -10,6 +10,8 @@
 
 
     Home
+    <string name="sign_up">Sign up</string>
+    <string name="continue_username">Continue</string>
     <string name="welcome_user">Welcome, %s</string>
     <string name="practice_subtitle">Practice your Blackjack skills!</string>
     <string name="ai_bots">AI Bots</string>

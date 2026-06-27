@@ -48,6 +48,7 @@ fun MultiplayerScreen(
     SimpleTopBar(
         screenTitle = R.string.multiplayer,
         onBack = onBack,
+        showBackButton = true,
         content = { paddingValues ->
             Column(
                 modifier = Modifier
