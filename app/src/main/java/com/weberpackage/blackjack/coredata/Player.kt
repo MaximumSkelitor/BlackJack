@@ -3,6 +3,7 @@ package com.weberpackage.blackjack.coredata
 class Player(var chips: Int) {
     val hand = Hand()
     var currentBet = 0
+    var multiplier: Float = 1.0f
 
     fun placeBet(amount: Int): Boolean {
         return if (amount <= chips) {
@@ -15,12 +16,14 @@ class Player(var chips: Int) {
     }
 
     fun winBet() {
-        chips += currentBet * 2
+        val profit = currentBet
+        chips += currentBet + (profit * multiplier).toInt()
         currentBet = 0
     }
 
     fun blackjackWin() {
-        chips += (currentBet * 2.5).toInt() // 3:2 payout
+        val profit = currentBet * 1.5f
+        chips += currentBet + (profit * multiplier).toInt()
         currentBet = 0
     }
 

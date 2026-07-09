@@ -1,4 +1,4 @@
-package com.weberpackage.blackjack.screens.multiplayer
+package com.weberpackage.blackjack.screens.gameplay.multiplayer
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf

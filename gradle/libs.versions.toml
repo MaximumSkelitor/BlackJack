@@ -21,6 +21,8 @@ kotlinxSerializationCore = "1.11.0"
 material3AdaptiveNav3 = "1.3.0-rc01"
 compileSdk = "37"
 appcompat = "1.7.1"
+materialKolor = "5.0.0-alpha07"
+hazeVersion = "1.7.2"
 
 [libraries]
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -50,6 +52,9 @@ androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", vers
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
 androidx-material3-adaptive-navigation3 = { module = "androidx.compose.material3.adaptive:adaptive-navigation3", version.ref = "material3AdaptiveNav3" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+materialKolor = "com.materialkolor:material-kolor:5.0.0-alpha07"
+haze-android = { module = "dev.chrisbanes.haze:haze-android", version.ref = "hazeVersion" }
+haze-materials = { module = "dev.chrisbanes.haze:haze-materials", version.ref = "hazeVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,17 +1,17 @@
-package com.weberpackage.blackjack.screens.settings.screens
+package com.weberpackage.blackjack.screens.dashboard
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -36,8 +36,7 @@ import com.weberpackage.blackjack.coredata.PreferenceManager
 import com.weberpackage.blackjack.screens.structure.gradientBackground
 
 @Composable
-fun UsernameScreen(
-    contentPadding: PaddingValues = PaddingValues(),
+fun FirstTimeLoginScreen(
     onBack: () -> Unit,
     preferenceManager: PreferenceManager,
 ) {
@@ -50,7 +49,6 @@ fun UsernameScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(gradientBackground())
-            .padding(contentPadding)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -113,8 +111,12 @@ fun UsernameScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(Icons.Default.Save, contentDescription = null)
-                Text(stringResource(R.string.save_username))
+                Text(stringResource(R.string.continue_username))
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowForwardIos,
+                    contentDescription = null,
+                    Modifier.size(15.dp)
+                )
             }
         }
     }
@@ -124,10 +126,10 @@ fun UsernameScreen(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
-private fun UsernameScreenPreview() {
+private fun FirstTimeLoginScreenPreview() {
     val context = LocalContext.current
     val preferenceManager = remember { PreferenceManager(context) }
-    UsernameScreen(
+    FirstTimeLoginScreen(
         onBack = {},
         preferenceManager = preferenceManager,
     )

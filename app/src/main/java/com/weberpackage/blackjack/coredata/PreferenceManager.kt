@@ -68,4 +68,31 @@ class PreferenceManager(context: Context) {
     fun getLanguage(): String {
         return prefs.getString("app_language", "English") ?: "English"
     }
+
+    fun saveLastClaimTime(timeMillis: Long) {
+        prefs.edit { putLong("last_claim_time", timeMillis) }
+    }
+
+    fun getLastClaimTime(): Long {
+        return prefs.getLong("last_claim_time", 0L)
+    }
+
+    fun getOwnedPacks(): List<Int> {
+        val packsString = prefs.getString("owned_packs", "1") ?: "1" // Default pack 1 is owned
+        return packsString.split(",").filter { it.isNotEmpty() }.map { it.toInt() }
+    }
+
+    fun addOwnedPack(id: Int) {
+        val owned = getOwnedPacks().toMutableSet()
+        owned.add(id)
+        prefs.edit { putString("owned_packs", owned.joinToString(",")) }
+    }
+
+    fun getEquippedPack(): Int {
+        return prefs.getInt("equipped_pack", 1) // Default to pack 1
+    }
+
+    fun setEquippedPack(id: Int) {
+        prefs.edit { putInt("equipped_pack", id) }
+    }
 }

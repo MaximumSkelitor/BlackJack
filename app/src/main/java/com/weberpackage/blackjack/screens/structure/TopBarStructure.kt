@@ -18,30 +18,39 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.weberpackage.blackjack.R
-import com.weberpackage.blackjack.navigation.NavigationItem
 import com.weberpackage.blackjack.ui.theme.BlackJackTheme
+import com.weberpackage.blackjack.R
+import com.weberpackage.blackjack.coredata.PreferenceManager
+import com.weberpackage.blackjack.navigation.NavigationItem
+import dev.chrisbanes.haze.HazeStyle
+import dev.chrisbanes.haze.hazeEffect
+import dev.chrisbanes.haze.rememberHazeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarStructure(
     @StringRes screenTitle: Int,
     screenToggle: () -> Unit,
+    screenToggleEnabled: Boolean = true,
     navigationIconItem: NavigationItem,
     content: @Composable (PaddingValues) -> Unit // Slot for screen content
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = Color.Transparent,
+        contentColor = contentColorFor(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBar(
                 title = {
@@ -58,11 +67,13 @@ fun TopBarStructure(
                 },
                 navigationIcon = {},
                 actions = {
-                    IconButton(onClick = screenToggle) {
-                        Icon(
-                            imageVector = navigationIconItem.selectedIcon,
-                            contentDescription = "Settings"
-                        )
+                    if (screenToggleEnabled) {
+                        IconButton(onClick = screenToggle) {
+                            Icon(
+                                imageVector = navigationIconItem.selectedIcon,
+                                contentDescription = "Settings"
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -84,11 +95,13 @@ fun GameplayTopBar(
     @StringRes screenTitle: Int,
     totalChips: Int,
     toggleBack: () -> Unit,
-    content: @Composable (PaddingValues) -> Unit // Slot for screen content
+    content: @Composable (PaddingValues) -> Unit,
+    showTotalChips: Boolean = true // Slot for screen content
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = Color.Transparent,
+        contentColor = contentColorFor(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBar(
                 title = {
@@ -101,11 +114,16 @@ fun GameplayTopBar(
                             fontWeight = FontWeight.Bold
                         )
                         Spacer(Modifier.width(20.dp))
-                        Text(
-                            text = stringResource(R.string.total_credits, totalChips),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                        if (showTotalChips) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Spacer(Modifier.width(30.dp))
+                                ChipCounter(totalChips, fontSize = 20, showText = true)
+                            }
+                        }
                     }
                 },
                 navigationIcon = {
@@ -135,22 +153,46 @@ fun SimpleTopBar(
     @StringRes screenTitle: Int,
     onBack: () -> Unit,
     showBackButton: Boolean = true,
+    showTotalChips: Boolean = false,
+    preferenceManager: PreferenceManager,
+    style: HazeStyle = hazeAppBarStyle(),
     content: @Composable (PaddingValues) -> Unit
 ) {
+    val totalChips = preferenceManager.getChips()
+    val hazeState = rememberHazeState()
+
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        modifier = Modifier
+            .fillMaxSize(),
+        containerColor = Color.Transparent,
+        contentColor = contentColorFor(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBar(
+                modifier = Modifier
+                    .hazeEffect(
+                        state = hazeState,
+                        style = style
+                    ),
                 title = {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             text = stringResource(screenTitle),
                             fontWeight = FontWeight.Bold
                         )
+                        if (showTotalChips) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Spacer(Modifier.width(30.dp))
+                                ChipCounter(totalChips, fontSize = 20, showText = true)
+                            }
+                        }
                     }
                 },
                 navigationIcon = {
@@ -179,17 +221,28 @@ fun SimpleTopBar(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
 fun TopBarStructurePreview() {
+    val context = LocalContext.current
+    val preferenceManager = remember { PreferenceManager(context) }
     BlackJackTheme {
-        TopBarStructure(
-            screenTitle = R.string.home,
-            screenToggle = {},
-            navigationIconItem = NavigationItem.ProfileScreen
-        ) {}
+//        TopBarStructure(
+//            screenTitle = R.string.home,
+//            screenToggle = {},
+//            navigationIconItem = NavigationItem.ProfileScreen
+//        ) {}
 //        GameplayTopBar(
 //            screenTitle = R.string.practice,
 //            toggleBack = {},
 //            totalChips = 500,
 //            content = { Text("Screen Content") }
 //        )
+        SimpleTopBar(
+            screenTitle = R.string.shop,
+            onBack = {},
+            showBackButton = false,
+            showTotalChips = true,
+            preferenceManager = preferenceManager,
+        ) {
+        }
     }
 }
+

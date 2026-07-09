@@ -7,6 +7,21 @@
     <string name="profile">Profil</string>
     <string name="multiplayer">Multijoueur</string>
     <string name="settings">Paramètres</string>
+    <string name="shop">Boutique</string>
+
+    <!-- Shop -->
+    <string name="card_pack_1">Pack de cartes 1</string>
+    <string name="card_pack_2">Pack de cartes 2</string>
+    <string name="card_pack_3">Pack de cartes 3</string>
+    <string name="card_packs">Pack de cartes</string>
+    <string name="daily_credits">Crédits quotidiens</string>
+    <string name="daily_credits_desc">Revenez dans %s pour gagner 150 crédits !</string>
+    <string name="daily_credits_small">150 Crédits</string>
+    <string name="daily_credits_medium">Pack de démarrage</string>
+    <string name="daily_credits_large">Pack d\'expert</string>
+    <string name="claim">Réclamer</string>
+    <string name="next_claim">Prochaine réclamation dans : %s</string>
+    <string name="credits_reward">%d Crédits</string>
 
     <!-- Home -->
     <string name="sign_up">S\'inscrire</string>
@@ -17,6 +32,25 @@
     <string name="ai_bots_subtitle">Jouez contre des bots IA !</string>
     <string name="multiplayer_subtitle">Jouez contre d\'autres joueurs !</string>
     <string name="total_credits">%d Crédits</string>
+
+    <!-- Home/Ranks -->
+    <string name="benefits">"Avantage : "</string>
+    <string name="req_credits">"Crédits requis : "</string>
+    <string name="your_rank">Votre rang</string>
+    <string name="placeholder_rank">Rang fictif</string>
+    <string name="rank_benefit_multiplier">%1$.1fx %2$s</string>
+
+    <string name="rank_1">Bronze</string>
+    <string name="rank_1_desc">Le voyage commence ici.</string>
+
+    <string name="rank_2">Argent</string>
+    <string name="rank_2_desc">Gravir les échelons.</string>
+
+    <string name="rank_3">Or</string>
+    <string name="rank_3_desc">Statut Élite et récompenses bonifiées.</string>
+
+    <string name="rank_4">Diamant</string>
+    <string name="rank_4_desc">Réservé aux meilleurs concurrents.</string>
 
     <!-- Gameplay -->
     <string name="play_now_mode">Jouez maintenant</string>
@@ -54,7 +88,15 @@
     <string name="total_chips_profile">Total des Crédits : %d</string>
     <string name="highest_chips_profile">Meilleur Score : %d</string>
 
+    <string name="credits"> Crédits</string>
+
     <!-- Settings -->
+    <string name="balance">Équilibre</string>
+    <string name="best">Meilleur</string>
+    <string name="my_card_packs">Mes paquets de cartes</string>
+    <string name="equipped">Équipé</string>
+    <string name="tap_equip">Appuyez pour équiper</string>
+    <string name="locked">Fermé</string>
     <string name="preferences">Préférences</string>
     <string name="display_section">Affichage</string>
     <string name="dark_mode">Sombre</string>
@@ -69,4 +111,12 @@
     <string name="spanish">Espagnol</string>
     <string name="french">Français</string>
     <string name="dutch">Néerlandais</string>
+
+    <string name="app_info">Infos sur l\'application</string>
+    <string name="card_pack_4">Pack de cartes 4</string>
+    <string name="card_pack_5">Pack de cartes 5</string>
+    <string name="owned">Possédé</string>
+    <string name="buy">Acheter</string>
+    <string name="rank_5">Immortel</string>
+    <string name="rank_5_desc">Le sommet ultime du statut légendaire.</string>
 </resources>

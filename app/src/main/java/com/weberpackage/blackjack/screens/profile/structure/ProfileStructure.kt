@@ -1,4 +1,4 @@
-package com.weberpackage.blackjack.screens.profile
+package com.weberpackage.blackjack.screens.profile.structure
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
@@ -6,9 +6,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -18,12 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.ui.theme.BlackJackTheme
+import com.weberpackage.blackjack.R
+import com.weberpackage.blackjack.screens.structure.cardColorStops
 
 @Composable
 internal fun ProfileDescriptions(
@@ -35,19 +36,19 @@ internal fun ProfileDescriptions(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp)
+            .heightIn(min = 56.dp)
             .shadow(
                 elevation = 8.dp,
                 shape = cornerShape,
                 clip = false
             )
-            .background(MaterialTheme.colorScheme.inverseOnSurface, cornerShape)
+            .background(Brush.horizontalGradient(colorStops = cardColorStops()), cornerShape)
             .clip(cornerShape)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
@@ -57,40 +58,9 @@ internal fun ProfileDescriptions(
                 Text(
                     stringResource(title, amount),
                     fontWeight = FontWeight.Bold,
-                    color =  MaterialTheme.colorScheme.onSurface.copy(.9f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(.9f),
                     style = MaterialTheme.typography.headlineSmall
                 )
-
-// USE THIS IF YOU WANT TEXT WITH STROKE
-
-//                // 1. The Black Outline WITH Shadow
-//                Text(
-//                    text = stringResource(title, amount),
-//                    fontWeight = FontWeight.Bold,
-//                    style = MaterialTheme.typography.headlineSmall + TextStyle(
-//                        color = Color.Black,
-//                        drawStyle = Stroke(
-//                            width = 10f,
-//                            join = StrokeJoin.Round
-//                        ),
-//                        shadow = Shadow(
-//                            color = Color.Black.copy(alpha = 0.5f), // 50% opacity black
-//                            offset = Offset(
-//                                4f,
-//                                4f
-//                            ),
-//                            blurRadius = 8f
-//                        )
-//                    )
-//                )
-//
-//                // 2. The White Fill
-//                Text(
-//                    text = stringResource(title, amount),
-//                    color = Color.White,
-//                    fontWeight = FontWeight.Bold,
-//                    style = MaterialTheme.typography.headlineSmall
-//                )
             }
         }
     }

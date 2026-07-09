@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -52,45 +54,37 @@ import com.weberpackage.blackjack.MainViewModel
 import com.weberpackage.blackjack.MainViewModelFactory
 import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.coredata.PreferenceManager
-import com.weberpackage.blackjack.screens.structure.SimpleTopBar
+import com.weberpackage.blackjack.screens.structure.cardColorStops
+import com.weberpackage.blackjack.screens.structure.gradientBackground
 import com.weberpackage.blackjack.ui.theme.AppTheme
 import com.weberpackage.blackjack.ui.theme.BlackJackTheme
 
 
 @Composable
 internal fun PreferencesScreen(
-    onBack: () -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
     enabled: Boolean = true,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
 ) {
     val currentLanguage by mainViewModel.language
 
-    SimpleTopBar(
-        screenTitle = R.string.preferences,
-        onBack = onBack,
-    ) { paddingValues ->
-
-
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(gradientBackground())
+            .padding(contentPadding)
+    ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-
-            ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                AppearanceSection(mainViewModel = mainViewModel, enabled = enabled)
-                LanguageSection(
-                    selectedLanguage = currentLanguage,
-                    onLanguageSelected = { mainViewModel.setLanguage(it) }
-                )
-            }
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            AppearanceSection(mainViewModel = mainViewModel, enabled = enabled)
+            LanguageSection(
+                selectedLanguage = currentLanguage,
+                onLanguageSelected = { mainViewModel.setLanguage(it) }
+            )
         }
-
     }
-
 }
 
 @Composable
@@ -104,7 +98,7 @@ private fun AppearanceSection(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
-            .background(MaterialTheme.colorScheme.inverseOnSurface),
+            .background(Brush.horizontalGradient(colorStops = cardColorStops()))
     ) {
         Column(Modifier.selectableGroup()) {
             // Title
@@ -193,7 +187,7 @@ internal fun LanguageSection(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
-            .background(MaterialTheme.colorScheme.inverseOnSurface)
+            .background(Brush.horizontalGradient(colorStops = cardColorStops()))
     ) {
         Column(
             modifier = Modifier
@@ -212,15 +206,15 @@ internal fun LanguageSection(
                 OutlinedCard(
                     onClick = { menuExpanded = true },
                     modifier = Modifier
-                        .width(150.dp)
+                        .width(160.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
                     border = BorderStroke(
-                        width = 2.dp,
+                        width = 1.dp,
                         color = MaterialTheme.colorScheme.outline
                     ),
                     colors = CardDefaults.outlinedCardColors(
-                        containerColor = MaterialTheme.colorScheme.inverseOnSurface
+                        containerColor = MaterialTheme.colorScheme.inverseOnSurface.copy(0.5f)
                     )
                 ) {
                     Box(
@@ -229,18 +223,23 @@ internal fun LanguageSection(
                             .padding(horizontal = 10.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
-                        Text(
-                            text = selectedLanguage,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                        Icon(
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .align(Alignment.CenterEnd)
-                                .rotate(arrowRotationDegree),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = selectedLanguage,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .rotate(arrowRotationDegree),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
 
@@ -269,9 +268,11 @@ internal fun LanguageSection(
 @Composable
 private fun PreferencesScreenPreview() {
     val context = LocalContext.current
-    val viewModel: MainViewModel =
-        viewModel(factory = MainViewModelFactory(PreferenceManager(context)))
+    val preferenceManager = PreferenceManager(context)
+    val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(preferenceManager))
     BlackJackTheme {
-        PreferencesScreen(mainViewModel = viewModel, onBack = {})
+        PreferencesScreen(
+            mainViewModel = viewModel,
+        )
     }
 }

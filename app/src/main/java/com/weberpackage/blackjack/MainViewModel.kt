@@ -2,6 +2,7 @@ package com.weberpackage.blackjack
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
@@ -50,6 +51,19 @@ class MainViewModel(private val preferenceManager: PreferenceManager) : ViewMode
         }
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(languageTag)
         AppCompatDelegate.setApplicationLocales(appLocale)
+    }
+
+    private val _credits = mutableIntStateOf(preferenceManager.getChips())
+    val credits: State<Int> = _credits
+
+    fun addCredits(amount: Int) {
+        val newTotal = _credits.intValue + amount
+        _credits.intValue = newTotal
+        preferenceManager.saveChips(newTotal)
+    }
+
+    fun refreshCredits() {
+        _credits.intValue = preferenceManager.getChips()
     }
 }
 

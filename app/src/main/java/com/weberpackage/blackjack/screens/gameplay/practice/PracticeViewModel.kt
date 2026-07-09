@@ -1,4 +1,4 @@
-package com.weberpackage.blackjack.screens.play_now
+package com.weberpackage.blackjack.screens.gameplay.practice
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -13,7 +13,7 @@ import com.weberpackage.blackjack.coredata.PlayCard
 import com.weberpackage.blackjack.coredata.Player
 import com.weberpackage.blackjack.coredata.PreferenceManager
 
-class PlayNowViewModel(private val preferenceManager: PreferenceManager) : ViewModel() {
+class PracticeViewModel(preferenceManager: PreferenceManager) : ViewModel() {
     private val deck = Deck()
     private val player = Player(chips = preferenceManager.getChips())
     private val dealer = Dealer()
@@ -24,26 +24,10 @@ class PlayNowViewModel(private val preferenceManager: PreferenceManager) : ViewM
         private set
     var statusMessageResId by mutableIntStateOf(R.string.welcome_blackjack)
         private set
-    var isGameOver by mutableStateOf(true) // Start with game over to show betting
+    var isGameOver by mutableStateOf(true)
         private set
     var totalChips by mutableIntStateOf(player.chips)
         private set
-    var currentBet by mutableIntStateOf(0)
-        private set
-    var isBettingPhase by mutableStateOf(true)
-        private set
-
-
-    fun placeBet(amount: Int) {
-        if (player.placeBet(amount)) {
-            currentBet = amount
-            totalChips = player.chips
-            isBettingPhase = false
-            startNewGame()
-        } else {
-            // Handle not enough chips - maybe a message?
-        }
-    }
 
     fun startNewGame() {
         deck.resetAndShuffle()
@@ -69,11 +53,9 @@ class PlayNowViewModel(private val preferenceManager: PreferenceManager) : ViewM
 
         if (playerValue == 21 && dealerValue == 21) {
             statusMessageResId = R.string.push_both_blackjack
-            player.push()
             finishGame()
         } else if (playerValue == 21) {
             statusMessageResId = R.string.blackjack_win
-            player.blackjackWin()
             finishGame()
         } else if (dealerValue == 21) {
             statusMessageResId = R.string.dealer_blackjack
@@ -105,30 +87,16 @@ class PlayNowViewModel(private val preferenceManager: PreferenceManager) : ViewM
         val dealerValue = dealer.hand.calculateScore()
 
         statusMessageResId = when {
-            dealer.hand.isBust() -> {
-                player.winBet()
-                R.string.dealer_bust
-            }
-
-            playerValue > dealerValue -> {
-                player.winBet()
-                R.string.player_win
-            }
-
+            dealer.hand.isBust() -> R.string.dealer_bust
+            playerValue > dealerValue -> R.string.player_win
             playerValue < dealerValue -> R.string.dealer_wins
-            else -> {
-                player.push()
-                R.string.push
-            }
+            else -> R.string.push
         }
         finishGame()
     }
 
     private fun finishGame() {
         isGameOver = true
-        totalChips = player.chips
-        preferenceManager.saveChips(totalChips)
-        currentBet = 0
     }
 
     private fun updateState() {
@@ -137,20 +105,16 @@ class PlayNowViewModel(private val preferenceManager: PreferenceManager) : ViewM
     }
 
     fun resetGame() {
-        isBettingPhase = true
-        isGameOver = true
-        playerHand = emptyList()
-        dealerHand = emptyList()
-        statusMessageResId = R.string.welcome_blackjack
+        startNewGame()
     }
 }
 
-class PlayNowViewModelFactory(private val preferenceManager: PreferenceManager) :
+class PracticeViewModelFactory(private val preferenceManager: PreferenceManager) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(PlayNowViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return PlayNowViewModel(preferenceManager) as T
+            return PracticeViewModel(preferenceManager) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

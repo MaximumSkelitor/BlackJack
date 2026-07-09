@@ -64,6 +64,13 @@ dependencies {
     // Serialization
     implementation(libs.kotlinx.serialization.core)
 
+    // MaterialKolor
+    implementation(libs.materialKolor)
+
+    // Haze (Blur)
+    implementation(libs.haze.android)
+    implementation(libs.haze.materials)
+
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

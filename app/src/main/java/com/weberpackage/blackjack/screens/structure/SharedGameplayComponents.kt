@@ -1,11 +1,18 @@
 package com.weberpackage.blackjack.screens.structure
 
+import android.content.res.Configuration
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -14,6 +21,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,75 +42,96 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.coredata.PlayCard
 import com.weberpackage.blackjack.coredata.Rank
 import com.weberpackage.blackjack.coredata.Suit
+import com.weberpackage.blackjack.ui.theme.BlackJackTheme
 
-//@Composable
-//fun BlackjackCard(
-//    card: Card,
-//    modifier: Modifier = Modifier
-//) {
-//    val (suitSymbol, cardColor) = when (card.suit) {
-//        Suit.CLUBS -> "♣" to Color.Black
-//        Suit.SPADES -> "♠" to Color.Black
-//        Suit.HEARTS -> "♥" to Color(0xFFD32F2F)
-//        Suit.DIAMONDS -> "♦" to Color(0xFFD32F2F)
-//    }
-//
-//    val displayRank = when (card.rank) {
-//        Rank.ACE -> "A"
-//        Rank.KING -> "K"
-//        Rank.QUEEN -> "Q"
-//        Rank.JACK -> "J"
-//        else -> card.rank.value.toString()
-//    }
-//
-//    Box(
-//        modifier = modifier
-//            .size(width = 80.dp, height = 120.dp) // Slightly smaller for better fit
-//            .shadow(
-//                elevation = 8.dp,
-//                shape = RoundedCornerShape(12.dp),
-//                clip = false
-//            )
-//            .background(
-//                color = Color.White,
-//                shape = RoundedCornerShape(12.dp)
-//            ),
-//    ) {
-//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//            Text(
-//                text = displayRank,
-//                fontSize = 36.sp,
-//                fontWeight = FontWeight.Bold,
-//                color = cardColor
-//            )
-//            Spacer(modifier = Modifier.height(8.dp))
-//            Text(
-//                text = suitSymbol,
-//                fontSize = 20.sp,
-//                color = cardColor.copy(.8f)
-//            )
-//        }
-//    }
-//}
+@Composable
+fun ChipCounter(
+    count: Int,
+    modifier: Modifier = Modifier,
+    fontSize: Int,
+    showText: Boolean = false
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        formatChips(count).forEach { char ->
+            AnimatedContent(
+                targetState = char,
+                transitionSpec = {
+                    if (targetState > initialState) {
+                        slideInVertically { it } + fadeIn() togetherWith slideOutVertically { -it } + fadeOut()
+                    } else {
+                        slideInVertically { -it } + fadeIn() togetherWith slideOutVertically { it } + fadeOut()
+                    }.using(SizeTransform(clip = false))
+                },
+                label = "DigitAnimation"
+            ) { targetDigit ->
+                Text(
+                    text = targetDigit.toString(),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = fontSize.sp
+                )
+            }
+        }
+        if (showText) {
+            Text(
+                text = " ${stringResource(R.string.credits)}",
+                fontWeight = FontWeight.SemiBold,
+                fontSize = fontSize.sp
+            )
+        }
+    }
+}
+
 @Composable
 fun BlackjackCard(
-    card: PlayCard
+    card: PlayCard,
+    modifier: Modifier = Modifier,
+    packId: Int = 1
 ) {
     // Automatically determine suit color and display symbol
-    val (suitSymbol, cardColor) = when (card.suit) {
+    val (suitSymbol, defaultColor) = when (card.suit) {
         Suit.CLUBS -> "♣" to Color.Black
         Suit.SPADES -> "♠" to Color.Black
         Suit.HEARTS -> "♥" to Color(0xFFD32F2F)
         Suit.DIAMONDS -> "♦" to Color(0xFFD32F2F)
     }
+
+    // Pack-specific card styling
+    val cardBackgroundBrush = when (packId) {
+        2 -> Brush.verticalGradient(listOf(Color(0xFFE3F2FD), Color(0xFFBBDEFB))) // Blue tier
+        3 -> Brush.verticalGradient(listOf(Color(0xFFF3E5F5), Color(0xFFE1BEE7))) // Purple tier
+        4 -> Brush.verticalGradient(listOf(Color(0xFFFFF8E1), Color(0xFFFFECB3))) // Gold tier
+        5 -> Brush.verticalGradient(listOf(Color(0xFFFFEBEE), Color(0xFFFFCDD2))) // Red tier
+        else -> Brush.verticalGradient(listOf(Color.White, Color.White))
+    }
+
+    val cardBorderColor = when (packId) {
+        2 -> Color(0xFF2196F3)
+        3 -> Color(0xFF9C27B0)
+        4 -> Color(0xFFFFC107)
+        5 -> Color(0xFFE91E63)
+        else -> Color.Transparent
+    }
+
+    val cardColor =
+        if (packId >= 4 && defaultColor == Color.Black) Color(0xFF212121) else defaultColor
 
     // Convert enum Rank to string presentation (e.g., ACE -> "A", TWO -> "2")
     val displayRank = when (card.rank) {
@@ -114,37 +143,46 @@ fun BlackjackCard(
     }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(width = 100.dp, height = 145.dp)
             .shadow(
-                elevation = 15.dp,
+                elevation = if (packId > 1) 12.dp else 8.dp,
                 shape = RoundedCornerShape(16.dp),
                 clip = false,
-                ambientColor = Color.Black,
-                spotColor = Color.Black
+                ambientColor = cardBorderColor.copy(alpha = 0.5f),
+                spotColor = cardBorderColor
             )
             .background(
-                color = Color.White,
+                brush = cardBackgroundBrush,
                 shape = RoundedCornerShape(16.dp)
             )
-            .padding(12.dp) // Card inner padding
+            .then(
+                if (packId > 1) Modifier.border(
+                    2.dp,
+                    cardBorderColor.copy(alpha = 0.5f),
+                    RoundedCornerShape(16.dp)
+                )
+                else Modifier
+            )
+            .padding(12.dp),
+        contentAlignment = Alignment.Center
     ) {
-        // Top Left: Rank text
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            // Displays the value, saying
             Text(
                 text = displayRank,
-                fontSize = 48.sp,
+                fontSize = 42.sp,
                 fontWeight = FontWeight.Bold,
-                color = cardColor
+                color = cardColor,
+                lineHeight = 42.sp
             )
-            Spacer(modifier = Modifier.height(35.dp))
-            // Suit Symbol
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = suitSymbol,
-                fontSize = 24.sp,
+                fontSize = 28.sp,
                 color = cardColor.copy(.9f)
             )
         }
@@ -160,26 +198,40 @@ fun BlackjackButton(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
+    val haptic = LocalHapticFeedback.current
 
     val scale by animateFloatAsState(
         targetValue = if (isPressed) 0.9f else 1f,
         label = "buttonScale"
     )
 
+    LaunchedEffect(isPressed) {
+        if (isPressed) {
+            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+        }
+    }
+
     Button(
-        onClick = onClick,
+        onClick = {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            onClick()
+        },
         enabled = enabled,
         interactionSource = interactionSource,
-        modifier = modifier.graphicsLayer {
-            scaleX = scale
-            scaleY = scale
-        },
+        modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            },
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.onSurface,
             contentColor = MaterialTheme.colorScheme.inverseOnSurface
         )
     ) {
-        Text(text, fontWeight = FontWeight.Bold)
+        Text(
+            text = text,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -190,7 +242,8 @@ fun HandDisplay(
     totalLabel: String,
     totalCardLabel: String,
     isTurn: Boolean = false,
-    titleColor: Color = MaterialTheme.colorScheme.onSurface
+    titleColor: Color = MaterialTheme.colorScheme.onSurface,
+    packId: Int = 1
 ) {
     val scrollState = rememberScrollState()
 
@@ -221,7 +274,7 @@ fun HandDisplay(
                             animationSpec = tween(durationMillis = 400)
                         ) + fadeIn(animationSpec = tween(durationMillis = 400))
                     ) {
-                        BlackjackCard(card = card)
+                        BlackjackCard(card = card, packId = packId)
                     }
                 }
             }
@@ -253,4 +306,31 @@ fun calculateHandValue(cards: List<PlayCard>): Int {
         acesCount--
     }
     return total
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
+@Composable
+fun BlackjackCardsPreview() {
+    BlackJackTheme {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                BlackjackCard(PlayCard(Suit.SPADES, Rank.ACE), packId = 1)
+                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 2)
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                BlackjackCard(PlayCard(Suit.DIAMONDS, Rank.KING), packId = 3)
+                BlackjackCard(PlayCard(Suit.CLUBS, Rank.QUEEN), packId = 4)
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                BlackjackCard(PlayCard(Suit.SPADES, Rank.JACK), packId = 5)
+            }
+        }
+    }
 }

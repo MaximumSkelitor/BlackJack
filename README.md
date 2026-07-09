@@ -3,7 +3,7 @@
 
 ### Introduction
 
-This app is a clean, native Android implementation of the classic game of Blackjack. It was built using modern Android development practices, including Jetpack Compose for the UI and the experimental Navigation 3 library for screen management.
+This app is a clean, native Android implementation of the classic game of Blackjack. It was built using modern Android development practices, and heavily inspired by [Offsuit](https://www.offsuit.app/). 
 
 I created this project to provide a simple, ad-free gaming experience and to explore the latest capabilities of the Android ecosystem.
 
@@ -13,14 +13,7 @@ I created this project to provide a simple, ad-free gaming experience and to exp
 
 |                        Home Page                         |                      Practice Mode                      |                        Multiplayer                         |                        Profile                         |
 |:--------------------------------------------------------:|:-------------------------------------------------------:|:----------------------------------------------------------:|:------------------------------------------------------:|
-| <img src="docs/screenshots/dashboard.png" width="200" /> | <img src="docs/screenshots/practice.png" width="200" /> | <img src="docs/screenshots/multiplayer.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
-
-### Features
-
-*   **Simple UI**: Clean and intuitive interface built entirely with Jetpack Compose.
-*   **Multiplayer**: Play head-to-head with others in an offline multiplayer mode.
-*   **Localization**: Full support for English, Español, Français, and Deutsch.
-*   **Profile Management**: Keep track of your chips and customize your identity.
+| <img src="docs/screenshots/dashboard.png" width="200" /> | <img src="docs/screenshots/play_now.png" width="200" /> | <img src="docs/screenshots/multiplayer.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
 
 ### Requirements
 * **Android Studio Jellyfish or newer.**
@@ -28,14 +21,17 @@ I created this project to provide a simple, ad-free gaming experience and to exp
 
 ### Credits
 
-This app was built using the following open-source libraries and components:
+This app used the following open-source libraries and/or code inspired from these projects.
 
-- [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building native UI.
-- [Material 3](https://m3.material.io/) - Google's latest design system.
-- [Navigation 3](https://developer.android.com/guide/navigation/navigation-3) - Experimental next-gen navigation library.
-- [AppCompat](https://developer.android.com/jetpack/androidx/releases/appcompat) - For robust localization and theme support.
-- [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) - For efficient data handling.
-- [Google Fonts](https://fonts.google.com/) - Custom typography for a premium feel.
+- [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- [Material 3](https://m3.material.io/)
+- [Navigation 3](https://developer.android.com/guide/navigation/navigation-3)
+- [AppCompat](https://developer.android.com/jetpack/androidx/releases/appcompat)
+- [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
+- [MaterialKolor](https://github.com/jordond/MaterialKolor)
+- [Haze](https://github.com/chrisbanes/haze)
+- [Google Fonts](https://fonts.google.com/)
+
 
 ### Licensing
 
