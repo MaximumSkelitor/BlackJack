@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Badge
+import androidx.compose.material.icons.filled.Copyright
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,7 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.composeunstyled.SheetDetent
+import com.composeunstyled.rememberModalBottomSheetState
 import com.weberpackage.blackjack.R
+import com.weberpackage.blackjack.screens.settings.structure.AppInfoSheet
+import com.weberpackage.blackjack.screens.settings.structure.CreditsSheet
 import com.weberpackage.blackjack.screens.settings.structure.SettingsOption
 import com.weberpackage.blackjack.screens.structure.gradientBackground
 import com.weberpackage.blackjack.ui.theme.BlackJackTheme
@@ -31,6 +37,9 @@ fun SettingsScreen(
     onNavigateToUsername: () -> Unit,
     contentPadding: PaddingValues = PaddingValues()
 ) {
+    val appInfoState = rememberModalBottomSheetState(initialDetent = SheetDetent.Hidden)
+    val creditsState = rememberModalBottomSheetState(initialDetent = SheetDetent.Hidden)
+
     Column(
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
@@ -51,16 +60,22 @@ fun SettingsScreen(
             )
             SettingsOption(
                 title = R.string.username,
-                description = "",
+                description = userUsername,
                 onClick = onNavigateToUsername,
                 icon = Icons.Default.Badge
             )
-//            SettingsOption(
-//                title = R.string.app_info,
-//                description = "",
-//                onClick = onNavigateToUsername,
-//                icon = Icons.Default.Info
-//            )d
+            SettingsOption(
+                title = R.string.app_info,
+                description = "",
+                onClick = { appInfoState.targetDetent = SheetDetent.FullyExpanded },
+                icon = Icons.Default.Info
+            )
+            SettingsOption(
+                title = R.string.credits_license,
+                description = "",
+                onClick = { creditsState.targetDetent = SheetDetent.FullyExpanded },
+                icon = Icons.Filled.Copyright
+            )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = stringResource(R.string.app_version),
@@ -72,6 +87,8 @@ fun SettingsScreen(
             )
         }
     }
+    AppInfoSheet(appInfoState)
+    CreditsSheet(creditsState)
 }
 
 

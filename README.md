@@ -11,7 +11,7 @@ I created this project to provide a simple, ad-free gaming experience and to exp
 
 ## Screenshots
 
-|                        Home Page                         |                      Practice Mode                      |                        Multiplayer                         |                        Profile                         |
+|                        Home Page                         |                        Play Now                         |                        Multiplayer                         |                        Profile                         |
 |:--------------------------------------------------------:|:-------------------------------------------------------:|:----------------------------------------------------------:|:------------------------------------------------------:|
 | <img src="docs/screenshots/dashboard.png" width="200" /> | <img src="docs/screenshots/play_now.png" width="200" /> | <img src="docs/screenshots/multiplayer.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
 
@@ -26,11 +26,13 @@ This app used the following open-source libraries and/or code inspired from thes
 - [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - [Material 3](https://m3.material.io/)
 - [Navigation 3](https://developer.android.com/guide/navigation/navigation-3)
+- [Compose Unstyled](https://composables.com/compose-unstyled)
 - [AppCompat](https://developer.android.com/jetpack/androidx/releases/appcompat)
 - [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
 - [MaterialKolor](https://github.com/jordond/MaterialKolor)
 - [Haze](https://github.com/chrisbanes/haze)
 - [Google Fonts](https://fonts.google.com/)
+- [PiFire-Android](https://github.com/weberbox/PiFire-Android)
 
 
 ### Licensing

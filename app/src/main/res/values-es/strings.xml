@@ -124,5 +124,9 @@
     <string name="buy">Comprar</string>
     <string name="rank_5">Inmortal</string>
     <string name="rank_5_desc">La cúspide definitiva del estatus de leyenda.</string>
+    <string name="developer">Desarrollador</string>
+    <string name="app_version_title">Versión de la aplicación</string>
+    <string name="status">Estado</string>
+    <string name="credits_license">Créditos y licencias</string>
 
 </resources>

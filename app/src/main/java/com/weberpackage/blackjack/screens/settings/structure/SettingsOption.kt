@@ -43,7 +43,6 @@ internal fun SettingsOption(
     description: String,
     onClick: () -> Unit,
     icon: ImageVector,
-    showText: Boolean = false
 ) {
     val cornerShape = RoundedCornerShape(12.dp)
 
@@ -78,14 +77,13 @@ internal fun SettingsOption(
             )
 
             // Right Group: Description / Arrow
-            if (showText) {
-                Text(
-                    text = description,
-                    fontWeight = FontWeight.Normal,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-            }
+            Text(
+                text = description,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(end = 8.dp)
+            )
+
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -94,6 +92,7 @@ internal fun SettingsOption(
         }
     }
 }
+
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
@@ -114,7 +113,6 @@ private fun SettingsStructurePreview() {
                 description = stringResource(R.string.users_username, "Tester"),
                 onClick = {},
                 icon = Icons.Default.Badge,
-                showText = true
             )
         }
     }

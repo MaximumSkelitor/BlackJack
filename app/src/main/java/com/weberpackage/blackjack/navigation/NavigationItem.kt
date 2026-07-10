@@ -5,6 +5,7 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.filled.Badge
 import androidx.compose.material.icons.filled.Casino
+import androidx.compose.material.icons.filled.Copyright
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Casino
+import androidx.compose.material.icons.outlined.Copyright
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -98,6 +100,12 @@ enum class NavigationItem(
         R.string.username,
         Icons.Filled.Badge,
         Icons.Outlined.Badge,
+        showBack = true,
+    ),
+    CreditsLicenseScreen(
+        R.string.credits_license,
+        Icons.Filled.Copyright,
+        Icons.Outlined.Copyright,
         showBack = true,
     ),
 }

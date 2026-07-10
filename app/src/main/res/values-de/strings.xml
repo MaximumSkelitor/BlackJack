@@ -119,5 +119,9 @@
     <string name="buy">Kaufen</string>
     <string name="rank_5">Unsterblich</string>
     <string name="rank_5_desc">Der absolute Höhepunkt des Legendenstatus.</string>
+    <string name="developer">Entwickler</string>
+    <string name="app_version_title">App-Version</string>
+    <string name="status">Status</string>
+    <string name="credits_license">Credits und Lizenzen</string>
 
 </resources>

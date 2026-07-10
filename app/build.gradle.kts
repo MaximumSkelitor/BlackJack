@@ -27,8 +27,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -70,6 +70,10 @@ dependencies {
     // Haze (Blur)
     implementation(libs.haze.android)
     implementation(libs.haze.materials)
+
+    // Compose Unstyled
+    implementation(libs.composeunstyled)
+    implementation(libs.ui)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))

@@ -119,4 +119,8 @@
     <string name="buy">Acheter</string>
     <string name="rank_5">Immortel</string>
     <string name="rank_5_desc">Le sommet ultime du statut légendaire.</string>
+    <string name="developer">Développeur</string>
+    <string name="app_version_title">Version de l\'application</string>
+    <string name="status">Statut</string>
+    <string name="credits_license">Crédits et licences</string>
 </resources>

@@ -1,5 +1,6 @@
 [versions]
 agp = "9.2.1"
+composeunstyled = "2.8.0"
 coreKtx = "1.19.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
@@ -23,11 +24,13 @@ compileSdk = "37"
 appcompat = "1.7.1"
 materialKolor = "5.0.0-alpha07"
 hazeVersion = "1.7.2"
+ui = "0.2.0"
 
 [libraries]
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+composeunstyled = { module = "com.composables:composeunstyled", version.ref = "composeunstyled" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -55,6 +58,7 @@ kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 materialKolor = "com.materialkolor:material-kolor:5.0.0-alpha07"
 haze-android = { module = "dev.chrisbanes.haze:haze-android", version.ref = "hazeVersion" }
 haze-materials = { module = "dev.chrisbanes.haze:haze-materials", version.ref = "hazeVersion" }
+ui = { module = "com.composables:ui", version.ref = "ui" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
