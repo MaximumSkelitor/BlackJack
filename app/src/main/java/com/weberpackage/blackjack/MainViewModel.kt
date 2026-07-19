@@ -1,78 +1,108 @@
 package com.weberpackage.blackjack
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.os.LocaleListCompat
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.weberpackage.blackjack.coredata.PreferenceManager
-import com.weberpackage.blackjack.ui.theme.AppTheme
+import androidx.lifecycle.viewModelScope
+import com.weberpackage.blackjack.common.presentation.base.BaseViewModel
+import com.weberpackage.blackjack.common.presentation.contract.MainContract
+import com.weberpackage.blackjack.common.presentation.model.AppLanguage
+import com.weberpackage.blackjack.common.presentation.theme.AppTheme
+import com.weberpackage.blackjack.core.prefs.Pref
+import com.weberpackage.blackjack.core.prefs.Prefs
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(private val preferenceManager: PreferenceManager) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val prefs: Prefs
+) : BaseViewModel<MainContract.Event, MainContract.State, MainContract.Effect>() {
     init {
-        // Ensure the saved language is applied on startup
-        val savedLanguage = preferenceManager.getLanguage()
-        val languageTag = when (savedLanguage) {
-            "English" -> "en"
-            "Español" -> "es"
-            "Français" -> "fr"
-            "Deutsch" -> "de"
-            else -> "en"
+        collectPrefsFlow()
+        checkForAppUpdates()
+    }
+
+
+    override fun setInitialState() = MainContract.State(
+        language = AppLanguage.ENGLISH,
+        appTheme = AppTheme.SYSTEM,
+        totalCredits = 0,
+        hasSetUsername = false
+    )
+
+    override fun handleEvents(event: MainContract.Event) {
+        when (event) {
+            is MainContract.Event.UpdateTotalCredits -> addCredits(event.credits)
+            is MainContract.Event.RefreshChips -> refreshCredits()
         }
+    }
+
+    private fun setCurrentLocales(languageTag: String) {
         val currentLocales = AppCompatDelegate.getApplicationLocales()
+
         if (currentLocales.isEmpty || currentLocales.get(0)?.language != languageTag) {
             AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageTag))
         }
     }
 
-    private val _theme = mutableStateOf(preferenceManager.getTheme())
-    val theme: State<AppTheme> = _theme
-
-    fun setTheme(theme: AppTheme) {
-        _theme.value = theme
-        preferenceManager.saveTheme(theme)
-    }
-
-    private val _language = mutableStateOf(preferenceManager.getLanguage())
-    val language: State<String> = _language
-
-    fun setLanguage(languageName: String) {
-        _language.value = languageName
-        preferenceManager.saveLanguage(languageName)
-
-        val languageTag = when (languageName) {
-            "English" -> "en"
-            "Español" -> "es"
-            "Français" -> "fr"
-            "Deutsch" -> "de"
-            else -> "en"
+    private fun collectPrefsFlow() {
+        collectAndUpdateState(Pref.totalChips) {
+            copy(
+                totalCredits = it
+            )
         }
-        val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(languageTag)
-        AppCompatDelegate.setApplicationLocales(appLocale)
-    }
-
-    private val _credits = mutableIntStateOf(preferenceManager.getChips())
-    val credits: State<Int> = _credits
-
-    fun addCredits(amount: Int) {
-        val newTotal = _credits.intValue + amount
-        _credits.intValue = newTotal
-        preferenceManager.saveChips(newTotal)
-    }
-
-    fun refreshCredits() {
-        _credits.intValue = preferenceManager.getChips()
-    }
-}
-
-class MainViewModelFactory(private val preferenceManager: PreferenceManager) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return MainViewModel(preferenceManager) as T
+        collectAndUpdateState(Pref.setLanguage) {
+            val appLanguage = AppLanguage.from(it)
+            setCurrentLocales(languageTag = appLanguage.code)
+            copy(
+                language = appLanguage,
+            )
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        collectAndUpdateState(Pref.appTheme) {
+            copy(
+                appTheme = AppTheme.fromName(it),
+            )
+        }
+        collectAndUpdateState(Pref.hasSetUsername) {
+            copy(
+                hasSetUsername = it
+            )
+        }
+    }
+
+    private fun <T> collectAndUpdateState(
+        pref: Pref<T>,
+        update: MainContract.State.(T) -> MainContract.State
+    ) {
+        viewModelScope.launch {
+            prefs.collectPrefsFlow(pref).collect { value ->
+                setState { update(value) }
+            }
+        }
+    }
+
+    private fun addCredits(amount: Int) {
+        val newTotal = viewState.value.totalCredits + amount
+        prefs.set(Pref.totalChips, newTotal)
+        
+        val currentHigh = prefs.get(Pref.highestChips)
+        if (newTotal > currentHigh) {
+            prefs.set(Pref.highestChips, newTotal)
+        }
+
+        setState { copy(totalCredits = newTotal) }
+    }
+
+    private fun refreshCredits() {
+        val credits = prefs.get(Pref.totalChips)
+        setState {
+            copy(totalCredits = credits)
+        }
+    }
+
+    private fun checkForAppUpdates() {
+        setEffect {
+            MainContract.Effect.CheckForAppUpdates
+        }
     }
 }

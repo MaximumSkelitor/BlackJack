@@ -22,8 +22,8 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.weberpackage.blackjack.ActionItem
 import com.weberpackage.blackjack.R
+import com.weberpackage.blackjack.common.presentation.model.ActionItem
 
 enum class NavigationItem(
     val titleResId: Int,
@@ -59,12 +59,18 @@ enum class NavigationItem(
         R.string.sign_up,
         Icons.Filled.Badge,
         Icons.Outlined.Badge,
-        showTopBar = false
     ),
 
     // Gameplay Screens
     PlayNowScreen(
         R.string.play_now_mode,
+        Icons.Filled.Casino,
+        Icons.Outlined.Casino,
+        showCredits = true,
+        showBack = true
+    ),
+    BettingScreen(
+        R.string.place_bet,
         Icons.Filled.Casino,
         Icons.Outlined.Casino,
         showCredits = true,
@@ -102,7 +108,7 @@ enum class NavigationItem(
         Icons.Outlined.Badge,
         showBack = true,
     ),
-    CreditsLicenseScreen(
+    CreditsScreen(
         R.string.credits_license,
         Icons.Filled.Copyright,
         Icons.Outlined.Copyright,

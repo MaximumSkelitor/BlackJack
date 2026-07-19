@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,50 +11,46 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.weberpackage.blackjack.ActionItem
-import com.weberpackage.blackjack.MainViewModel
-import com.weberpackage.blackjack.MainViewModelFactory
-import com.weberpackage.blackjack.coredata.PreferenceManager
-import com.weberpackage.blackjack.screens.dashboard.DashboardScreen
-import com.weberpackage.blackjack.screens.dashboard.FirstTimeLoginScreen
-import com.weberpackage.blackjack.screens.gameplay.multiplayer.MultiplayerScreen
-import com.weberpackage.blackjack.screens.gameplay.multiplayer.MultiplayerViewModel
-import com.weberpackage.blackjack.screens.gameplay.play_now.PlayNowScreen
-import com.weberpackage.blackjack.screens.gameplay.play_now.PlayNowViewModel
-import com.weberpackage.blackjack.screens.gameplay.play_now.PlayNowViewModelFactory
-import com.weberpackage.blackjack.screens.gameplay.practice.PracticeScreen
-import com.weberpackage.blackjack.screens.gameplay.practice.PracticeViewModel
-import com.weberpackage.blackjack.screens.gameplay.practice.PracticeViewModelFactory
-import com.weberpackage.blackjack.screens.profile.ProfileScreen
-import com.weberpackage.blackjack.screens.settings.SettingsScreen
-import com.weberpackage.blackjack.screens.settings.screens.PreferencesScreen
-import com.weberpackage.blackjack.screens.settings.screens.UsernameScreen
-import com.weberpackage.blackjack.screens.shop.ShopScreen
+import com.weberpackage.blackjack.betting_screen.presentation.screen.BettingScreenDest
+import com.weberpackage.blackjack.common.presentation.base.glowBackground
+import com.weberpackage.blackjack.common.presentation.model.ActionItem
+import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
+import com.weberpackage.blackjack.common.presentation.theme.spacing
+import com.weberpackage.blackjack.common.presentation.utils.sharedViewModel
+import com.weberpackage.blackjack.dashboard.presentation.screens.DashboardScreenDest
+import com.weberpackage.blackjack.multiplayer.presentation.screens.MultiplayerScreenDest
+import com.weberpackage.blackjack.play_now.presentation.screens.PlayNowScreenDest
+import com.weberpackage.blackjack.practice.presentation.screens.PracticeScreenDest
+import com.weberpackage.blackjack.profile.presentation.screens.ProfileScreenDest
 import com.weberpackage.blackjack.screens.structure.AppTopBar
-import com.weberpackage.blackjack.screens.structure.gradientBackground
-import com.weberpackage.blackjack.ui.theme.BlackJackTheme
-import com.weberpackage.blackjack.ui.theme.spacing
+import com.weberpackage.blackjack.settings.presentation.screens.CreditsScreen
+import com.weberpackage.blackjack.settings.presentation.screens.PreferencesScreenDest
+import com.weberpackage.blackjack.settings.presentation.screens.SettingsScreenDest
+import com.weberpackage.blackjack.settings.presentation.screens.SettingsViewModel
+import com.weberpackage.blackjack.settings.presentation.screens.UsernameScreenDest
+import com.weberpackage.blackjack.shop.presentation.screens.ShopScreenDest
+import com.weberpackage.blackjack.sign_up.presentation.screens.FirstLoginScreenDest
 import dev.chrisbanes.haze.hazeSource
 import dev.chrisbanes.haze.rememberHazeState
 
@@ -63,11 +58,9 @@ import dev.chrisbanes.haze.rememberHazeState
 @Composable
 fun NavigationRoot3(
     modifier: Modifier = Modifier,
-    mainViewModel: MainViewModel =
-        viewModel(factory = MainViewModelFactory(PreferenceManager(LocalContext.current))),
+    totalChips: Int,
+    hasSetUsername: Boolean,
 ) {
-    val context = LocalContext.current
-    val preferenceManager = remember { PreferenceManager(context) }
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -82,8 +75,8 @@ fun NavigationRoot3(
 
         else -> false
     }
-    
-    val startDestination = if (preferenceManager.hasSetUsername()) {
+
+    val startDestination = if (hasSetUsername) {
         NavigationItem.DashboardScreen.name
     } else {
         NavigationItem.FirstTimeLogin.name
@@ -91,7 +84,7 @@ fun NavigationRoot3(
 
     val hazeState = rememberHazeState()
 
-    val totalChips by mainViewModel.credits
+    val onBackOverride = remember { mutableStateOf<(() -> Unit)?>(null) }
 
     Scaffold(
         topBar = {
@@ -101,7 +94,7 @@ fun NavigationRoot3(
                     title = stringResource(navigationItem.titleResId),
                     totalChips = if (navigationItem.showCredits) totalChips else null,
                     showOnBack = navigationItem.showBack,
-                    onBack = { navController.navigateUp() },
+                    onBack = { onBackOverride.value?.invoke() ?: navController.navigateUp() },
                     actions = navigationItem.actions,
                     onAction = {
                         when (it) {
@@ -116,7 +109,6 @@ fun NavigationRoot3(
         contentColor = contentColorFor(MaterialTheme.colorScheme.background),
         modifier = modifier
             .fillMaxSize(),
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             if (showBottomBar) {
                 NavigationBar(
@@ -159,6 +151,11 @@ fun NavigationRoot3(
                                     fontSize = 15.sp
                                 )
                             },
+                            colors = NavigationBarItemDefaults.colors(
+                                indicatorColor = MaterialTheme.colorScheme.onSurface.copy(.1f),
+                                selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                selectedTextColor = MaterialTheme.colorScheme.onSurface
+                            )
                         )
                     }
                 }
@@ -169,9 +166,7 @@ fun NavigationRoot3(
             modifier = Modifier
                 .fillMaxSize()
                 .hazeSource(state = hazeState)
-                .background(
-                    gradientBackground()
-                )
+                .background(glowBackground())
         ) {
             NavHost(
                 modifier = Modifier
@@ -179,111 +174,98 @@ fun NavigationRoot3(
 //                    .padding(paddingValues),
                 navController = navController,
                 startDestination = startDestination,
+//                enterTransition = { slideEnterTransition() },
+//                exitTransition = { slideExitTransition() },
+//                popEnterTransition = { slidePopEnterTransition() },
+//                popExitTransition = { slidePopExitTransition() }
             ) {
                 composable(NavigationItem.FirstTimeLogin.name) {
-                    FirstTimeLoginScreen(
-                        onBack = {
-                            navController.navigate(NavigationItem.DashboardScreen.name) {
-                                popUpTo(NavigationItem.FirstTimeLogin.name) { inclusive = true }
-                            }
-                        },
-                        preferenceManager = preferenceManager,
+                    val viewModel = it.sharedViewModel<SettingsViewModel>(
+                        navController = navController
+                    )
+                    FirstLoginScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController,
+                        viewModel = viewModel
                     )
                 }
                 composable(NavigationItem.DashboardScreen.name) {
-                    DashboardScreen(
+                    DashboardScreenDest(
                         contentPadding = paddingValues,
-                        onNavigateToPlayNow = {
-                            navController.navigate(NavigationItem.PlayNowScreen.name)
-                        },
-
-                        onNavigateToPractice = {
-                            navController.navigate(NavigationItem.PracticeScreen.name)
-                        },
-                        onNavigateToMultiplayer = {
-                            navController.navigate(NavigationItem.MultiplayerScreen.name)
-                        },
-                        userUsername = preferenceManager.getUsername(),
-                        totalChips = totalChips
+                        navController = navController
                     )
                 }
                 composable(NavigationItem.PracticeScreen.name) {
-                    val practiceViewModel: PracticeViewModel = viewModel(
-                        factory = PracticeViewModelFactory(preferenceManager)
-                    )
-                    PracticeScreen(
-                        onBack = { navController.navigateUp() },
-                        viewModel = practiceViewModel,
-                        preferenceManager = preferenceManager,
-                        contentPadding = paddingValues
+                    PracticeScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController
                     )
                 }
                 composable(NavigationItem.PlayNowScreen.name) {
-                    val playNowViewModel: PlayNowViewModel = viewModel(
-                        factory = PlayNowViewModelFactory(preferenceManager)
+                    PlayNowScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController,
+                        onBackOverride = onBackOverride,
                     )
-                    PlayNowScreen(
-                        onBack = { navController.navigateUp() },
-                        viewModel = playNowViewModel,
-                        preferenceManager = preferenceManager,
-                        onUpdateChips = { mainViewModel.refreshCredits() },
-                        contentPadding = paddingValues
+                }
+                composable(NavigationItem.BettingScreen.name) {
+                    BettingScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController
                     )
                 }
                 composable(NavigationItem.ProfileScreen.name) {
-                    ProfileScreen(
-                        totalChips = totalChips,
-                        highestChips = preferenceManager.getHighestCredits(),
-                        userUsername = preferenceManager.getUsername(),
-                        ownedPacks = preferenceManager.getOwnedPacks(),
-                        equippedPackId = preferenceManager.getEquippedPack(),
-                        onEquipPack = { preferenceManager.setEquippedPack(it) },
-                        contentPadding = paddingValues
+                    ProfileScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController
                     )
                 }
 
                 composable(NavigationItem.MultiplayerScreen.name) {
-                    val multiplayerViewModel: MultiplayerViewModel = viewModel()
-                    MultiplayerScreen(
-                        onBack = { navController.navigateUp() },
-                        viewModel = multiplayerViewModel,
-                        preferenceManager = preferenceManager,
-                        contentPadding = paddingValues
+                    MultiplayerScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController
                     )
                 }
                 composable(NavigationItem.SettingsScreen.name) {
-                    SettingsScreen(
-                        onNavigateToPreferences = {
-                            navController.navigate(NavigationItem.PreferencesScreen.name)
-                        },
-                        onNavigateToUsername = {
-                            navController.navigate(NavigationItem.UsernameScreen.name)
-                        },
-                        userUsername = preferenceManager.getUsername(),
-                        contentPadding = paddingValues
-                        )
+                    val viewModel = it.sharedViewModel<SettingsViewModel>(
+                        navController = navController
+                    )
+                    SettingsScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController,
+                        viewModel = viewModel
+                    )
                 }
                 composable(NavigationItem.PreferencesScreen.name) {
-                    PreferencesScreen(
-                        mainViewModel = mainViewModel,
-                        enabled = currentRoute == NavigationItem.PreferencesScreen.name,
-                        contentPadding = paddingValues
+                    val viewModel = it.sharedViewModel<SettingsViewModel>(
+                        navController = navController
+                    )
+                    PreferencesScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController,
+                        viewModel = viewModel
                     )
                 }
                 composable(NavigationItem.UsernameScreen.name) {
-                    UsernameScreen(
-                        onBack = {
-                            navController.navigateUp()
-                        },
-                        preferenceManager = preferenceManager,
-                        contentPadding = paddingValues
+                    val viewModel = it.sharedViewModel<SettingsViewModel>(
+                        navController = navController
+                    )
+                    UsernameScreenDest(
+                        contentPadding = paddingValues,
+                        navController = navController,
+                        viewModel = viewModel
+                    )
+                }
+                composable(NavigationItem.CreditsScreen.name) {
+                    CreditsScreen(
+                        contentPadding = paddingValues,
                     )
                 }
                 composable(NavigationItem.ShopScreen.name) {
-                    ShopScreen(
+                    ShopScreenDest(
                         contentPadding = paddingValues,
-                        totalChips = totalChips,
-                        onUpdateChips = { mainViewModel.addCredits(it) }
+                        navController = navController
                     )
                 }
             }
@@ -296,6 +278,9 @@ fun NavigationRoot3(
 @Composable
 fun NavigationRootPreview() {
     BlackJackTheme {
-        NavigationRoot3()
+        NavigationRoot3(
+            totalChips = 1000,
+            hasSetUsername = false
+        )
     }
 }

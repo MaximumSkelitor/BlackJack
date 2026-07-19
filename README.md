@@ -3,7 +3,7 @@
 
 ### Introduction
 
-This app is a clean, native Android implementation of the classic game of Blackjack. It was built using modern Android development practices, and heavily inspired by [Offsuit](https://www.offsuit.app/). 
+This app is a clean, native Android implementation of the classic game of Blackjack. It was built using modern Android development practices, and heavily inspired by [Offsuit](https://www.offsuit.app/), and [PiFire-Android](https://github.com/weberbox/PiFire-Android). 
 
 I created this project to provide a simple, ad-free gaming experience and to explore the latest capabilities of the Android ecosystem.
 
@@ -15,25 +15,19 @@ I created this project to provide a simple, ad-free gaming experience and to exp
 |:--------------------------------------------------------:|:-------------------------------------------------------:|:----------------------------------------------------------:|:------------------------------------------------------:|
 | <img src="docs/screenshots/dashboard.png" width="200" /> | <img src="docs/screenshots/play_now.png" width="200" /> | <img src="docs/screenshots/multiplayer.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
 
-### Requirements
-* **Android Studio Jellyfish or newer.**
-* **JDK 17+.**
-
 ### Credits
 
-This app used the following open-source libraries and/or code inspired from these projects.
+This app was made possible thanks to the following open-source projects and libraries:
 
-- [Jetpack Compose](https://developer.android.com/jetpack/compose)
-- [Material 3](https://m3.material.io/)
-- [Navigation 3](https://developer.android.com/guide/navigation/navigation-3)
-- [Compose Unstyled](https://composables.com/compose-unstyled)
-- [AppCompat](https://developer.android.com/jetpack/androidx/releases/appcompat)
-- [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
-- [MaterialKolor](https://github.com/jordond/MaterialKolor)
-- [Haze](https://github.com/chrisbanes/haze)
-- [Google Fonts](https://fonts.google.com/)
-- [PiFire-Android](https://github.com/weberbox/PiFire-Android)
-
+- [Jetpack Compose](https://developer.android.com/compose) - Modern toolkit for building native UI.
+- [Material 3](https://m3.material.io/) - Google's latest design system.
+- [Navigation 3](https://developer.android.com/guide/navigation/navigation-3) - Compose-first navigation for Android.
+- [Compose Unstyled](https://github.com/composablehorizons/compose-unstyled) - Logic-only components for Jetpack Compose.
+- [Haze](https://github.com/chrisbanes/haze) - Glassmorphism and blur effects for Compose.
+- [MaterialKolor](https://github.com/jordond/materialkolor) - Dynamic Material 3 color palettes from any color.
+- [Kotlinx Serialization](https://github.com/kotlin/kotlinx.serialization) - Kotlin multiplatform / multi-format serialization.
+- [Google Fonts](https://fonts.google.com/) - High-quality typography.
+- [PiFire-Android](https://github.com/weberbox/PiFire-Android) - Architecture and design inspiration.
 
 ### Licensing
 

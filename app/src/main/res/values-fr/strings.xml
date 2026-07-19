@@ -10,9 +10,9 @@
     <string name="shop">Boutique</string>
 
     <!-- Shop -->
-    <string name="card_pack_1">Pack de cartes 1</string>
-    <string name="card_pack_2">Pack de cartes 2</string>
-    <string name="card_pack_3">Pack de cartes 3</string>
+    <string name="card_pack_1">Kit de démarrage</string>
+    <string name="card_pack_2">Ciel saphir</string>
+    <string name="card_pack_3">Améthyste royale</string>
     <string name="card_packs">Pack de cartes</string>
     <string name="daily_credits">Crédits quotidiens</string>
     <string name="daily_credits_desc">Revenez dans %s pour gagner 150 crédits !</string>
@@ -27,10 +27,10 @@
     <string name="sign_up">S\'inscrire</string>
     <string name="continue_username">Continuer</string>
     <string name="welcome_user">Bienvenue, %s</string>
-    <string name="practice_subtitle">Pratiquez vos compétences au Blackjack !</string>
+    <string name="practice_subtitle">Exercez-vous au Blackjack sans crédits !</string>
     <string name="ai_bots">Bots IA</string>
     <string name="ai_bots_subtitle">Jouez contre des bots IA !</string>
-    <string name="multiplayer_subtitle">Jouez contre d\'autres joueurs !</string>
+    <string name="multiplayer_subtitle">Affrontez d\'autres joueurs hors ligne !</string>
     <string name="total_credits">%d Crédits</string>
 
     <!-- Home/Ranks -->
@@ -110,11 +110,10 @@
     <string name="english">Anglais (Défaut)</string>
     <string name="spanish">Espagnol</string>
     <string name="french">Français</string>
-    <string name="dutch">Néerlandais</string>
+    <string name="german">Allemand</string>
 
-    <string name="app_info">Infos sur l\'application</string>
-    <string name="card_pack_4">Pack de cartes 4</string>
-    <string name="card_pack_5">Pack de cartes 5</string>
+    <string name="card_pack_4">Topaze dorée</string>
+    <string name="card_pack_5">Rubis immortel</string>
     <string name="owned">Possédé</string>
     <string name="buy">Acheter</string>
     <string name="rank_5">Immortel</string>
@@ -122,5 +121,34 @@
     <string name="developer">Développeur</string>
     <string name="app_version_title">Version de l\'application</string>
     <string name="status">Statut</string>
+    <string name="build_type">Type de build</string>
     <string name="credits_license">Crédits et licences</string>
+    <string name="join_discord">Rejoignez le Discord</string>
+    <string name="dialog_exit_game_desc">Vous perdrez votre pari actuel.</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="dialog_exit_game_title">Êtes-vous sûr de vouloir partir ?</string>
+    <string name="dialog_app_info_title">Informations sur la demande</string>
+    <string name="close">Fermer</string>
+    <string name="alert_dialog_no_credits_title">Vous n\'avez pas de crédits !</string>
+    <string name="alert_dialog_no_credits_message">Voulez-vous jouer en mode entraînement ? (Aucun crédit requis)</string>
+    <string name="alert_dialog_play_now_no_credits_message">Vous ne pouvez pas jouer à ce mode sans crédits. Souhaitez-vous revenir en arrière ?</string>
+    <string name="dialog_firebase_failed_title">Erreur Firebase</string>
+    <string name="dialog_firebase_failed_message">Cette application nécessite une connexion à Firebase pour la configuration des fonctionnalités et la prise en charge côté serveur, ainsi que pour les mises à jour de l\'application. Elle utilise les configurations par défaut ; pour assurer un fonctionnement correct, veuillez vérifier que Firebase n\'est pas bloqué par des outils tels que Pi-hole, AdGuard, etc.</string>
+    <string name="inapp_update_available_title">Mise à jour disponible</string>
+    <string name="inapp_update_available_message_flexible">Une nouvelle version de l\'application est disponible ; elle peut inclure de nouvelles fonctionnalités et/ou des corrections de bugs. Veuillez effectuer la mise à jour dès que possible.</string>
+    <string name="inapp_update_available_message_immediate">Une mise à jour critique est disponible et requise pour continuer à utiliser le service. Veuillez effectuer la mise à jour dès que possible.</string>
+    <string name="update">Mise à jour</string>
+    <string name="postpone">Reporter</string>
+    <string name="place_your_bet">Placez votre pari</string>
+    <string name="current_bet">Mise actuelle :</string>
+    <string name="custom_bet">Pari personnalisé :</string>
+    <string name="custom_bet_message2">Appuyez longuement pour enregistrer le pari personnalisé</string>
+    <string name="confirm">Confirmer</string>
+    <string name="custom_bet_message1">Appuyez longuement pour modifier le pari personnalisé</string>
+    <string name="place_bet">Placer un pari</string>
+    <string name="gameplay_section">Gameplay</string>
+    <string name="custom_bet_title">Pari personnalisé</string>
+    <string name="credits_settings_option">Cliquez une seule fois pour modifier le pari personnalisé et effectuez un appui long pour l\'enregistrer.</string>
+    <string name="ok">D\'accord</string>
 </resources>

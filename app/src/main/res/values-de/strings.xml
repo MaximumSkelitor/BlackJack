@@ -10,11 +10,11 @@
     <string name="shop">Shop</string>
 
     <!-- Shop -->
-    <string name="card_pack_1">Kartenpaket 1</string>
-    <string name="card_pack_2">Kartenpaket 2</string>
-    <string name="card_pack_3">Kartenpaket 3</string>
-    <string name="card_pack_4">Kartenpaket 4</string>
-    <string name="card_pack_5">Kartenpaket 5</string>
+    <string name="card_pack_1">Starter-Paket</string>
+    <string name="card_pack_2">Saphirblauer Himmel</string>
+    <string name="card_pack_3">Königlicher Amethyst</string>
+    <string name="card_pack_4">Goldtopas</string>
+    <string name="card_pack_5">Unsterblicher Rubin</string>
     <string name="card_packs">Kartenpaket</string>
     <string name="daily_credits">Tägliche Credits</string>
     <string name="daily_credits_desc">Komm in %s zurück, um 150 Credits zu gewinnen!</string>
@@ -29,10 +29,10 @@
     <string name="sign_up">Registrieren</string>
     <string name="continue_username">Weiter</string>
     <string name="welcome_user">Willkommen, %s</string>
-    <string name="practice_subtitle">Übe deine Blackjack-Fähigkeiten!</string>
+    <string name="practice_subtitle">Trainiere deine Blackjack-Fähigkeiten ohne Credits!</string>
     <string name="ai_bots">KI-Bots</string>
     <string name="ai_bots_subtitle">Spiele gegen KI-Bots!</string>
-    <string name="multiplayer_subtitle">Spiele gegen andere Spieler!</string>
+    <string name="multiplayer_subtitle">Spiele offline gegen andere Spieler!</string>
     <string name="total_credits">%d Credits</string>
 
     <!-- Home/Ranks -->
@@ -113,8 +113,7 @@
     <string name="english">Englisch (Standard)</string>
     <string name="spanish">Spanisch</string>
     <string name="french">Französisch</string>
-    <string name="dutch">Niederländisch</string>
-    <string name="app_info">App-info</string>
+    <string name="german">Deutsch</string>
     <string name="owned">Besessen</string>
     <string name="buy">Kaufen</string>
     <string name="rank_5">Unsterblich</string>
@@ -122,6 +121,34 @@
     <string name="developer">Entwickler</string>
     <string name="app_version_title">App-Version</string>
     <string name="status">Status</string>
+    <string name="build_type">Build-Typ</string>
     <string name="credits_license">Credits und Lizenzen</string>
-
+    <string name="join_discord">Tritt dem Discord bei</string>
+    <string name="dialog_exit_game_desc">Sie werden Ihre aktuelle Wette verlieren.</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="dialog_exit_game_title">Möchten Sie das Programm wirklich beenden?</string>
+    <string name="dialog_app_info_title">Informationen zur Bewerbung</string>
+    <string name="close">Schließen</string>
+    <string name="alert_dialog_no_credits_title">Sie haben keine Credits!</string>
+    <string name="alert_dialog_no_credits_message">Möchtest du den Übungsmodus spielen? (Keine Credits erforderlich)</string>
+    <string name="alert_dialog_play_now_no_credits_message">Sie können diesen Modus nicht ohne Credits spielen. Möchten Sie zurückgehen?</string>
+    <string name="dialog_firebase_failed_title">Firebase-Fehler</string>
+    <string name="dialog_firebase_failed_message">Diese App benötigt eine Verbindung zu Firebase für die Konfiguration der Server- und Funktionsunterstützung sowie für App-Updates. Die App verwendet die Standardkonfigurationen; für einen ordnungsgemäßen Betrieb stellen Sie bitte sicher, dass Firebase nicht durch Werbeblocker wie PiHole, AdGuard usw. blockiert wird.</string>
+    <string name="inapp_update_available_title">Update verfügbar</string>
+    <string name="inapp_update_available_message_flexible">Eine neue App-Version ist verfügbar, die möglicherweise neue Funktionen und/oder Fehlerbehebungen enthält. Bitte führen Sie das Update baldmöglichst durch.</string>
+    <string name="inapp_update_available_message_immediate">Ein kritisches Update ist verfügbar und für die weitere Nutzung erforderlich. Bitte führen Sie das Update schnellstmöglich durch.</string>
+    <string name="update">Aktualisieren</string>
+    <string name="postpone">Verschieben</string>
+    <string name="place_your_bet">Platzieren Sie Ihren Einsatz</string>
+    <string name="current_bet">Aktueller Einsatz:</string>
+    <string name="custom_bet">Individuelle Wette:</string>
+    <string name="custom_bet_message2">Langes Drücken speichert benutzerdefinierte Wette</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="custom_bet_message1">Langes Drücken zum Bearbeiten der benutzerdefinierten Wette</string>
+    <string name="place_bet">Wette platzieren</string>
+    <string name="gameplay_section">Gameplay</string>
+    <string name="custom_bet_title">Individuelle Wette</string>
+    <string name="credits_settings_option">Klicken Sie nur einmal, um die benutzerdefinierte Wette zu bearbeiten, und halten Sie sie gedrückt, um sie zu speichern.</string>
+    <string name="ok">OK</string>
 </resources>

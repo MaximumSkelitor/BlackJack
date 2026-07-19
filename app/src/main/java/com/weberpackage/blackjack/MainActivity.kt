@@ -5,30 +5,54 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ActivityInfo
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.core.content.ContextCompat
-import com.weberpackage.blackjack.coredata.PreferenceManager
+import androidx.lifecycle.lifecycleScope
+import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
+import com.weberpackage.blackjack.common.presentation.components.EventAlertDialog
+import com.weberpackage.blackjack.common.presentation.contract.MainContract
+import com.weberpackage.blackjack.common.presentation.state.EventDialogState
+import com.weberpackage.blackjack.common.presentation.state.rememberEventDialogState
+import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
+import com.weberpackage.blackjack.common.presentation.utils.DialogController
+import com.weberpackage.blackjack.common.presentation.utils.ObserveAsEvents
+import com.weberpackage.blackjack.core.prefs.Pref
+import com.weberpackage.blackjack.core.prefs.Prefs
+import com.weberpackage.blackjack.core.utils.UpdateManager
 import com.weberpackage.blackjack.navigation.NavigationRoot3
-import com.weberpackage.blackjack.ui.theme.BlackJackTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(PreferenceManager(this))
-    }
+    @Inject
+    lateinit var appUpdateManager: UpdateManager
+
+    @Inject
+    lateinit var prefs: Prefs
+
+    private val viewModel by viewModels<MainViewModel>()
+
 
     private val adminReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == "com.weberpackage.blackjack.ADD_CREDITS") {
                 val amount = intent.getIntExtra("amount", 0)
-                viewModel.addCredits(amount)
-                Log.d("BlackJackAdmin", "Added $amount credits via ADB")
+                viewModel.setEvent(MainContract.Event.UpdateTotalCredits(amount))
+
+                Timber.d("Added $amount credits via ADB")
             }
         }
     }
@@ -38,22 +62,41 @@ class MainActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         enableEdgeToEdge()
 
+        if (savedInstanceState == null) {
+            prefs.set(Pref.customBet, 100)
+        }
+
         // Register Admin Receiver
         val filter = IntentFilter("com.weberpackage.blackjack.ADD_CREDITS")
         ContextCompat.registerReceiver(
             this,
             adminReceiver,
             filter,
-            ContextCompat.RECEIVER_EXPORTED
+            ContextCompat.RECEIVER_EXPORTED 
         )
 
-        Log.d("BlackJackAdmin", "Admin Console Active!")
-        Log.d("BlackJackAdmin", "Use: adb shell am broadcast -a com.weberpackage.blackjack.ADD_CREDITS --ei amount 1000000")
+        Timber.d("Admin Console Active!")
+        Timber.d("Use: adb shell am broadcast -a com.weberpackage.blackjack.ADD_CREDITS --ei amount 1000000")
 
         setContent {
-            val theme by viewModel.theme
-            BlackJackTheme(appTheme = theme) {
-                NavigationRoot3(mainViewModel = viewModel)
+            val state = viewModel.viewState.value
+            val effectFlow = viewModel.effect
+            val eventDialog = rememberEventDialogState()
+
+            ObserveDialogEvents(eventDialog = eventDialog)
+
+            HandleSideEffects(
+                effectFlow = effectFlow
+            )
+
+            BlackJackTheme(appTheme = state.appTheme) {
+                Surface {
+                    EventAlertDialog(eventDialogState = eventDialog)
+                }
+                NavigationRoot3(
+                    totalChips = state.totalCredits,
+                    hasSetUsername = state.hasSetUsername
+                )
             }
         }
     }
@@ -61,5 +104,34 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(adminReceiver)
+    }
+
+    @Composable
+    private fun ObserveDialogEvents(eventDialog: EventDialogState) {
+        ObserveAsEvents(
+            flow = DialogController.events
+        ) { event ->
+            eventDialog.show(dialogEvent = event)
+        }
+    }
+
+    @Composable
+    private fun HandleSideEffects(
+        effectFlow: Flow<MainContract.Effect>,
+    ) {
+        LaunchedEffect(SIDE_EFFECTS_KEY) {
+            effectFlow.onEach { effect ->
+                when (effect) {
+                    is MainContract.Effect.CheckForAppUpdates -> checkForUpdates()
+                    else -> {}
+                }
+            }.collect()
+        }
+    }
+
+    private fun checkForUpdates() {
+        lifecycleScope.launch {
+            appUpdateManager.checkForUpdate(this@MainActivity)
+        }
     }
 }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BlackJack</string>
-    <string name="app_version" translatable="false">BlackJack 0.0.0</string>
+    <string name="app_version" translatable="false">BlackJack 1.0.0</string>
 
     <!-- Screen Names -->
     <string name="home">Home</string>
@@ -14,10 +14,10 @@
     <string name="sign_up">Sign up</string>
     <string name="continue_username">Continue</string>
     <string name="welcome_user">Welcome, %s</string>
-    <string name="practice_subtitle">Practice your Blackjack skills!</string>
+
     <string name="ai_bots">AI Bots</string>
     <string name="ai_bots_subtitle">Play against AI bots!</string>
-    <string name="multiplayer_subtitle">Play against other players!</string>
+    <string name="multiplayer_subtitle">Play against other players offline!</string>
 
     <string name="total_credits">%d Credits</string>
     <string name="credits"> Credits</string>
@@ -47,11 +47,11 @@
 
     <!-- Shop -->
     <string name="price" translatable="false">$%s</string>
-    <string name="card_pack_1">Card Pack 1</string>
-    <string name="card_pack_2">Card Pack 2</string>
-    <string name="card_pack_3">Card Pack 3</string>
-    <string name="card_pack_4">Card Pack 4</string>
-    <string name="card_pack_5">Card Pack 5</string>
+    <string name="card_pack_1">Starter Pack</string>
+    <string name="card_pack_2">Sapphire Sky</string>
+    <string name="card_pack_3">Royal Amethyst</string>
+    <string name="card_pack_4">Golden Topaz</string>
+    <string name="card_pack_5">Immortal Ruby</string>
     <string name="card_packs">Card Packs</string>
 
     <string name="daily_credits">Daily Credits</string>
@@ -67,6 +67,7 @@
     <string name="play_now_mode">Play Now</string>
     <string name="play_now_subtitle">Play now for a chance to win more credits!</string>
     <string name="practice_mode">Practice Mode</string>
+    <string name="practice_subtitle">Practice your Blackjack skills without credits!</string>
     <string name="dealers_hand">Dealer\'s Hand</string>
     <string name="dealer_total">Dealer\'s Total</string>
     <string name="dealer_total_number" translatable="false">: %s</string>
@@ -92,7 +93,6 @@
     <string name="push">Push.</string>
     <string name="push_both_blackjack">Push! Both have Blackjack.</string>
     <string name="blackjack_win">Blackjack! You win!</string>
-
 
 
     <string name="player1_hand">Player 1\'s Hand</string>
@@ -136,12 +136,48 @@
     <string name="english">English (Default)</string>
     <string name="spanish">Español</string>
     <string name="french">French</string>
-    <string name="dutch">Dutch</string>
+    <string name="german">German</string>
 
-    <string name="app_info">App Info</string>
+    <string name="dialog_app_info_title">App Info</string>
     <string name="developer">Developer</string>
     <string name="app_version_title">App Version</string>
     <string name="status">Status</string>
+    <string name="build_type">Build Type</string>
 
     <string name="credits_license">Credits and Licenses</string>
+    <string name="join_discord">Join the Discord</string>
+
+    <string name="dialog_exit_game_title">Are you sure you want to exit?</string>
+    <string name="dialog_exit_game_desc">You will lose your current bet.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="data_error_unknown" translatable="false">An unknown error occurred. Please try again</string>
+    <string name="dialog_app_info_message" translatable="false">\nApp Version:\n%1$s \n\nVersion Code:\n%2$s \n\nBuild Type:\n%3$s \n\nBuild Date:\n%4$s</string>
+    <string name="close">Close</string>
+
+    <string name="alert_dialog_no_credits_title">You have no credits!</string>
+    <string name="alert_dialog_no_credits_message">Do you want to play Practice mode? (No credits needed)</string>
+    <string name="alert_dialog_play_now_no_credits_message">You cannot play this mode without credits.</string>
+
+    <string name="dialog_firebase_failed_title">Firebase Error</string>
+    <string name="dialog_firebase_failed_message">This app requires a connection to Firebase for server and feature support configuration as well as app updates. The app will use the default configurations, for proper operation please check if Firebase is being blocked by ad blockers like PiHole, AdGuard etc</string>
+    <string name="inapp_update_available_title">Update Available</string>
+    <string name="inapp_update_available_message_flexible">A new app version is available that may include new features and or bug fixes. Please update at your earliest convenience.</string>
+    <string name="inapp_update_available_message_immediate">A critical update is available and is required for continued use. Please update ASAP</string>
+    <string name="update">Update</string>
+    <string name="postpone">Postpone</string>
+
+    <string name="place_your_bet">Place your bet</string>
+    <string name="current_bet">Current bet:</string>
+    <string name="custom_bet">Custom Bet:</string>
+    <string name="custom_bet_message1">Long press to edit custom bet</string>
+    <string name="custom_bet_message2">Long press to save custom bet</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="place_bet">Place Bet</string>
+    <string name="gameplay_section">Gameplay</string>
+    <string name="custom_bet_title">Custom Bet</string>
+    <string name="credits_settings_option">Only click once to edit the custom bet, and long press to save</string>
+
+    <string name="ok">OK</string>
 </resources>

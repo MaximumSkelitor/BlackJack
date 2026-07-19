@@ -10,9 +10,9 @@
     <string name="shop">Comercio</string>
 
     <!-- Shop -->
-    <string name="card_pack_1">Paquete de cartas 1</string>
-    <string name="card_pack_2">Paquete de cartas 2</string>
-    <string name="card_pack_3">Paquete de cartas 3</string>
+    <string name="card_pack_1">Paquete de inicio</string>
+    <string name="card_pack_2">Cielo de zafiro</string>
+    <string name="card_pack_3">Amatista Real</string>
     <string name="card_packs">Paquete de cartas</string>
     <string name="daily_credits">Créditos diarios</string>
     <string name="daily_credits_desc">¡Vuelve dentro de %s para ganar 150 créditos!</string>
@@ -27,10 +27,10 @@
     <string name="sign_up">Inscribirse</string>
     <string name="continue_username">Continuar</string>
     <string name="welcome_user">Bienvenido, %s</string>
-    <string name="practice_subtitle">¡Practica tus habilidades en el blackjack!</string>
+    <string name="practice_subtitle">Trainiere deine Blackjack-Fähigkeiten ohne Credits!</string>
     <string name="ai_bots">Bots de AI</string>
     <string name="ai_bots_subtitle">¡Juega contra bots de AI!</string>
-    <string name="multiplayer_subtitle">¡Juega contra otros jugadores!</string>
+    <string name="multiplayer_subtitle">¡Juega contra otros jugadores sin conexión!</string>
 
     <string name="total_credits">%d Créditos</string>
 
@@ -110,16 +110,15 @@
     <string name="english">Inglés (Por defecto)</string>
     <string name="spanish">Español</string>
     <string name="french">Francés</string>
-    <string name="dutch">Holandés</string>
+    <string name="german">Alemán</string>
 
     <string name="username">Nombre de usuario</string>
     <string name="save_username">Guardar nombre de usuario</string>
     <string name="username_title">¿Cómo deberíamos llamarle?</string>
     <string name="username_desc">Puedes cambiar esto en cualquier momento.</string>
 
-    <string name="app_info">Información de la aplicación</string>
-    <string name="card_pack_4">Paquete de cartas 4</string>
-    <string name="card_pack_5">Paquete de cartas 5</string>
+    <string name="card_pack_4">Topacio dorado</string>
+    <string name="card_pack_5">Rubí inmortal</string>
     <string name="owned">Propiedad de</string>
     <string name="buy">Comprar</string>
     <string name="rank_5">Inmortal</string>
@@ -127,6 +126,34 @@
     <string name="developer">Desarrollador</string>
     <string name="app_version_title">Versión de la aplicación</string>
     <string name="status">Estado</string>
+    <string name="build_type">Tipo de compilación</string>
     <string name="credits_license">Créditos y licencias</string>
-
+    <string name="join_discord">Únete al Discord</string>
+    <string name="dialog_exit_game_desc">Perderás tu apuesta actual.</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="dialog_exit_game_title">Êtes-vous sûr de vouloir partir ?</string>
+    <string name="dialog_app_info_title">Información de la solicitud</string>
+    <string name="close">Cerca</string>
+    <string name="alert_dialog_no_credits_title">¡No tienes créditos!</string>
+    <string name="alert_dialog_no_credits_message">¿Quieres jugar en modo de práctica? (No se necesitan créditos)</string>
+    <string name="alert_dialog_play_now_no_credits_message">No puedes jugar a este modo sin créditos. ¿Quieres volver atrás?</string>
+    <string name="dialog_firebase_failed_title">Error de Firebase</string>
+    <string name="dialog_firebase_failed_message">Esta aplicación requiere una conexión a Firebase para la configuración del servidor y de las funciones, así como para las actualizaciones de la aplicación. La aplicación utilizará las configuraciones predeterminadas; para garantizar un funcionamiento correcto, por favor verifique si Firebase está siendo bloqueado por herramientas de bloqueo de anuncios como PiHole, AdGuard, etc.</string>
+    <string name="inapp_update_available_title">Actualización disponible</string>
+    <string name="inapp_update_available_message_flexible">Hay una nueva versión de la aplicación disponible que puede incluir nuevas funciones y/o correcciones de errores. Por favor, actualízala lo antes posible.</string>
+    <string name="inapp_update_available_message_immediate">Hay una actualización crítica disponible que es necesaria para continuar utilizando el servicio. Por favor, actualice lo antes posible.</string>
+    <string name="update">Actualizar</string>
+    <string name="postpone">Posponer</string>
+    <string name="place_your_bet">Haz tu apuesta</string>
+    <string name="current_bet">Apuesta actual:</string>
+    <string name="custom_bet">Apuesta personalizada:</string>
+    <string name="custom_bet_message2">Mantén pulsado para guardar tu apuesta personalizada.</string>
+    <string name="confirm">Confirmar</string>
+    <string name="custom_bet_message1">Mantén pulsado para editar tu apuesta personalizada.</string>
+    <string name="place_bet">Realizar apuesta</string>
+    <string name="gameplay_section">Jugabilidad</string>
+    <string name="custom_bet_title">Apuesta personalizada</string>
+    <string name="credits_settings_option">Haz clic solo una vez para editar la apuesta personalizada y mantén pulsado para guardarla.</string>
+    <string name="ok">De acuerdo</string>
 </resources>
