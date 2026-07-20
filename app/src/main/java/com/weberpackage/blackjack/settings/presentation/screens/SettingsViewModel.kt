@@ -1,11 +1,14 @@
 package com.weberpackage.blackjack.settings.presentation.screens
 
 import android.text.format.DateFormat
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.weberpackage.blackjack.BuildConfig
 import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.BaseViewModel
 import com.weberpackage.blackjack.common.presentation.model.AppLanguage
+import com.weberpackage.blackjack.common.presentation.navigation.NavRoutes
 import com.weberpackage.blackjack.common.presentation.theme.AppTheme
 import com.weberpackage.blackjack.common.presentation.utils.DialogAction
 import com.weberpackage.blackjack.common.presentation.utils.DialogController
@@ -14,7 +17,6 @@ import com.weberpackage.blackjack.common.presentation.utils.UiText
 import com.weberpackage.blackjack.common.presentation.utils.uiTextArgsOf
 import com.weberpackage.blackjack.core.prefs.Pref
 import com.weberpackage.blackjack.core.prefs.Prefs
-import com.weberpackage.blackjack.navigation.NavigationItem
 import com.weberpackage.blackjack.settings.presentation.contract.SettingsContract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,35 +25,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val prefs: Prefs
+    private val prefs: Prefs,
+    savedStateHandle: SavedStateHandle
 ) : BaseViewModel<SettingsContract.Event, SettingsContract.State, SettingsContract.Effect>() {
+
+    private val firstTimeSetup =
+        savedStateHandle.toRoute<NavRoutes.SettingsDest.Username>().firstTimeSetup
 
     init {
         collectPrefsFlow()
-    }
-
-    private fun collectPrefsFlow() {
-        collectAndUpdateState(Pref.username) {
-            copy(
-                username = it,
-                isInitialLoading = false
-            )
-        }
-        collectAndUpdateState(Pref.setLanguage) {
-            copy(
-                language = AppLanguage.from(it),
-            )
-        }
-        collectAndUpdateState(Pref.appTheme) {
-            copy(
-                appTheme = AppTheme.fromName(it),
-            )
-        }
-        collectAndUpdateState(Pref.creditsOptionSelected) {
-            copy(
-                creditsSelected = it
-            )
-        }
+        updateFirstTimeUser(firstTimeSetup)
     }
 
     override fun setInitialState() = SettingsContract.State(
@@ -59,6 +42,7 @@ class SettingsViewModel @Inject constructor(
         language = AppLanguage.ENGLISH,
         appTheme = AppTheme.SYSTEM,
         creditsSelected = false,
+        showBottomBar = true,
         isInitialLoading = true,
     )
 
@@ -67,15 +51,31 @@ class SettingsViewModel @Inject constructor(
             is SettingsContract.Event.ShowAppInfo -> showAboutDialog()
             is SettingsContract.Event.OnUsernameEdit -> onUsernameEdit(event.username)
             is SettingsContract.Event.OnSaveUsername -> onSaveUsername()
-            is SettingsContract.Event.OnSetUsername -> onSetUsername()
-            is SettingsContract.Event.OnAppThemeSave -> Pref.appTheme.setPref(event.appTheme.name)
-            is SettingsContract.Event.OnSetLanguage -> Pref.setLanguage.setPref(event.language.code)
-            is SettingsContract.Event.OnSelectCredits -> prefs.set(Pref.creditsOptionSelected, event.selected)
+            is SettingsContract.Event.OnAppThemeSave ->
+                prefs.set(Pref.appTheme, event.appTheme.name)
+
+            is SettingsContract.Event.OnSetLanguage ->
+                prefs.set(Pref.setLanguage, event.language.code)
+
+            is SettingsContract.Event.OnSelectCredits ->
+                prefs.set(Pref.creditsOptionSelected, event.selected)
+
+            is SettingsContract.Event.OnShowBottomBar ->
+                prefs.set(Pref.showBottomBar, event.showBottomBar)
         }
     }
 
-    private fun Pref<String>.setPref(value: String) {
-        prefs.set(this, value)
+    private fun collectPrefsFlow() {
+        collectAndUpdateState(Pref.username) { copy(username = it) }
+        collectAndUpdateState(Pref.setLanguage) { copy(language = AppLanguage.from(it)) }
+        collectAndUpdateState(Pref.appTheme) { copy(appTheme = AppTheme.fromName(it)) }
+        collectAndUpdateState(Pref.showBottomBar) { copy(showBottomBar = it) }
+        collectAndUpdateState(Pref.creditsOptionSelected) {
+            copy(
+                creditsSelected = it,
+                isInitialLoading = false
+            )
+        }
     }
 
     private fun onUsernameEdit(username: String) {
@@ -90,22 +90,28 @@ class SettingsViewModel @Inject constructor(
         val username = viewState.value.username
         if (username.isNotBlank()) {
             prefs.set(Pref.username, username)
-            prefs.set(Pref.hasSetUsername, true)
-            setEffect {
-                SettingsContract.Effect.Navigation.Back
+            when (firstTimeSetup) {
+                true -> setEffect {
+                    SettingsContract.Effect.Navigation.NavRoute(
+                        route = NavRoutes.HomeGraph,
+                        popUpToRoute = NavRoutes.SettingsDest.Username(),
+                        inclusive = true
+                    )
+                }
+
+                false -> {
+                    setEffect {
+                        SettingsContract.Effect.Navigation.Back
+                    }
+                }
             }
         }
     }
 
-    private fun onSetUsername() {
-        val username = viewState.value.username
-        if (username.isNotBlank()) {
-            prefs.set(Pref.username, username)
-            prefs.set(Pref.hasSetUsername, true)
-        }
-        setEffect{
-            SettingsContract.Effect.Navigation.NavDest(
-                NavigationItem.DashboardScreen.name
+    private fun updateFirstTimeUser(firstTimeSetup: Boolean) {
+        setState {
+            copy(
+                isFirstTimeUser = firstTimeSetup
             )
         }
     }

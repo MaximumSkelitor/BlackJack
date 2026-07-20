@@ -1,7 +1,5 @@
 package com.weberpackage.blackjack.common.data.interfaces
 
-import kotlin.Error
-
 typealias RootError = Error
 @Suppress("unused")
 sealed interface Result<out D, out E: RootError> {

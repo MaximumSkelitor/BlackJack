@@ -10,7 +10,8 @@ sealed interface DataError : Error {
     }
 
     enum class Local : DataError {
-        UNKNOWN
+        UNKNOWN,
+        JSON_ERROR,
     }
 
     data class Server(val data: String) : DataError

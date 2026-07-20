@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -55,6 +56,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weberpackage.blackjack.R
@@ -68,7 +70,7 @@ import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
 fun ChipCounter(
     count: Int,
     modifier: Modifier = Modifier,
-    fontSize: Int,
+    fontSize: TextUnit,
     showText: Boolean = false
 ) {
     Row(
@@ -91,15 +93,16 @@ fun ChipCounter(
                 Text(
                     text = targetDigit.toString(),
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = fontSize.sp
+                    fontSize = fontSize
                 )
             }
         }
         if (showText) {
+            Spacer(modifier = Modifier.width(2.dp))
             Text(
-                text = " ${stringResource(R.string.credits)}",
+                text = stringResource(R.string.credits),
                 fontWeight = FontWeight.SemiBold,
-                fontSize = fontSize.sp,
+                fontSize = fontSize,
                 color = MaterialTheme.colorScheme.onSurface
             )
         }

@@ -1,13 +1,21 @@
 <resources>
     <string name="app_name">BlackJack</string>
 
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_profile">Profiel</string>
+    <string name="nav_shop">Winkel</string>
+
+    <string name="changelog_title">Wat is er nieuw?</string>
+    <string name="changelog_error">Geen wijzigingen gevonden!</string>
+    <string name="changelog_alpha_release">" - Alfa-release"</string>
+
     <!-- Screen Names -->
     <string name="home">Startseite</string>
     <string name="practice">Übung</string>
     <string name="profile">Profil</string>
     <string name="multiplayer">Mehrspieler</string>
     <string name="settings">Einstellungen</string>
-    <string name="shop">Shop</string>
+    <string name="shop">Winkel</string>
 
     <!-- Shop -->
     <string name="card_pack_1">Starter-Paket</string>
@@ -151,4 +159,5 @@
     <string name="custom_bet_title">Individuelle Wette</string>
     <string name="credits_settings_option">Klicken Sie nur einmal, um die benutzerdefinierte Wette zu bearbeiten, und halten Sie sie gedrückt, um sie zu speichern.</string>
     <string name="ok">OK</string>
+    <string name="data_error_json_parsing">Fout bij het parseren van JSON – Er is iets misgegaan, probeer het opnieuw.</string>
 </resources>

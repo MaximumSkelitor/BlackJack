@@ -111,8 +111,14 @@ dependencies {
 //    implementation(libs.composeunstyled)
 //    implementation(libs.ui)
 
+    // Alerter
+    implementation(libs.tapadoo.alerter)
+
     // Compose Core
     implementation(libs.composables.core)
+
+    // Lottie
+    implementation(libs.compose.lottie)
 
     //Hilt
     ksp(libs.hilt.compiler)

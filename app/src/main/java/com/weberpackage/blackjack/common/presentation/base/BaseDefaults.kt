@@ -1,5 +1,7 @@
 package com.weberpackage.blackjack.common.presentation.base
 
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
@@ -10,6 +12,10 @@ import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
 import dev.chrisbanes.haze.materials.HazeMaterials
 import java.text.NumberFormat
 import java.util.Locale
+
+fun getPagerAnimationSpec(): FiniteAnimationSpec<Float> {
+    return tween(300)
+}
 
 // Formats a number with commas for better readability (e.g., 100,000).
 fun formatChips(amount: Int): String {

@@ -1,0 +1,28 @@
+{
+  "changelog": [
+    {
+      "version": "1.1.0",
+      "date": "",
+      "current": true,
+      "isAlpha": false,
+      "logs": [
+        {
+          "type": "new",
+          "text": "New Features"
+        }
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "",
+      "current": false,
+      "isAlpha": false,
+      "logs": [
+        {
+          "type": "new",
+          "text": "Initial Release"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,7 @@ package com.weberpackage.blackjack.play_now.presentation.screens
 import androidx.lifecycle.viewModelScope
 import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.BaseViewModel
+import com.weberpackage.blackjack.common.presentation.navigation.NavRoutes
 import com.weberpackage.blackjack.common.presentation.utils.DialogAction
 import com.weberpackage.blackjack.common.presentation.utils.DialogController
 import com.weberpackage.blackjack.common.presentation.utils.DialogEvent
@@ -13,7 +14,6 @@ import com.weberpackage.blackjack.core.utils.Dealer
 import com.weberpackage.blackjack.core.utils.DeckManager
 import com.weberpackage.blackjack.core.utils.Player
 import com.weberpackage.blackjack.dashboard.presentation.utils.RankUtils
-import com.weberpackage.blackjack.navigation.NavigationItem
 import com.weberpackage.blackjack.play_now.presentation.contract.PlayNowContract
 import com.weberpackage.blackjack.play_now.presentation.model.PlayNowState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -239,8 +239,10 @@ class PlayNowViewModel @Inject constructor(
     private fun resetGame() {
         prefs.set(Pref.currentBet, 0)
         setEffect {
-            PlayNowContract.Effect.Navigation.NavDest(
-                NavigationItem.BettingScreen.name
+            PlayNowContract.Effect.Navigation.NavRoute(
+                route = NavRoutes.PlayDest.Betting,
+                popUpToRoute = NavRoutes.PlayDest.PlayNow,
+                inclusive = true
             )
         }
     }

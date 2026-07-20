@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.weberpackage.blackjack.common.presentation.base.BaseViewModel
 import com.weberpackage.blackjack.core.prefs.Pref
 import com.weberpackage.blackjack.core.prefs.Prefs
-import com.weberpackage.blackjack.coredata.DailyCreditsUtils
+import com.weberpackage.blackjack.shop.utils.DailyCreditsUtils
 import com.weberpackage.blackjack.shop.presentation.contract.ShopContract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

@@ -38,6 +38,8 @@ material3Android = "1.5.0-alpha20"
 workRuntime = "2.11.2"
 navigationRuntimeKtx = "2.9.8"
 googleServices = "4.5.0"
+alerterVersion = "7.2.4"
+composeLottie = "6.7.1"
 
 
 [libraries]
@@ -72,7 +74,7 @@ androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", vers
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
 androidx-material3-adaptive-navigation3 = { module = "androidx.compose.material3.adaptive:adaptive-navigation3", version.ref = "material3AdaptiveNav3" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
-materialKolor = "com.materialkolor:material-kolor:5.0.0-alpha07"
+materialKolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
 haze-android = { module = "dev.chrisbanes.haze:haze-android", version.ref = "hazeVersion" }
 haze-materials = { module = "dev.chrisbanes.haze:haze-materials", version.ref = "hazeVersion" }
 #ui = { module = "com.composables:ui", version.ref = "ui" }
@@ -89,6 +91,8 @@ androidx-compose-material3-android = { module = "androidx.compose.material3:mate
 androidx-work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntime" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 firebase-config = { module = "com.google.firebase:firebase-config" }
+tapadoo-alerter = { module = "com.github.tapadoo:alerter", version.ref = "alerterVersion" }
+compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "composeLottie" }
 
 [plugins]
 google-gms-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }

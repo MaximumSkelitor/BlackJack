@@ -1,6 +1,7 @@
 package com.weberpackage.blackjack.profile.presentation.screens
 
 import android.content.res.Configuration
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -46,24 +47,29 @@ import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
 import com.weberpackage.blackjack.common.presentation.base.formatChips
 import com.weberpackage.blackjack.common.presentation.components.InitialLoadingProgress
 import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
+import com.weberpackage.blackjack.common.presentation.utils.safeNavigate
+import com.weberpackage.blackjack.common.presentation.utils.showAlerter
 import com.weberpackage.blackjack.profile.presentation.components.EquippableCardPack
 import com.weberpackage.blackjack.profile.presentation.components.StatColumn
 import com.weberpackage.blackjack.profile.presentation.contract.ProfileContract
 import com.weberpackage.blackjack.profile.presentation.model.ProfileState
 import com.weberpackage.blackjack.shop.presentation.model.cardPacks
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
-
 @Composable
 fun ProfileScreenDest(
-    contentPadding: PaddingValues,
     navController: NavHostController,
+    contentPadding: PaddingValues,
+    hazeState: HazeState,
     viewModel: ProfileViewModel = hiltViewModel(),
 ) {
     ProfileScreen(
         contentPadding = contentPadding,
+        hazeState = hazeState,
         state = viewModel.viewState.value,
         effectFlow = viewModel.effect,
         onEventSent = { event -> viewModel.setEvent(event) },
@@ -71,10 +77,11 @@ fun ProfileScreenDest(
             when (navigationEffect) {
                 is ProfileContract.Effect.Navigation.Back -> navController.popBackStack()
                 is ProfileContract.Effect.Navigation.NavRoute -> {
-                }
-
-                is ProfileContract.Effect.Navigation.NavDest -> {
-                    navController.navigate(navigationEffect.route)
+                    navController.safeNavigate(
+                        route = navigationEffect.route,
+                        popUpToRoute = navigationEffect.popUpToRoute,
+                        inclusive = navigationEffect.inclusive
+                    )
                 }
             }
         }
@@ -84,6 +91,7 @@ fun ProfileScreenDest(
 @Composable
 private fun ProfileScreen(
     contentPadding: PaddingValues,
+    hazeState: HazeState,
     state: ProfileContract.State,
     effectFlow: Flow<ProfileContract.Effect>?,
     onEventSent: (event: ProfileContract.Event) -> Unit,
@@ -102,6 +110,7 @@ private fun ProfileScreen(
             InitialLoadingProgress()
         } else {
             ProfileScreenContent(
+                hazeState = hazeState,
                 state = state,
                 onEquipPack = { onEventSent(ProfileContract.Event.OnEquipPack(it)) },
                 contentPadding = contentPadding,
@@ -112,6 +121,7 @@ private fun ProfileScreen(
 
 @Composable
 fun ProfileScreenContent(
+    hazeState: HazeState,
     state: ProfileContract.State,
     onEquipPack: (Int) -> Unit,
     contentPadding: PaddingValues = PaddingValues()
@@ -127,6 +137,7 @@ fun ProfileScreenContent(
         columns = GridCells.Fixed(2),
         modifier = Modifier
             .fillMaxSize()
+            .hazeSource(state = hazeState)
             .padding(contentPadding),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
@@ -218,6 +229,7 @@ private fun HandleSideEffects(
     effectFlow: Flow<ProfileContract.Effect>?,
     onNavigationRequested: (ProfileContract.Effect.Navigation) -> Unit
 ) {
+    val activity = LocalActivity.current
     LaunchedEffect(SIDE_EFFECTS_KEY) {
         effectFlow?.onEach { effect ->
             when (effect) {
@@ -226,6 +238,10 @@ private fun HandleSideEffects(
                 }
 
                 is ProfileContract.Effect.Notification -> {
+                    activity?.showAlerter(
+                        message = effect.text,
+                        isError = effect.error
+                    )
                 }
             }
         }?.collect()
@@ -237,6 +253,7 @@ private fun HandleSideEffects(
 fun ProfileScreenPreview() {
     BlackJackTheme {
         ProfileScreenContent(
+            hazeState = HazeState(),
             state = ProfileContract.State(
                 profileState = ProfileState(
                     username = "Player",
