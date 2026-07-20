@@ -31,22 +31,23 @@ fun NavHostController.safeNavigate(route: Any, builder: NavOptionsBuilder.() -> 
 
 fun NavHostController.safeNavigate(
     route: Any,
-    popUp: Boolean = false,
-    isInclusive: Boolean = true
+    popUpToRoute: Any? = null,
+    inclusive: Boolean = true
 ) {
     if (this.currentBackStackEntry?.lifecycleIsResumed() == true) {
-        this.navigate(route) { if (popUp) popUpToTop(this@safeNavigate, isInclusive) }
+        this.navigate(route) {
+            popUpToRoute?.let {
+                popUpTo(it) {
+                    this.inclusive = inclusive
+                }
+            }
+        }
     }
 }
 
 private fun NavBackStackEntry.lifecycleIsResumed() =
     this.lifecycle.currentState == Lifecycle.State.RESUMED
 
-private fun NavOptionsBuilder.popUpToTop(navController: NavController, isInclusive: Boolean) {
-    popUpTo(navController.currentBackStackEntry?.destination?.route ?: return) {
-        inclusive = isInclusive
-    }
-}
 
 @Composable
 inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(

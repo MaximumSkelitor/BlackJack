@@ -1,16 +1,18 @@
 package com.weberpackage.blackjack.multiplayer.presentation.screens
 
 import android.content.res.Configuration
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,49 +30,41 @@ import androidx.navigation.NavHostController
 import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
 import com.weberpackage.blackjack.common.presentation.components.BlackjackButton
+import com.weberpackage.blackjack.common.presentation.components.StandardScaffold
 import com.weberpackage.blackjack.common.presentation.components.calculateHandValue
+import com.weberpackage.blackjack.common.presentation.navigation.NavRoutes
 import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
 import com.weberpackage.blackjack.common.presentation.utils.UiText
 import com.weberpackage.blackjack.common.presentation.utils.asString
+import com.weberpackage.blackjack.common.presentation.utils.safeNavigate
+import com.weberpackage.blackjack.common.presentation.utils.showAlerter
 import com.weberpackage.blackjack.multiplayer.presentation.components.PlayerArea
 import com.weberpackage.blackjack.multiplayer.presentation.contract.MultiContract
 import com.weberpackage.blackjack.multiplayer.presentation.model.MultiState
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.rememberHazeState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun MultiplayerScreenDest(
-    contentPadding: PaddingValues,
     navController: NavHostController,
     viewModel: MultiplayerViewModel = hiltViewModel(),
 ) {
     MultiplayerScreen(
-        viewModel = viewModel,
-        contentPadding = contentPadding,
-        onBack = { navController.popBackStack() }
-    )
-}
-
-@Composable
-fun MultiplayerScreen(
-    viewModel: MultiplayerViewModel,
-    contentPadding: PaddingValues = PaddingValues(),
-    onBack: () -> Unit = {}
-) {
-    MultiplayerScreen(
-        contentPadding = contentPadding,
         state = viewModel.viewState.value,
         effectFlow = viewModel.effect,
         onEventSent = { event -> viewModel.setEvent(event) },
         onNavigationRequested = { navigationEffect ->
             when (navigationEffect) {
-                is MultiContract.Effect.Navigation.Back -> onBack()
+                is MultiContract.Effect.Navigation.Back -> navController.popBackStack()
                 is MultiContract.Effect.Navigation.NavRoute -> {
-                }
-
-                is MultiContract.Effect.Navigation.NavDest -> {
-                    // navController.navigate(navigationEffect.route)
+                    navController.safeNavigate(
+                        route = navigationEffect.route,
+                        popUpToRoute = navigationEffect.popUpToRoute,
+                        inclusive = navigationEffect.inclusive
+                    )
                 }
             }
         }
@@ -79,21 +73,37 @@ fun MultiplayerScreen(
 
 @Composable
 fun MultiplayerScreen(
-    contentPadding: PaddingValues = PaddingValues(),
     state: MultiContract.State,
     effectFlow: Flow<MultiContract.Effect>?,
     onEventSent: (event: MultiContract.Event) -> Unit,
     onNavigationRequested: (MultiContract.Effect.Navigation) -> Unit
 ) {
+    val hazeState = rememberHazeState()
+    val multiState = state.multiState
+
     HandleSideEffects(
         effectFlow = effectFlow,
         onNavigationRequested = onNavigationRequested
     )
 
-    val multiState = state.multiState
-
+    StandardScaffold(
+        title = stringResource(R.string.multiplayer),
+        hazeState = hazeState,
+        showNavigationIcon = true,
+        navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+        onNavigate = {
+            onNavigationRequested(
+                MultiContract.Effect.Navigation.NavRoute(
+                    route = NavRoutes.HomeGraph,
+                    popUpToRoute = NavRoutes.PlayGraph,
+                    inclusive = true
+                )
+            )
+        }
+    ) { contentPadding ->
     Column(
         modifier = Modifier
+            .hazeSource(hazeState)
             .fillMaxSize()
             .padding(contentPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -186,6 +196,7 @@ fun MultiplayerScreen(
             )
         }
     }
+    }
 }
 
 @Composable
@@ -193,6 +204,7 @@ private fun HandleSideEffects(
     effectFlow: Flow<MultiContract.Effect>?,
     onNavigationRequested: (MultiContract.Effect.Navigation) -> Unit
 ) {
+    val activity = LocalActivity.current
     LaunchedEffect(SIDE_EFFECTS_KEY) {
         effectFlow?.onEach { effect ->
             when (effect) {
@@ -201,6 +213,10 @@ private fun HandleSideEffects(
                 }
 
                 is MultiContract.Effect.Notification -> {
+                    activity?.showAlerter(
+                        message = effect.text,
+                        isError = effect.error
+                    )
                 }
             }
         }?.collect()

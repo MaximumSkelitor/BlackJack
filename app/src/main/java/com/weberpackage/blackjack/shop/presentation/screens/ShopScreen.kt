@@ -1,6 +1,7 @@
 package com.weberpackage.blackjack.shop.presentation.screens
 
 import android.content.res.Configuration
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,9 +30,13 @@ import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
 import com.weberpackage.blackjack.common.presentation.components.InitialLoadingProgress
 import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
+import com.weberpackage.blackjack.common.presentation.utils.safeNavigate
+import com.weberpackage.blackjack.common.presentation.utils.showAlerter
 import com.weberpackage.blackjack.shop.presentation.components.CardPackSection
 import com.weberpackage.blackjack.shop.presentation.components.ShopSelectionRowContainer
 import com.weberpackage.blackjack.shop.presentation.contract.ShopContract
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -40,10 +45,12 @@ import kotlinx.coroutines.flow.onEach
 fun ShopScreenDest(
     contentPadding: PaddingValues,
     navController: NavHostController,
+    hazeState: HazeState,
     viewModel: ShopViewModel = hiltViewModel(),
 ) {
     ShopScreen(
         contentPadding = contentPadding,
+        hazeState = hazeState,
         state = viewModel.viewState.value,
         effectFlow = viewModel.effect,
         onEventSent = { event -> viewModel.setEvent(event) },
@@ -51,6 +58,11 @@ fun ShopScreenDest(
             when (navigationEffect) {
                 is ShopContract.Effect.Navigation.Back -> navController.popBackStack()
                 is ShopContract.Effect.Navigation.NavRoute -> {
+                    navController.safeNavigate(
+                        route = navigationEffect.route,
+                        popUpToRoute = navigationEffect.popUpToRoute,
+                        inclusive = navigationEffect.inclusive
+                    )
                 }
 
                 is ShopContract.Effect.Navigation.NavDest -> {
@@ -64,6 +76,7 @@ fun ShopScreenDest(
 @Composable
 private fun ShopScreen(
     contentPadding: PaddingValues,
+    hazeState: HazeState,
     state: ShopContract.State,
     effectFlow: Flow<ShopContract.Effect>?,
     onEventSent: (event: ShopContract.Event) -> Unit,
@@ -82,6 +95,7 @@ private fun ShopScreen(
             InitialLoadingProgress()
         } else {
             ShopScreenContent(
+                hazeState = hazeState,
                 state = state,
                 onEventSent = onEventSent,
                 contentPadding = contentPadding,
@@ -91,22 +105,23 @@ private fun ShopScreen(
 }
 
 @Composable
-fun ShopScreenContent(
+private fun ShopScreenContent(
+    contentPadding: PaddingValues,
+    hazeState: HazeState,
     state: ShopContract.State,
     onEventSent: (ShopContract.Event) -> Unit,
-    contentPadding: PaddingValues = PaddingValues()
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .hazeSource(state = hazeState)
             .padding(contentPadding)
             .verticalScroll(rememberScrollState())
             .padding(top = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -170,6 +185,7 @@ private fun HandleSideEffects(
     effectFlow: Flow<ShopContract.Effect>?,
     onNavigationRequested: (ShopContract.Effect.Navigation) -> Unit
 ) {
+    val activity = LocalActivity.current
     LaunchedEffect(SIDE_EFFECTS_KEY) {
         effectFlow?.onEach { effect ->
             when (effect) {
@@ -178,6 +194,11 @@ private fun HandleSideEffects(
                 }
 
                 is ShopContract.Effect.Notification -> {
+                    activity?.showAlerter(
+                        message = effect.text,
+                        isError = effect.error
+                    )
+
                 }
             }
         }?.collect()
@@ -190,6 +211,8 @@ private fun HandleSideEffects(
 private fun ShopScreenPreview() {
     BlackJackTheme {
         ShopScreenContent(
+            contentPadding = PaddingValues(),
+            hazeState = HazeState(),
             state = ShopContract.State(
                 totalChips = 1000,
                 ownedPacks = listOf(1 ),

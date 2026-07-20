@@ -1,7 +1,6 @@
 package com.weberpackage.blackjack.shop.presentation.components
 
 import android.content.res.Configuration
-import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -43,17 +41,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weberpackage.blackjack.R
-import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
 import com.weberpackage.blackjack.common.presentation.base.cardColorStops
 import com.weberpackage.blackjack.common.presentation.base.formatChips
 import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
 import com.weberpackage.blackjack.common.presentation.utils.AutoScaleText
-import com.weberpackage.blackjack.coredata.DailyCreditsUtils
-import com.weberpackage.blackjack.settings.presentation.contract.SettingsContract
+import com.weberpackage.blackjack.shop.utils.DailyCreditsUtils
 import com.weberpackage.blackjack.shop.presentation.contract.ShopContract
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlin.math.abs
 import kotlin.math.min
 
@@ -263,27 +256,6 @@ fun DailySelectionCard(
                 }
             }
         }
-    }
-}
-
-@Suppress("unused")
-@Composable
-private fun HandleSideEffects(
-    effectFlow: Flow<SettingsContract.Effect>?,
-    onNavigationRequested: (SettingsContract.Effect.Navigation) -> Unit
-) {
-    val activity = LocalActivity.current
-    LaunchedEffect(SIDE_EFFECTS_KEY) {
-        effectFlow?.onEach { effect ->
-            when (effect) {
-                is SettingsContract.Effect.Navigation -> {
-                    onNavigationRequested(effect)
-                }
-
-                is SettingsContract.Effect.Notification -> {
-                }
-            }
-        }?.collect()
     }
 }
 

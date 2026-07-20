@@ -16,6 +16,10 @@ object AsUiText {
                 R.string.data_error_unknown
             )
 
+            DataError.Local.JSON_ERROR -> UiText(
+                R.string.data_error_json_parsing
+            )
+
             DataError.Network.UNKNOWN -> UiText(
                 R.string.data_error_unknown
             )

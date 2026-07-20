@@ -11,9 +11,9 @@ class SettingsContract {
 
     sealed class Event : ViewEvent {
         data object ShowAppInfo : Event()
-        data class OnUsernameEdit(val username: String) : Event()
         data object OnSaveUsername : Event()
-        data object OnSetUsername : Event()
+        data class OnShowBottomBar(val showBottomBar: Boolean) : Event()
+        data class OnUsernameEdit(val username: String) : Event()
         data class OnAppThemeSave(val appTheme: AppTheme) : Event()
         data class OnSetLanguage(val language: AppLanguage) : Event()
         data class OnSelectCredits(val selected: Boolean) : Event()
@@ -24,6 +24,8 @@ class SettingsContract {
         val language: AppLanguage,
         val appTheme: AppTheme,
         val creditsSelected: Boolean,
+        val isFirstTimeUser: Boolean = false,
+        val showBottomBar: Boolean,
         val isInitialLoading: Boolean,
     ) : ViewState
 
@@ -32,8 +34,11 @@ class SettingsContract {
 
         sealed class Navigation : Effect() {
             data object Back : Navigation()
-            data class NavRoute(val route: Any, val popUp: Boolean = false) : Navigation()
-            data class NavDest(val route: String) : Navigation()
+            data class NavRoute(
+                val route: Any,
+                val popUpToRoute: Any? = null,
+                val inclusive: Boolean = true
+            ) : Navigation()
         }
     }
 }

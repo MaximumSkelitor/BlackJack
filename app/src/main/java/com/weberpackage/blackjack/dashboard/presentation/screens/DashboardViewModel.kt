@@ -3,6 +3,7 @@ package com.weberpackage.blackjack.dashboard.presentation.screens
 import androidx.lifecycle.viewModelScope
 import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.BaseViewModel
+import com.weberpackage.blackjack.common.presentation.navigation.NavRoutes
 import com.weberpackage.blackjack.common.presentation.utils.DialogAction
 import com.weberpackage.blackjack.common.presentation.utils.DialogController
 import com.weberpackage.blackjack.common.presentation.utils.DialogEvent
@@ -11,7 +12,6 @@ import com.weberpackage.blackjack.core.prefs.Pref
 import com.weberpackage.blackjack.core.prefs.Prefs
 import com.weberpackage.blackjack.dashboard.presentation.contract.DashContract
 import com.weberpackage.blackjack.dashboard.presentation.model.DashState
-import com.weberpackage.blackjack.navigation.NavigationItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -79,8 +79,10 @@ class DashboardViewModel @Inject constructor(
                             buttonText = UiText(R.string.yes),
                             action = {
                                 setEffect {
-                                    DashContract.Effect.Navigation.NavDest(
-                                        NavigationItem.PracticeScreen.name
+                                    DashContract.Effect.Navigation.NavRoute(
+                                        route = NavRoutes.PlayDest.Practice,
+                                        popUpToRoute = NavRoutes.HomeGraph,
+                                        inclusive = false
                                     )
                                 }
                             }

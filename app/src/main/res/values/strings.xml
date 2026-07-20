@@ -2,6 +2,14 @@
     <string name="app_name">BlackJack</string>
     <string name="app_version" translatable="false">BlackJack 1.0.0</string>
 
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_shop">Shop</string>
+
+    <string name="changelog_title">What\'s New</string>
+    <string name="changelog_error">No changelog items found!</string>
+    <string name="changelog_alpha_release">" - Alpha Release"</string>
+
     <!-- Screen Names -->
     <string name="home">Home</string>
     <string name="practice">Practice</string>
@@ -20,7 +28,7 @@
     <string name="multiplayer_subtitle">Play against other players offline!</string>
 
     <string name="total_credits">%d Credits</string>
-    <string name="credits"> Credits</string>
+    <string name="credits">Credits</string>
 
     <!-- Home/Ranks -->
     <string name="benefits">"Benefit: "</string>
@@ -152,6 +160,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="data_error_unknown" translatable="false">An unknown error occurred. Please try again</string>
+    <string name="data_error_json_parsing">JSON Parsing Error - Something went wrong, please try again</string>
     <string name="dialog_app_info_message" translatable="false">\nApp Version:\n%1$s \n\nVersion Code:\n%2$s \n\nBuild Type:\n%3$s \n\nBuild Date:\n%4$s</string>
     <string name="close">Close</string>
 
@@ -178,6 +187,10 @@
     <string name="gameplay_section">Gameplay</string>
     <string name="custom_bet_title">Custom Bet</string>
     <string name="credits_settings_option">Only click once to edit the custom bet, and long press to save</string>
+
+    <string name="navigation_section">Navigation</string>
+    <string name="show_bottom_bar_title">Show Bottom Bar</string>
+    <string name="show_bottom_bar_desc">Show the bottom bar on the home screenr</string>
 
     <string name="ok">OK</string>
 </resources>
