@@ -4,9 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,9 +24,15 @@ import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
 
 @Composable
 internal fun GameplaySection(
-    customCreditsOption: Boolean = false,
-    onSelectedCredits: () -> Unit,
-    enabled: Boolean = true
+    editCustomBetOption: Boolean = false,
+    onSelectedEditCustomBet: () -> Unit,
+    editCustomBetEnabled: Boolean = true,
+    saveCurrentBetOption: Boolean = false,
+    onSaveCurrentBet: () -> Unit,
+    saveCurrentBetEnabled: Boolean = true,
+    saveCustomBetOption: Boolean = false,
+    onSaveCustomBet: () -> Unit,
+    saveCustomBetEnabled: Boolean = true
 ) {
     Box(
         modifier = Modifier
@@ -36,26 +40,38 @@ internal fun GameplaySection(
             .clip(RoundedCornerShape(24.dp))
             .background(Brush.horizontalGradient(colorStops = cardColorStops()))
     ) {
-        Column(
-            Modifier
-                .selectableGroup()
-                .padding(vertical = 2.dp)
-        ) {
+        Column(Modifier.selectableGroup()) {
             // Title
             Text(
                 text = stringResource(R.string.gameplay_section),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp)
+                modifier = Modifier.padding(start = 16.dp, top = 10.dp, bottom = 8.dp)
             )
-            SwitchOption(
-                title = stringResource(R.string.custom_bet_title),
-                desc = stringResource(R.string.credits_settings_option),
-                selected = customCreditsOption,
-                onClick = onSelectedCredits,
-                enabled = enabled
+            // Edit Custom Bet row
+            SwitchRow(
+                switchTitle = R.string.custom_bet_title,
+                switchDesc = R.string.credits_settings_option,
+                selected = editCustomBetOption,
+                onSelected = onSelectedEditCustomBet,
+                enabled = editCustomBetEnabled
             )
-            Spacer(Modifier.height(5.dp))
+            // Save Current Bet row
+            SwitchRow(
+                switchTitle = R.string.save_current_bet_title,
+                switchDesc = R.string.save_current_bet_desc,
+                selected = saveCurrentBetOption,
+                onSelected = onSaveCurrentBet,
+                enabled = saveCurrentBetEnabled
+            )
+            // Save Custom Bet row
+            SwitchRow(
+                switchTitle = R.string.save_custom_bet_title,
+                switchDesc = R.string.save_custom_bet_desc,
+                selected = saveCustomBetOption,
+                onSelected = onSaveCustomBet,
+                enabled = saveCustomBetEnabled
+            )
         }
     }
 }
@@ -66,8 +82,9 @@ internal fun GameplaySection(
 private fun GameplaySectionPreview() {
     BlackJackTheme {
         GameplaySection(
-            enabled = true,
-            onSelectedCredits = {}
+            onSelectedEditCustomBet = {},
+            onSaveCurrentBet = {},
+            onSaveCustomBet = {}
         )
     }
 }

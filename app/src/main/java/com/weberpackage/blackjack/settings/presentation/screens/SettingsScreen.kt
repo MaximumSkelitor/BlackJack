@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Badge
 import androidx.compose.material.icons.filled.Copyright
+import androidx.compose.material.icons.filled.FiberNew
 import androidx.compose.material.icons.filled.Forum
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Tune
@@ -181,6 +182,18 @@ fun SettingsScreenContent(
                     icon = Icons.Default.Info
                 )
                 SettingsOption(
+                    title = R.string.changelog,
+                    description = "",
+                    onClick = {
+                        onNavigationRequested(
+                            SettingsContract.Effect.Navigation.NavRoute(
+                                NavRoutes.SettingsDest.Changelog
+                            )
+                        )
+                    },
+                    icon = Icons.Filled.FiberNew
+                )
+                SettingsOption(
                     title = R.string.credits_license,
                     description = "",
                     onClick = {
@@ -242,6 +255,8 @@ internal fun SettingsScreenPreview() {
                 language = AppLanguage.ENGLISH,
                 appTheme = AppTheme.SYSTEM,
                 creditsSelected = false,
+                saveCurrentBetSelected = false,
+                saveCustomBetSelected = false,
                 showBottomBar = true,
                 isInitialLoading = false
             ),

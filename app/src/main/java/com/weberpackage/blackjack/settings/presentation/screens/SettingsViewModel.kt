@@ -42,6 +42,8 @@ class SettingsViewModel @Inject constructor(
         language = AppLanguage.ENGLISH,
         appTheme = AppTheme.SYSTEM,
         creditsSelected = false,
+        saveCurrentBetSelected = true,
+        saveCustomBetSelected = true,
         showBottomBar = true,
         isInitialLoading = true,
     )
@@ -60,6 +62,12 @@ class SettingsViewModel @Inject constructor(
             is SettingsContract.Event.OnSelectCredits ->
                 prefs.set(Pref.creditsOptionSelected, event.selected)
 
+            is SettingsContract.Event.OnSelectSaveCurrentBet ->
+                prefs.set(Pref.saveCurrentBet, event.selected)
+
+            is SettingsContract.Event.OnSelectSaveCustomBet ->
+                prefs.set(Pref.saveCustomBet, event.selected)
+
             is SettingsContract.Event.OnShowBottomBar ->
                 prefs.set(Pref.showBottomBar, event.showBottomBar)
         }
@@ -74,6 +82,16 @@ class SettingsViewModel @Inject constructor(
             copy(
                 creditsSelected = it,
                 isInitialLoading = false
+            )
+        }
+        collectAndUpdateState(Pref.saveCurrentBet) {
+            copy(
+                saveCurrentBetSelected = it
+            )
+        }
+        collectAndUpdateState(Pref.saveCustomBet) {
+            copy(
+                saveCustomBetSelected = it
             )
         }
     }

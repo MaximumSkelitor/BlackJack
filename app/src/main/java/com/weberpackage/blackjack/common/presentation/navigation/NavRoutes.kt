@@ -51,6 +51,9 @@ sealed class NavRoutes {
         data class Username(val firstTimeSetup: Boolean = false) : SettingsDest()
         @Serializable
         data object Credits : SettingsDest()
+
+        @Serializable
+        data object Changelog : SettingsDest()
     }
 
 }

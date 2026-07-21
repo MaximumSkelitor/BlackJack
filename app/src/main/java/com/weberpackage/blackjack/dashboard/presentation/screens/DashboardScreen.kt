@@ -137,7 +137,10 @@ private fun DashboardScreenContent(
             )
         }
         item {
-            ChipCounter(count = state.uiState.totalChips, fontSize = 57.sp)
+            ChipCounter(
+                count = state.uiState.totalChips,
+                fontSize = 57.sp,
+            )
         }
         item {
             SelectionRowContainer(

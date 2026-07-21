@@ -229,6 +229,8 @@ private fun UsernameScreenPreview() {
                 appTheme = AppTheme.SYSTEM,
                 isFirstTimeUser = false,
                 creditsSelected = false,
+                saveCurrentBetSelected = false,
+                saveCustomBetSelected = false,
                 showBottomBar = true,
                 isInitialLoading = false
             ),

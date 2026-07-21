@@ -120,5 +120,10 @@ fun NavGraphBuilder.settingsNavGraph(
                 onBack = { navController.popBackStack() }
             )
         }
+        composable<NavRoutes.SettingsDest.Changelog> {
+            ChangelogScreenDestination(
+                navController = navController
+            )
+        }
     }
 }

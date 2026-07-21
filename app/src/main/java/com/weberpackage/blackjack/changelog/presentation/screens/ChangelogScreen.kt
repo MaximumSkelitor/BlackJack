@@ -188,11 +188,18 @@ private fun buildChangelogItems(): List<Changelog> {
             version = "1.1.0",
             date = "",
             current = true,
-            isAlpha = true,
             logs = listOf(
                 Log(
                     type = "new",
                     text = "Added New Features"
+                ),
+                Log(
+                    type = "new",
+                    text = "New app colors"
+                ),
+                Log(
+                    type = "new",
+                    text = "New navigation"
                 ),
                 Log(
                     type = "imp",

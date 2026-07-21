@@ -21,5 +21,7 @@ data class Pref<T>(
         val customBet = Pref("custom_bet", 100)
         val updatePostponeTime = Pref("pref_update_postpone_time", 0L)
         val creditsOptionSelected = Pref("edit_credits_settings", false)
+        val saveCurrentBet = Pref("save_current_bet", false)
+        val saveCustomBet = Pref("save_custom_bet", false)
     }
 }

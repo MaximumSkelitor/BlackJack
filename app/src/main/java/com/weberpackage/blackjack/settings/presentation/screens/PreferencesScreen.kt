@@ -114,13 +114,25 @@ internal fun PreferencesScreen(
                     }
                 )
                 GameplaySection(
-                    customCreditsOption = state.creditsSelected,
-                    onSelectedCredits = {
-                        onEventSent(
-                            SettingsContract.Event.OnSelectCredits(!state.creditsSelected)
-                        )
-                    }
-                )
+                editCustomBetOption = state.creditsSelected,
+                onSelectedEditCustomBet = {
+                    onEventSent(
+                        SettingsContract.Event.OnSelectCredits(!state.creditsSelected)
+                    )
+                },
+                saveCurrentBetOption = state.saveCurrentBetSelected,
+                onSaveCurrentBet = {
+                    onEventSent(
+                        SettingsContract.Event.OnSelectSaveCurrentBet(!state.saveCurrentBetSelected)
+                    )
+                },
+                saveCustomBetOption = state.saveCustomBetSelected,
+                onSaveCustomBet = {
+                    onEventSent(
+                        SettingsContract.Event.OnSelectSaveCustomBet(!state.saveCustomBetSelected)
+                    )
+                }
+            )
                 NavigationSection(
                     showBottomBar = state.showBottomBar,
                     onShowBottomBar = {
@@ -169,6 +181,8 @@ private fun PreferencesScreenPreview() {
                 language = AppLanguage.ENGLISH,
                 appTheme = AppTheme.SYSTEM,
                 creditsSelected = false,
+                saveCurrentBetSelected = false,
+                saveCustomBetSelected = false,
                 showBottomBar = true,
                 isInitialLoading = false
             ),

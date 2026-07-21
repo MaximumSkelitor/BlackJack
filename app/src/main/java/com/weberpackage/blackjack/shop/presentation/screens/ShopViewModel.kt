@@ -1,7 +1,13 @@
 package com.weberpackage.blackjack.shop.presentation.screens
 
 import androidx.lifecycle.viewModelScope
+import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.BaseViewModel
+import com.weberpackage.blackjack.common.presentation.base.formatChips
+import com.weberpackage.blackjack.common.presentation.utils.DialogAction
+import com.weberpackage.blackjack.common.presentation.utils.DialogController
+import com.weberpackage.blackjack.common.presentation.utils.DialogEvent
+import com.weberpackage.blackjack.common.presentation.utils.UiText
 import com.weberpackage.blackjack.core.prefs.Pref
 import com.weberpackage.blackjack.core.prefs.Prefs
 import com.weberpackage.blackjack.shop.utils.DailyCreditsUtils
@@ -56,7 +62,8 @@ class ShopViewModel @Inject constructor(
 
     override fun setInitialState() = ShopContract.State(
         totalChips = prefs.get(Pref.totalChips),
-        ownedPacks = prefs.get(Pref.ownedPacks).split(",").filter { s -> s.isNotEmpty() }.map { s -> s.toInt() },
+        ownedPacks = prefs.get(Pref.ownedPacks).split(",").filter { s -> s.isNotEmpty() }
+            .map { s -> s.toInt() },
         lastClaimTime = prefs.get(Pref.lastClaimTime),
         timeRemaining = DailyCreditsUtils.getTimeRemaining(prefs.get(Pref.lastClaimTime)),
         isInitialLoading = true,
@@ -86,16 +93,25 @@ class ShopViewModel @Inject constructor(
     private fun onPurchasePack(event: ShopContract.Event.OnPurchasePack) {
         val currentChips = prefs.get(Pref.totalChips)
         if (currentChips >= event.price) {
+            showPurchaseConfirmationDialog(event)
+        } else {
+            showCantAffordPackDialog()
+        }
+    }
+
+    private fun performPurchase(packId: Int, price: Int) {
+        val currentChips = prefs.get(Pref.totalChips)
+        if (currentChips >= price) {
             // Update Chips
-            prefs.set(Pref.totalChips, currentChips - event.price)
+            prefs.set(Pref.totalChips, currentChips - price)
 
             // Update Owned Packs
             val currentOwned = prefs.get(Pref.ownedPacks)
             val updatedOwned = if (currentOwned.isEmpty()) {
-                event.packId.toString()
+                packId.toString()
             } else {
                 val ownedList = currentOwned.split(",").toMutableSet()
-                ownedList.add(event.packId.toString())
+                ownedList.add(packId.toString())
                 ownedList.joinToString(",")
             }
 
@@ -104,6 +120,42 @@ class ShopViewModel @Inject constructor(
         }
     }
 
+    private fun showCantAffordPackDialog() {
+        viewModelScope.launch {
+            DialogController.sendEvent(
+                DialogEvent(
+                    title = UiText(R.string.alert_dialog_cant_afford_pack_title),
+                    message = UiText(R.string.alert_dialog_cant_afford_pack_message),
+                    positiveAction = DialogAction(
+                        buttonText = UiText(R.string.ok),
+                        action = {}
+                    )
+                )
+            )
+        }
+    }
+
+    private fun showPurchaseConfirmationDialog(event: ShopContract.Event.OnPurchasePack) {
+        viewModelScope.launch {
+            DialogController.sendEvent(
+                DialogEvent(
+                    title = UiText(R.string.dialog_purchase_confirmation_title),
+                    message = UiText(
+                        R.string.dialog_purchase_confirmation_message,
+                        com.weberpackage.blackjack.common.presentation.utils.uiTextArgsOf(formatChips(event.price))
+                    ),
+                    positiveAction = DialogAction(
+                        buttonText = UiText(R.string.buy),
+                        action = { performPurchase(event.packId, event.price) }
+                    ),
+                    negativeAction = DialogAction(
+                        buttonText = UiText(R.string.cancel),
+                        action = {}
+                    )
+                )
+            )
+        }
+    }
 
     private fun <T> collectAndUpdateState(
         pref: Pref<T>,

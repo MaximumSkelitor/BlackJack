@@ -8,7 +8,27 @@
       "logs": [
         {
           "type": "new",
-          "text": "New Features"
+          "text": "New betting screen"
+        },
+        {
+          "type": "imp",
+          "text": "Better app colors"
+        },
+        {
+          "type": "imp",
+          "text": "Updated Navigation"
+        },
+        {
+          "type": "imp",
+          "text": "Improved cards"
+        },
+        {
+          "type": "imp",
+          "text": "QoL improvements"
+        },
+        {
+          "type": "fix",
+          "text": "Misc bugfixes"
         }
       ]
     },

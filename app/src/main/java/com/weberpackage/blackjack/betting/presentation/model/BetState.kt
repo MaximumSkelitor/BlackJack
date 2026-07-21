@@ -8,4 +8,6 @@ data class BetState(
     val customBet: Int = 100,
     val longPressString: Int = R.string.custom_bet_message1,
     val isCustomBetEditEnabled: Boolean = false,
+    val saveCurrentBetEnabled: Boolean = false,
+    val saveCustomBetEnabled: Boolean = false,
 )

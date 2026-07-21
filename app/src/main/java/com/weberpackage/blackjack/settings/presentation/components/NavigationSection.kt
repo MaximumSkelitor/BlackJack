@@ -39,7 +39,7 @@ internal fun NavigationSection(
         Column(
             Modifier
                 .selectableGroup()
-                .padding(vertical = 2.dp)
+                .padding(vertical = 7.dp)
         ) {
             // Title
             Text(

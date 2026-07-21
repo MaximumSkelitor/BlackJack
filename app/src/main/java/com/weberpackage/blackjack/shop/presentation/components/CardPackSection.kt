@@ -126,7 +126,7 @@ fun CardPackPurchaseCard(
             .size(width = 240.dp, height = 240.dp)
             .clip(cornerShape)
             .background(Brush.verticalGradient(colorStops = cardColors))
-            .clickable(enabled = canAfford && !isOwned) { onClick() },
+            .clickable(enabled = !isOwned) { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -204,7 +204,7 @@ fun CardPackPurchaseCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(36.dp),
-                    enabled = canAfford && !isOwned,
+                    enabled = !isOwned,
                     shape = RoundedCornerShape(12.dp),
                     contentPadding = PaddingValues(0.dp),
                     border = BorderStroke(
@@ -226,7 +226,7 @@ fun CardPackPurchaseCard(
                         fontWeight = FontWeight.ExtraBold,
                         color = when {
                             isOwned -> MaterialTheme.colorScheme.onSurface
-                            canAfford -> MaterialTheme.colorScheme.tertiary
+                            canAfford -> MaterialTheme.colorScheme.secondary
                             else -> MaterialTheme.colorScheme.error.copy(.7f)
                         }
                     )

@@ -99,6 +99,8 @@ private fun PlayNowScreen(
         totalChips = state.playNowState.totalChips,
         showNavigationIcon = true,
         navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+        showChipIcon = true,
+        showText = false,
         onNavigate = {
             handleOnBack(
                 isGameOver = state.playNowState.isGameOver,

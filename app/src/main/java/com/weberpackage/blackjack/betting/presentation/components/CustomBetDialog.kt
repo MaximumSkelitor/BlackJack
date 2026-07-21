@@ -42,7 +42,7 @@ import com.weberpackage.blackjack.common.presentation.utils.fadeExitTransition
 import com.weberpackage.blackjack.common.presentation.utils.scaleEnterTransition
 
 @Composable
-fun CustomBestDialog(
+fun CustomBetDialog(
     dialogState: DialogState,
     customBet: Int,
     onSelectCustomBet: (amount: Int) -> Unit,

@@ -40,7 +40,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.composeunstyled.rememberDialogState
 import com.weberpackage.blackjack.R
-import com.weberpackage.blackjack.betting.presentation.components.CustomBestDialog
+import com.weberpackage.blackjack.betting.presentation.components.CustomBetDialog
 import com.weberpackage.blackjack.betting.presentation.contract.BetContract
 import com.weberpackage.blackjack.betting.presentation.model.BetState
 import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
@@ -100,7 +100,7 @@ private fun BettingScreen(
         onNavigationRequested = onNavigationRequested
     )
 
-    CustomBestDialog(
+    CustomBetDialog(
         dialogState = dialogState,
         customBet = state.betState.customBet,
         onSelectCustomBet = { amount ->
@@ -119,6 +119,8 @@ private fun BettingScreen(
         totalChips = state.betState.totalChips,
         showNavigationIcon = true,
         navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+        showChipIcon = true,
+        showText = false,
         onNavigate = {
             onNavigationRequested(
                 BetContract.Effect.Navigation.NavRoute(

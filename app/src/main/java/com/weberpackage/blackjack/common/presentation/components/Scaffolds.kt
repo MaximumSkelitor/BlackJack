@@ -34,7 +34,9 @@ fun StandardScaffold(
     navigationIcon: ImageVector,
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
     onNavigate: (() -> Unit)? = null,
-    content: @Composable (PaddingValues) -> Unit
+    showText: Boolean = true,
+    showChipIcon: Boolean = false,
+    content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -68,7 +70,8 @@ fun StandardScaffold(
                                     .padding(start = 40.dp),
                                 count = chips,
                                 fontSize = 20.sp,
-                                showText = true
+                                showText = showText,
+                                showChipIcon = showChipIcon
                             )
                         }
                     }

@@ -108,6 +108,7 @@
     <string name="my_card_packs">Mis paquetes de cartas</string>
     <string name="equipped">Equipado</string>
     <string name="tap_equip">Toca para equipar</string>
+    <string name="cancel">Cancelar</string>
     <string name="locked">Bloqueado</string>
     <string name="preferences">Preferencias</string>
     <string name="display_section">Pantalla</string>
@@ -163,6 +164,18 @@
     <string name="gameplay_section">Jugabilidad</string>
     <string name="custom_bet_title">Apuesta personalizada</string>
     <string name="credits_settings_option">Haz clic solo una vez para editar la apuesta personalizada y mantén pulsado para guardarla.</string>
+    <string name="show_bottom_bar_desc">Mostrar la barra inferior en la pantalla de inicio</string>
+    <string name="save_custom_bet_desc">Guarda tu apuesta personalizada hasta que cierres la aplicación.</string>
     <string name="ok">De acuerdo</string>
     <string name="data_error_json_parsing">Error de análisis JSON: algo salió mal; por favor, inténtalo de nuevo.</string>
+    <string name="navigation_section">Navegación</string>
+    <string name="show_bottom_bar_title">Mostrar barra inferior</string>
+    <string name="changelog">Registro de cambios</string>
+    <string name="alert_dialog_cant_afford_pack_title">¡No puedes comprar este paquete!</string>
+    <string name="alert_dialog_cant_afford_pack_message">No tienes suficientes créditos para comprar este paquete.</string>
+    <string name="dialog_purchase_confirmation_title">¿Estás segura de que quieres comprar este paquete de tarjetas?</string>
+    <string name="dialog_purchase_confirmation_message">Perderás permanentemente %s créditos después de comprar este paquete de cartas.</string>
+    <string name="save_current_bet_title">Guardar apuesta actual</string>
+    <string name="save_current_bet_desc">Guarda tu apuesta actual hasta que cierres la aplicación.</string>
+    <string name="save_custom_bet_title">Guardar apuesta personalizada</string>
 </resources>

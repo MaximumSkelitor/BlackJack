@@ -234,10 +234,12 @@ class PlayNowViewModel @Inject constructor(
             )
         }
         prefs.set(Pref.totalChips, player.chips)
+        if (!prefs.get(Pref.saveCurrentBet)) {
+            prefs.set(Pref.currentBet, 0)
+        }
     }
 
     private fun resetGame() {
-        prefs.set(Pref.currentBet, 0)
         setEffect {
             PlayNowContract.Effect.Navigation.NavRoute(
                 route = NavRoutes.PlayDest.Betting,

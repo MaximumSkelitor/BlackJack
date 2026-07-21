@@ -107,6 +107,7 @@
     <string name="my_card_packs">Meine Kartenpakete</string>
     <string name="equipped">Ausgestattet</string>
     <string name="tap_equip">Tippen, um auszurüsten</string>
+    <string name="cancel">Stornieren</string>
     <string name="locked">Gesperrt</string>
     <string name="preferences">Präferenzen</string>
     <string name="display_section">Anzeige</string>
@@ -158,6 +159,18 @@
     <string name="gameplay_section">Gameplay</string>
     <string name="custom_bet_title">Individuelle Wette</string>
     <string name="credits_settings_option">Klicken Sie nur einmal, um die benutzerdefinierte Wette zu bearbeiten, und halten Sie sie gedrückt, um sie zu speichern.</string>
+    <string name="show_bottom_bar_desc">Untere Leiste auf dem Startbildschirm anzeigen</string>
+    <string name="save_custom_bet_desc">Speichere deine individuelle Wette, bis du die App schließt.</string>
     <string name="ok">OK</string>
     <string name="data_error_json_parsing">Fout bij het parseren van JSON – Er is iets misgegaan, probeer het opnieuw.</string>
+    <string name="navigation_section">Navigation</string>
+    <string name="show_bottom_bar_title">Untere Leiste anzeigen</string>
+    <string name="changelog">Änderungsprotokoll</string>
+    <string name="alert_dialog_cant_afford_pack_title">Du kannst dieses Paket nicht kaufen!</string>
+    <string name="alert_dialog_cant_afford_pack_message">Du hast nicht genügend Credits, um dieses Paket zu kaufen.</string>
+    <string name="dialog_purchase_confirmation_title">Sind Sie sicher, dass Sie dieses Kartenpaket kaufen möchten?</string>
+    <string name="dialog_purchase_confirmation_message">Du verlierst dauerhaft %s Credits, nachdem du dieses Kartenpaket gekauft hast.</string>
+    <string name="save_current_bet_title">Aktuelle Wette speichern</string>
+    <string name="save_current_bet_desc">Speichere deinen aktuellen Einsatz, bis du die App schließt.</string>
+    <string name="save_custom_bet_title">Individuelle Wette speichern</string>
 </resources>

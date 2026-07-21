@@ -11,30 +11,30 @@ I created this project to provide a simple, ad-free gaming experience and to exp
 
 ## Screenshots
 
-|                        Home Page                         |                        Play Now                         |                        Multiplayer                         |                        Profile                         |
-|:--------------------------------------------------------:|:-------------------------------------------------------:|:----------------------------------------------------------:|:------------------------------------------------------:|
-| <img src="docs/screenshots/dashboard.png" width="200" /> | <img src="docs/screenshots/play_now.png" width="200" /> | <img src="docs/screenshots/multiplayer.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
+|                        Home Page                         |                        Play Now                         |                        Shop                         |                        Profile                         |
+|:--------------------------------------------------------:|:-------------------------------------------------------:|:---------------------------------------------------:|:------------------------------------------------------:|
+| <img src="docs/screenshots/dashboard.png" width="200" /> | <img src="docs/screenshots/play_now.png" width="200" /> | <img src="docs/screenshots/shop.png" width="200" /> | <img src="docs/screenshots/profile.png" width="200" /> |
+
 
 ### Credits
-
 This app was made possible thanks to the following open-source projects and libraries:
-
-- [Jetpack Compose](https://developer.android.com/compose) - Modern toolkit for building native UI.
-- [Material 3](https://m3.material.io/) - Google's latest design system.
-- [Navigation 3](https://developer.android.com/guide/navigation/navigation-3) - Compose-first navigation for Android.
-- [Compose Unstyled](https://github.com/composablehorizons/compose-unstyled) - Logic-only components for Jetpack Compose.
-- [Haze](https://github.com/chrisbanes/haze) - Glassmorphism and blur effects for Compose.
-- [MaterialKolor](https://github.com/jordond/materialkolor) - Dynamic Material 3 color palettes from any color.
-- [Kotlinx Serialization](https://github.com/kotlin/kotlinx.serialization) - Kotlin multiplatform / multi-format serialization.
-- [Google Fonts](https://fonts.google.com/) - High-quality typography.
-- [PiFire-Android](https://github.com/weberbox/PiFire-Android) - Architecture and design inspiration.
+- [PiFire-Android](https://github.com/weberbox/PiFire-Android)
+- [Jetpack Compose](https://developer.android.com/compose)
+- [Material 3](https://m3.material.io/)
+- [Navigation 3](https://developer.android.com/guide/navigation/navigation-3)
+- [Compose Unstyled](https://github.com/composablehorizons/compose-unstyled)
+- [Haze](https://github.com/chrisbanes/haze)
+- [MaterialKolor](https://github.com/jordond/materialkolor)
+- [Kotlinx Serialization](https://github.com/kotlin/kotlinx.serialization)
+- [Google Fonts](https://fonts.google.com/)
+- [MaterialDesign Icons](https://pictogrammers.com/library/mdi/)
 
 ### Licensing
 
 This project is licensed under the GNU GPLv3 license.
 
 ```
-BlackJack Android - Android app for playing the classic game of Blackjack
+BlackJack Android - A native Android app for playing the classic game of Blackjack
 
 
 Copyright (c) 2025-2026 Max Weber

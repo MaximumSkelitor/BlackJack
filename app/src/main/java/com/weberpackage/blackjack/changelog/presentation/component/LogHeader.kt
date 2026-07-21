@@ -48,16 +48,18 @@ internal fun LogHeader(
                     fontWeight = FontWeight.Bold
 
                 )
-                if (date.isNotBlank()) {
-                    Text(
-                        text = " - $date",
-                        modifier = modifier.padding(end = MaterialTheme.spacing.extraSmallOne),
-                        style = MaterialTheme.typography.titleSmall
-                    )
-                }
                 if (isAlpha) {
                     Text(
                         text = stringResource(R.string.changelog_alpha_release),
+                        modifier = modifier.padding(end = MaterialTheme.spacing.extraSmallOne),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = if (current) MaterialTheme.colorScheme.tertiaryContainer else
+                            MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+                if (date.isNotBlank()) {
+                    Text(
+                        text = " - $date",
                         modifier = modifier.padding(end = MaterialTheme.spacing.extraSmallOne),
                         style = MaterialTheme.typography.titleSmall,
                         color = if (current) MaterialTheme.colorScheme.tertiaryContainer else
@@ -83,7 +85,7 @@ private fun LogHeaderPreview() {
             LogHeader(
                 current = true,
                 version = "1.0.0",
-                date = "",
+                date = "7/20/26",
                 isAlpha = true
             )
         }

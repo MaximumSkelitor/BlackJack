@@ -36,6 +36,13 @@ class BettingViewModel @Inject constructor(
                 )
             )
         }
+        collectAndUpdateState(Pref.currentBet) {
+            copy(
+                betState = betState.copy(
+                    currentBet = it
+                )
+            )
+        }
         collectAndUpdateState(Pref.creditsOptionSelected) {
             copy(
                 betState = betState.copy(
@@ -44,16 +51,39 @@ class BettingViewModel @Inject constructor(
                 )
             )
         }
+        collectAndUpdateState(Pref.saveCurrentBet) {
+            copy(
+                betState = betState.copy(
+                    saveCurrentBetEnabled = it
+                )
+            )
+        }
+        collectAndUpdateState(Pref.saveCustomBet) {
+            copy(
+                betState = betState.copy(
+                    saveCustomBetEnabled = it
+                )
+            )
+        }
     }
 
     override fun setInitialState(): BetContract.State {
         val editEnabled = prefs.get(Pref.creditsOptionSelected)
+        val saveCurrent = prefs.get(Pref.saveCurrentBet)
+        val saveCustom = prefs.get(Pref.saveCustomBet)
+
+        val currentBet = if (saveCurrent) prefs.get(Pref.currentBet) else 0
+        val customBet = if (saveCustom) prefs.get(Pref.customBet) else 100
+
         return BetContract.State(
             betState = BetState(
                 totalChips = prefs.get(Pref.totalChips),
-                customBet = prefs.get(Pref.customBet),
+                currentBet = currentBet,
+                customBet = customBet,
                 longPressString = if (editEnabled) R.string.custom_bet_message2 else R.string.custom_bet_message1,
-                isCustomBetEditEnabled = editEnabled
+                isCustomBetEditEnabled = editEnabled,
+                saveCurrentBetEnabled = saveCurrent,
+                saveCustomBetEnabled = saveCustom
             ),
             isInitialLoading = true
         )
@@ -65,33 +95,48 @@ class BettingViewModel @Inject constructor(
             is BetContract.Event.OnUpdateCredits -> onUpdateCredits(event.amount)
             is BetContract.Event.OnAdjustBet -> {
                 val currentTotal = viewState.value.betState.totalChips
-                setState {
-                    val newBet = if (event.amount == 0) 0
-                    else (betState.currentBet + event.amount).coerceIn(0, currentTotal)
-                    copy(
-                        betState = betState.copy(
-                            currentBet = newBet
-                        )
-                    )
-                }
+                val newBet = if (event.amount == 0) 0
+                else (viewState.value.betState.currentBet + event.amount).coerceIn(0, currentTotal)
+                onUpdateCurrentBet(newBet)
             }
 
             is BetContract.Event.OnSelectCustomBet -> {
-                setState {
-                    copy(
-                        betState = betState.copy(
-                            currentBet = event.amount.coerceIn(
-                                minimumValue = 0,
-                                maximumValue = viewState.value.betState.totalChips
-                            )
-                        )
-                    )
-                }
+                val newBet = event.amount.coerceIn(
+                    minimumValue = 0,
+                    maximumValue = viewState.value.betState.totalChips
+                )
+                onUpdateCurrentBet(newBet)
             }
 
             is BetContract.Event.OnConfirmBet -> onConfirmBet()
-            is BetContract.Event.OnCustomBetChange -> {
-                prefs.set(Pref.customBet, event.amount)
+            is BetContract.Event.OnCustomBetChange -> onCustomBetChange(event.amount)
+        }
+    }
+
+    private fun onUpdateCurrentBet(amount: Int) {
+        if (viewState.value.betState.saveCurrentBetEnabled) {
+            prefs.set(Pref.currentBet, amount)
+        } else {
+            setState {
+                copy(
+                    betState = betState.copy(
+                        currentBet = amount
+                    )
+                )
+            }
+        }
+    }
+
+    private fun onCustomBetChange(amount: Int) {
+        if (viewState.value.betState.saveCustomBetEnabled) {
+            prefs.set(Pref.customBet, amount)
+        } else {
+            setState {
+                copy(
+                    betState = betState.copy(
+                        customBet = amount
+                    )
+                )
             }
         }
     }

@@ -104,6 +104,7 @@
     <string name="my_card_packs">Mes paquets de cartes</string>
     <string name="equipped">Équipé</string>
     <string name="tap_equip">Appuyez pour équiper</string>
+    <string name="cancel">Annuler</string>
     <string name="locked">Fermé</string>
     <string name="preferences">Préférences</string>
     <string name="display_section">Affichage</string>
@@ -158,6 +159,18 @@
     <string name="gameplay_section">Gameplay</string>
     <string name="custom_bet_title">Pari personnalisé</string>
     <string name="credits_settings_option">Cliquez une seule fois pour modifier le pari personnalisé et effectuez un appui long pour l\'enregistrer.</string>
+    <string name="show_bottom_bar_desc">Afficher la barre inférieure sur l\'écran d\'accueil</string>
+    <string name="save_custom_bet_desc">Conservez votre pari personnalisé jusqu\'à la fermeture de l\'application.</string>
     <string name="ok">D\'accord</string>
     <string name="data_error_json_parsing">Erreur d\'analyse JSON – Une erreur est survenue, veuillez réessayer.</string>
+    <string name="navigation_section">Navigation</string>
+    <string name="show_bottom_bar_title">Afficher la barre inférieure</string>
+    <string name="changelog">Journal des modifications</string>
+    <string name="alert_dialog_cant_afford_pack_title">Vous ne pouvez pas acheter ce pack !</string>
+    <string name="alert_dialog_cant_afford_pack_message">Vous n\'avez pas assez de crédits pour acheter ce pack.</string>
+    <string name="dialog_purchase_confirmation_title">Êtes-vous sûr de vouloir acheter ce paquet de cartes ?</string>
+    <string name="dialog_purchase_confirmation_message">Vous perdrez définitivement %s crédits après avoir acheté ce pack de cartes.</string>
+    <string name="save_current_bet_title">Enregistrer le pari actuel</string>
+    <string name="save_current_bet_desc">Conservez votre pari actuel jusqu\'à la fermeture de l\'application.</string>
+    <string name="save_custom_bet_title">Enregistrer le pari personnalisé</string>
 </resources>

@@ -96,6 +96,7 @@ class MainViewModel @Inject constructor(
 
     private fun resetCustomBet() {
         prefs.set(Pref.customBet, 100)
+        prefs.set(Pref.currentBet, 0)
     }
 
     private fun checkForAppUpdates() {

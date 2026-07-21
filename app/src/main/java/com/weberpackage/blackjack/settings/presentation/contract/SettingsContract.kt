@@ -17,6 +17,8 @@ class SettingsContract {
         data class OnAppThemeSave(val appTheme: AppTheme) : Event()
         data class OnSetLanguage(val language: AppLanguage) : Event()
         data class OnSelectCredits(val selected: Boolean) : Event()
+        data class OnSelectSaveCurrentBet(val selected: Boolean) : Event()
+        data class OnSelectSaveCustomBet(val selected: Boolean) : Event()
     }
 
     data class State(
@@ -24,6 +26,8 @@ class SettingsContract {
         val language: AppLanguage,
         val appTheme: AppTheme,
         val creditsSelected: Boolean,
+        val saveCurrentBetSelected: Boolean,
+        val saveCustomBetSelected: Boolean,
         val isFirstTimeUser: Boolean = false,
         val showBottomBar: Boolean,
         val isInitialLoading: Boolean,

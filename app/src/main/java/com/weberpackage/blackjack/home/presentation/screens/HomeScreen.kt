@@ -182,7 +182,7 @@ private fun HomeScreen(
                                     .padding(start = 40.dp),
                                 count = chips,
                                 fontSize = 20.sp,
-                                showText = true
+                                showChipIcon = true
                             )
                         }
                     }
