@@ -43,7 +43,9 @@
 
     <!-- Home/Ranks -->
     <string name="benefits">"Avantage : "</string>
+    <string name="requirements">Exigences:</string>
     <string name="req_credits">"Crédits requis : "</string>
+    <string name="req_games">"Jeux requis : "</string>
     <string name="your_rank">Votre rang</string>
     <string name="placeholder_rank">Rang fictif</string>
     <string name="rank_benefit_multiplier">%1$.1fx %2$s</string>
@@ -101,6 +103,7 @@
     <!-- Settings -->
     <string name="balance">Équilibre</string>
     <string name="best">Meilleur</string>
+    <string name="games_played">Matchs joués</string>
     <string name="my_card_packs">Mes paquets de cartes</string>
     <string name="equipped">Équipé</string>
     <string name="tap_equip">Appuyez pour équiper</string>
@@ -173,4 +176,7 @@
     <string name="save_current_bet_title">Enregistrer le pari actuel</string>
     <string name="save_current_bet_desc">Conservez votre pari actuel jusqu\'à la fermeture de l\'application.</string>
     <string name="save_custom_bet_title">Enregistrer le pari personnalisé</string>
+    <string name="view_more">Voir plus</string>
+    <string name="alert_dialog_error_title">Oups !</string>
+    <string name="alert_dialog_error_message">Une erreur s\'est produite. Veuillez réessayer.</string>
 </resources>

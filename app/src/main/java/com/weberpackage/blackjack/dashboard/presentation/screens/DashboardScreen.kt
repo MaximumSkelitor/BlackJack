@@ -149,7 +149,7 @@ private fun DashboardScreenContent(
                     if (state.uiState.totalChips > 0) {
                         onNavigationRequested(
                             DashContract.Effect.Navigation.NavRoute(
-                                NavRoutes.PlayDest.Betting
+                                NavRoutes.PlayDest.Betting()
                             )
                         )
                     }
@@ -176,6 +176,7 @@ private fun DashboardScreenContent(
         item {
             RankSection(
                 userChips = state.uiState.totalChips,
+                userGamesPlayed = state.uiState.gamesPlayed,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.smallThree)
             )
         }

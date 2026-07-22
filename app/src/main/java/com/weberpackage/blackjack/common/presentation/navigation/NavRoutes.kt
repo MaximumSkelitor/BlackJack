@@ -31,9 +31,9 @@ sealed class NavRoutes {
         @Serializable
         data object Practice : PlayDest()
         @Serializable
-        data object PlayNow : PlayDest()
+        data class PlayNow(val currentBet: Int) : PlayDest()
         @Serializable
-        data object Betting : PlayDest()
+        data class Betting(val previousBet: Int = 0) : PlayDest()
         @Serializable
         data object Multiplayer : PlayDest()
     }

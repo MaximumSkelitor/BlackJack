@@ -1,6 +1,8 @@
 package com.weberpackage.blackjack.play_now.presentation.screens
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.BaseViewModel
 import com.weberpackage.blackjack.common.presentation.navigation.NavRoutes
@@ -22,8 +24,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayNowViewModel @Inject constructor(
-    private val prefs: Prefs
+    private val prefs: Prefs,
+    savedStateHandle: SavedStateHandle
 ) : BaseViewModel<PlayNowContract.Event, PlayNowContract.State, PlayNowContract.Effect>() {
+
+    private val currentBet =
+        savedStateHandle.toRoute<NavRoutes.PlayDest.PlayNow>().currentBet
 
     private val player = Player(chips = prefs.get(Pref.totalChips)).apply {
         multiplier = RankUtils.getMultiplier(chips)
@@ -33,11 +39,7 @@ class PlayNowViewModel @Inject constructor(
 
     init {
         collectPrefsFlow()
-        val bet = prefs.get(Pref.currentBet)
-        if (bet > 0) {
-            player.currentBet = bet
-            startNewGame()
-        }
+        initBet(currentBet = currentBet)
     }
 
     private fun collectPrefsFlow() {
@@ -86,6 +88,7 @@ class PlayNowViewModel @Inject constructor(
                 // but keeping logic for internal use if needed.
                 placeBet(event.amount)
             }
+
             is PlayNowContract.Event.ShowExitDialog -> showExitDialog()
             is PlayNowContract.Event.ShowNoCreditsAlert -> {}
         }
@@ -98,11 +101,11 @@ class PlayNowViewModel @Inject constructor(
             setState {
                 copy(
                     playNowState = (
-                        playNowState.copy(
-                            currentBet = amount,
-                            totalChips = player.chips,
-                        )
-                    )
+                            playNowState.copy(
+                                currentBet = amount,
+                                totalChips = player.chips,
+                            )
+                            )
                 )
             }
             prefs.set(Pref.totalChips, player.chips)
@@ -234,16 +237,13 @@ class PlayNowViewModel @Inject constructor(
             )
         }
         prefs.set(Pref.totalChips, player.chips)
-        if (!prefs.get(Pref.saveCurrentBet)) {
-            prefs.set(Pref.currentBet, 0)
-        }
     }
 
     private fun resetGame() {
         setEffect {
             PlayNowContract.Effect.Navigation.NavRoute(
-                route = NavRoutes.PlayDest.Betting,
-                popUpToRoute = NavRoutes.PlayDest.PlayNow,
+                route = NavRoutes.PlayDest.Betting(previousBet = currentBet),
+                popUpToRoute = NavRoutes.PlayDest.PlayNow(currentBet),
                 inclusive = true
             )
         }
@@ -270,7 +270,44 @@ class PlayNowViewModel @Inject constructor(
         }
     }
 
+    private fun showErrorDialog() {
+        viewModelScope.launch {
+            DialogController.sendEvent(
+                DialogEvent(
+                    title = UiText(R.string.alert_dialog_error_title),
+                    message = UiText(R.string.alert_dialog_error_message),
+                    dismissible = false,
+                    positiveAction = DialogAction(
+                        buttonText = UiText(R.string.ok),
+                        action = {
+                            setEffect {
+                                PlayNowContract.Effect.Navigation.NavRoute(
+                                    route = NavRoutes.HomeGraph,
+                                    popUpToRoute = NavRoutes.PlayGraph,
+                                    inclusive = true,
+                                )
+                            }
+                        }
+                    )
+                )
+            )
+        }
+    }
 
+    private fun initBet(currentBet: Int) {
+        if (currentBet > 0) {
+            val currentChips = prefs.get(Pref.totalChips)
+            val updatedChipValue = currentChips - currentBet
+
+            val currentGamesPlayed = prefs.get(Pref.gamesPlayed)
+            prefs.set(Pref.totalChips, updatedChipValue)
+            prefs.set(Pref.gamesPlayed, currentGamesPlayed + 1)
+            player.currentBet = currentBet
+            startNewGame()
+        } else {
+            showErrorDialog()
+        }
+    }
 
     private fun <T> collectAndUpdateState(
         pref: Pref<T>,

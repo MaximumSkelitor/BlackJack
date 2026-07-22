@@ -1,9 +1,6 @@
 package com.weberpackage.blackjack.common.presentation.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -29,10 +26,9 @@ fun RootNavGraph(
     startDestination: Any,
 ) {
     NavHost(
-        modifier = Modifier.background(Color.Transparent),
         navController = navController,
-        startDestination = startDestination
-    ) {
+        startDestination = startDestination,
+        ) {
         composable<NavRoutes.Changelog> {
             ChangelogScreenDestination(navController)
         }
@@ -65,7 +61,7 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
 
 fun NavGraphBuilder.playNavGraph(navController: NavHostController) {
     navigation<NavRoutes.PlayGraph>(
-        startDestination = NavRoutes.PlayDest.Betting
+        startDestination = NavRoutes.PlayDest.Betting()
     ) {
         composable<NavRoutes.PlayDest.Betting> {
             BettingScreenDest(

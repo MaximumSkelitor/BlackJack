@@ -26,7 +26,7 @@ val cardPacks = listOf(
     CardPackItem(
         id = 1,
         nameResId = R.string.card_pack_1,
-        price = 500,
+        price = 0,
         icon = Icons.Default.Style,
         color = Color(0xFFA6A6A6), // Green
         sampleCards = listOf(

@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 val alerterInfo = Color(0xFF3E3D3D)
 val alerterError = Color(0xFFFF5449)
+val completedCheck = Color(0xFF19860B)
 
 
 //val primaryLight = Color(0xFF006874)

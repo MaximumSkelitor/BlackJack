@@ -55,6 +55,11 @@ class ProfileViewModel @Inject constructor(
                 profileState = profileState.copy(equippedPack = it)
             )
         }
+        collectAndUpdateState(Pref.gamesPlayed) {
+            copy(
+                profileState = profileState.copy(gamesPlayed = it)
+            )
+        }
     }
 
     override fun setInitialState() = ProfileContract.State(
@@ -62,6 +67,7 @@ class ProfileViewModel @Inject constructor(
             username = prefs.get(Pref.username),
             totalChips = prefs.get(Pref.totalChips),
             highestChips = prefs.get(Pref.highestChips),
+            gamesPlayed = prefs.get(Pref.gamesPlayed),
             ownedPacks = prefs.get(Pref.ownedPacks).split(",").filter { s -> s.isNotEmpty() }.map { s -> s.toInt() },
             equippedPack = prefs.get(Pref.equippedPack),
         ),

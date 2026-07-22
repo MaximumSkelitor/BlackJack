@@ -22,6 +22,22 @@ fun formatChips(amount: Int): String {
     return NumberFormat.getNumberInstance(Locale.US).format(amount)
 }
 
+fun formatChipsCompact(amount: Int): String {
+    return when {
+        amount >= 1_000_000 -> {
+            val millions = amount / 1_000_000.0
+            if (millions % 1 == 0.0) String.format(Locale.US, "%.0fM", millions)
+            else String.format(Locale.US, "%.1fM", millions)
+        }
+        amount >= 1_000 -> {
+            val thousands = amount / 1_000.0
+            if (thousands % 1 == 0.0) String.format(Locale.US, "%.0fk", thousands)
+            else String.format(Locale.US, "%.1fk", thousands)
+        }
+        else -> amount.toString()
+    }
+}
+
 @Composable
 fun bigCardColorStops(): Array<Pair<Float, Color>> {
     val surface = MaterialTheme.colorScheme.surfaceContainer
@@ -65,6 +81,14 @@ fun cardColorStops(): Array<Pair<Float, Color>> {
     return arrayOf(
         0.0f to MaterialTheme.colorScheme.surfaceContainer,
         1f to MaterialTheme.colorScheme.surfaceContainerLow
+    )
+}
+
+@Composable
+fun cardColorStopsLight(): Array<Pair<Float, Color>> {
+    return arrayOf(
+        0.0f to MaterialTheme.colorScheme.surfaceContainer.copy(.7f),
+        1f to MaterialTheme.colorScheme.surfaceContainerLow.copy(.7f)
     )
 }
 

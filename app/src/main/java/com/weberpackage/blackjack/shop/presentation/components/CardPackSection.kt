@@ -185,18 +185,16 @@ fun CardPackPurchaseCard(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                if (!isOwned) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "${formatChips(item.price)} ${stringResource(R.string.credits)}",
-                            color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = FontWeight.ExtraBold
-                        )
-                    }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "${formatChips(item.price)} ${stringResource(R.string.credits)}",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.ExtraBold
+                    )
                 }
 
                 OutlinedButton(
@@ -227,7 +225,7 @@ fun CardPackPurchaseCard(
                         color = when {
                             isOwned -> MaterialTheme.colorScheme.onSurface
                             canAfford -> MaterialTheme.colorScheme.secondary
-                            else -> MaterialTheme.colorScheme.error.copy(.7f)
+                            else -> MaterialTheme.colorScheme.error
                         }
                     )
                 }

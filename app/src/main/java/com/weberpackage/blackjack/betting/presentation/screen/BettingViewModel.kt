@@ -1,6 +1,8 @@
 package com.weberpackage.blackjack.betting.presentation.screen
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.betting.presentation.contract.BetContract
 import com.weberpackage.blackjack.betting.presentation.model.BetState
@@ -14,11 +16,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BettingViewModel @Inject constructor(
-    private val prefs: Prefs
+    private val prefs: Prefs,
+    savedStateHandle: SavedStateHandle
 ) : BaseViewModel<BetContract.Event, BetContract.State, BetContract.Effect>() {
+
+    private val previousBet =
+        savedStateHandle.toRoute<NavRoutes.PlayDest.Betting>().previousBet
 
     init {
         collectPrefsFlow()
+        initPreviousBet(previousBet = previousBet)
     }
 
     private fun collectPrefsFlow() {
@@ -33,13 +40,6 @@ class BettingViewModel @Inject constructor(
             copy(
                 betState = betState.copy(
                     customBet = it
-                )
-            )
-        }
-        collectAndUpdateState(Pref.currentBet) {
-            copy(
-                betState = betState.copy(
-                    currentBet = it
                 )
             )
         }
@@ -114,16 +114,12 @@ class BettingViewModel @Inject constructor(
     }
 
     private fun onUpdateCurrentBet(amount: Int) {
-        if (viewState.value.betState.saveCurrentBetEnabled) {
-            prefs.set(Pref.currentBet, amount)
-        } else {
-            setState {
-                copy(
-                    betState = betState.copy(
-                        currentBet = amount
-                    )
+        setState {
+            copy(
+                betState = betState.copy(
+                    currentBet = amount
                 )
-            }
+            )
         }
     }
 
@@ -149,20 +145,26 @@ class BettingViewModel @Inject constructor(
     private fun onConfirmBet() {
         val currentBet = viewState.value.betState.currentBet
         if (currentBet > 0) {
-            val currentTotal = viewState.value.betState.totalChips
-            prefs.set(Pref.currentBet, currentBet)
-            prefs.set(Pref.totalChips, currentTotal - currentBet)
-
             setEffect {
                 BetContract.Effect.Navigation.NavRoute(
-                    route = NavRoutes.PlayDest.PlayNow,
-                    popUpToRoute = NavRoutes.PlayDest.Betting,
+                    route = NavRoutes.PlayDest.PlayNow(currentBet = currentBet),
+                    popUpToRoute = NavRoutes.PlayDest.Betting(),
                     inclusive = true
                 )
             }
         }
     }
 
+    private fun initPreviousBet(previousBet: Int) {
+        val saveCurrentBet = viewState.value.betState.saveCurrentBetEnabled
+        setState {
+            copy(
+                betState = betState.copy(
+                    currentBet = if (saveCurrentBet) previousBet else 0
+                )
+            )
+        }
+    }
 
     private fun <T> collectAndUpdateState(
         pref: Pref<T>,

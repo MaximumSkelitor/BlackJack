@@ -23,5 +23,6 @@ data class Pref<T>(
         val creditsOptionSelected = Pref("edit_credits_settings", false)
         val saveCurrentBet = Pref("save_current_bet", false)
         val saveCustomBet = Pref("save_custom_bet", false)
+        val gamesPlayed = Pref("games_played", 0L)
     }
 }

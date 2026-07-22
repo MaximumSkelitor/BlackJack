@@ -6,20 +6,14 @@ import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material.icons.filled.WorkspacePremium
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.weberpackage.blackjack.R
+import com.weberpackage.blackjack.dashboard.presentation.model.RankData
 
-data class RankData(
-    val nameRes: Int,
-    val descRes: Int,
-    val icon: ImageVector,
-    val gradient: Brush,
-    val requiredChips: Int,
-    val multiplier: Float
-)
 
 object RankUtils {
     val ranks = listOf(
@@ -38,6 +32,7 @@ object RankUtils {
                 end = Offset(200f, 200f)
             ),
             requiredChips = 0,
+            requiredGamesPlayed = 0,
             multiplier = 1.0f
         ),
         RankData(
@@ -54,7 +49,8 @@ object RankUtils {
                 start = Offset.Zero,
                 end = Offset(200f, 200f)
             ),
-            requiredChips = 2000,
+            requiredChips = 10000,
+            requiredGamesPlayed = 25,
             multiplier = 1.5f
         ),
         RankData(
@@ -68,7 +64,8 @@ object RankUtils {
                     Color(0xFFFFD54F)
                 )
             ),
-            requiredChips = 2500,
+            requiredChips = 20000,
+            requiredGamesPlayed = 50,
             multiplier = 2.0f
         ),
         RankData(
@@ -85,7 +82,8 @@ object RankUtils {
                 start = Offset.Zero,
                 end = Offset(200f, 200f)
             ),
-            requiredChips = 3000,
+            requiredChips = 30000,
+            requiredGamesPlayed = 75,
             multiplier = 2.5f
         ),
         RankData(
@@ -102,12 +100,39 @@ object RankUtils {
                 start = Offset.Zero,
                 end = Offset(200f, 200f)
             ),
-            requiredChips = 5000,
+            requiredChips = 100000,
+            requiredGamesPlayed = 150,
             multiplier = 3f
         )
     )
 
     fun getMultiplier(chips: Int): Float {
         return ranks.lastOrNull { chips >= it.requiredChips }?.multiplier ?: 1.0f
+    }
+
+    // TODO: Move to viewmodel
+    @Composable
+    fun getRankProgress(
+        rank: RankData,
+        userChips: Int,
+        userGamesPlayed: Long,
+        prevRank: RankData? = null,
+    ): Float {
+        return remember(userChips, userGamesPlayed, rank, prevRank) {
+            val startChips = prevRank?.requiredChips ?: 0
+            val startGames = prevRank?.requiredGamesPlayed ?: 0L
+
+            val chipRange = (rank.requiredChips - startChips).toFloat()
+            val chipProgress = if (chipRange > 0) {
+                ((userChips - startChips).toFloat() / chipRange).coerceIn(0f, 1f)
+            } else 1f
+
+            val gameRange = (rank.requiredGamesPlayed - startGames).toFloat()
+            val gameProgress = if (gameRange > 0) {
+                ((userGamesPlayed - startGames).toFloat() / gameRange).coerceIn(0f, 1f)
+            } else 1f
+
+            (chipProgress + gameProgress) / 2f
+        }
     }
 }

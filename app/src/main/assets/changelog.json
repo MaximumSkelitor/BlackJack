@@ -8,19 +8,19 @@
       "logs": [
         {
           "type": "new",
-          "text": "New betting screen"
+          "text": "Reworked rank UI and new Games Played requirement "
+        },
+        {
+          "type": "new",
+          "text": "New betting screen with new custom bet feature, and also a new bet increment system"
+        },
+        {
+          "type": "new",
+          "text": "Added new down faced cards for dealer, for more authentic play"
         },
         {
           "type": "imp",
-          "text": "Better app colors"
-        },
-        {
-          "type": "imp",
-          "text": "Updated Navigation"
-        },
-        {
-          "type": "imp",
-          "text": "Improved cards"
+          "text": "Improved app theme, logo, and colors"
         },
         {
           "type": "imp",

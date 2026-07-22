@@ -44,6 +44,11 @@ class DashboardViewModel @Inject constructor(
                 uiState = uiState.copy(totalChips = it)
             )
         }
+        collectAndUpdateState(Pref.gamesPlayed) {
+            copy(
+                uiState = uiState.copy(gamesPlayed = it)
+            )
+        }
         collectAndUpdateState(Pref.username) {
             copy(
                 uiState = uiState.copy(username = it),

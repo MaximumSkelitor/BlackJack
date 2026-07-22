@@ -31,8 +31,10 @@
     <string name="credits">Credits</string>
 
     <!-- Home/Ranks -->
-    <string name="benefits">"Benefit: "</string>
+    <string name="benefits">"Benefits: "</string>
+    <string name="requirements">"Requirements: "</string>
     <string name="req_credits">"Required Credits: "</string>
+    <string name="req_games">"Required Games: "</string>
     <string name="your_rank">Your Rank</string>
     <string name="placeholder_rank">Placeholder Rank</string>
     <string name="placeholder_rank_desc" translatable="false">This is a placeholder rank.</string>
@@ -119,6 +121,8 @@
 
     <string name="balance">Balance</string>
     <string name="best">Best</string>
+
+    <string name="games_played">Games Played</string>
     <string name="my_card_packs">My Card Packs</string>
     <string name="equipped">Equipped</string>
     <string name="tap_equip">Tap to equip</string>
@@ -194,7 +198,7 @@
     <string name="show_bottom_bar_desc">Show the bottom bar on the home screen</string>
 
     <string name="save_current_bet_title">Save Current Bet</string>
-    <string name="save_current_bet_desc">Save your current bet until you close the app</string>
+    <string name="save_current_bet_desc">Save your current bet until you exit play now mode</string>
 
     <string name="save_custom_bet_title">Save Custom Bet</string>
     <string name="save_custom_bet_desc">Save your custom bet until you close the app</string>
@@ -205,4 +209,9 @@
     <string name="alert_dialog_cant_afford_pack_message">You don\'t have enough credits to purchase this pack.</string>
     <string name="dialog_purchase_confirmation_title">Are you sure you want to buy this card pack?</string>
     <string name="dialog_purchase_confirmation_message">You will permanently lose %s credits after you buy this card pack.</string>
+
+    <string name="view_more">View more</string>
+
+    <string name="alert_dialog_error_title">Uh oh!</string>
+    <string name="alert_dialog_error_message">An error has occurred. Please try again.</string>
 </resources>

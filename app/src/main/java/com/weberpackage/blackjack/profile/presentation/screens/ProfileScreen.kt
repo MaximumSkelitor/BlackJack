@@ -189,6 +189,10 @@ fun ProfileScreenContent(
                         label = stringResource(R.string.best),
                         value = formatChips(state.profileState.highestChips)
                     )
+                    StatColumn(
+                        label = stringResource(R.string.games_played),
+                        value = formatChips(state.profileState.gamesPlayed.toInt())
+                    )
                 }
 
                 HorizontalDivider(

@@ -8,9 +8,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
@@ -86,13 +88,13 @@ class MainActivity : AppCompatActivity() {
         )
 
         BlackJackTheme(appTheme = state.appTheme) {
-            Surface {
+            Surface(modifier = Modifier.fillMaxSize()) {
                 EventAlertDialog(eventDialogState = eventDialog)
-            }
 
-            RootNavGraph(
-                startDestination = state.startDestination
-            )
+                RootNavGraph(
+                    startDestination = state.startDestination
+                )
+            }
         }
     }
 

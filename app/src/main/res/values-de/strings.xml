@@ -45,7 +45,9 @@
 
     <!-- Home/Ranks -->
     <string name="benefits">"Vorteil: "</string>
+    <string name="requirements">Anforderungen:</string>
     <string name="req_credits">"Erforderliche Credits: "</string>
+    <string name="req_games">"Erforderliche Spiele: "</string>
     <string name="your_rank">Dein Rang</string>
     <string name="placeholder_rank">Platzhalter-Rang</string>
 
@@ -104,6 +106,7 @@
     <!-- Settings -->
     <string name="balance">Gleichgewicht</string>
     <string name="best">Am besten</string>
+    <string name="games_played">Gespielte Spiele</string>
     <string name="my_card_packs">Meine Kartenpakete</string>
     <string name="equipped">Ausgestattet</string>
     <string name="tap_equip">Tippen, um auszurüsten</string>
@@ -173,4 +176,7 @@
     <string name="save_current_bet_title">Aktuelle Wette speichern</string>
     <string name="save_current_bet_desc">Speichere deinen aktuellen Einsatz, bis du die App schließt.</string>
     <string name="save_custom_bet_title">Individuelle Wette speichern</string>
+    <string name="view_more">Mehr anzeigen</string>
+    <string name="alert_dialog_error_title">Oh je!</string>
+    <string name="alert_dialog_error_message">Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</string>
 </resources>
