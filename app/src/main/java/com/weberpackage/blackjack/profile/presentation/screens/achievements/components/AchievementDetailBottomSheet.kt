@@ -1,4 +1,4 @@
-package com.weberpackage.blackjack.dashboard.presentation.components
+package com.weberpackage.blackjack.profile.presentation.screens.achievements.components
 
 import android.app.Activity
 import android.content.ContextWrapper
@@ -14,7 +14,6 @@ import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -46,15 +45,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogWindowProvider
 import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
-import com.weberpackage.blackjack.dashboard.presentation.utils.RankUtils
+import com.weberpackage.blackjack.profile.presentation.screens.achievements.model.Achievement
+import com.weberpackage.blackjack.profile.presentation.screens.achievements.utils.AchievementUtils
 import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RankDetailBottomSheet(
-    initialRankIndex: Int,
-    userChips: Int,
-    userGamesPlayed: Long,
+fun AchievementDetailBottomSheet(
+    achievements: List<Achievement>,
+    initialIndex: Int,
     onDismissRequest: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(
@@ -92,10 +91,9 @@ fun RankDetailBottomSheet(
                 }
             }
         }
-        RankDetailContent(
-            initialRankIndex = initialRankIndex,
-            userChips = userChips,
-            userGamesPlayed = userGamesPlayed
+        AchievementDetailContent(
+            achievements = achievements,
+            initialIndex = initialIndex
         )
     }
 }
@@ -116,10 +114,9 @@ private fun findWindow(view: View): Window? {
 }
 
 @Composable
-fun RankDetailContent(
-    initialRankIndex: Int,
-    userChips: Int,
-    userGamesPlayed: Long,
+fun AchievementDetailContent(
+    achievements: List<Achievement>,
+    initialIndex: Int,
 ) {
     Column(
         modifier = Modifier
@@ -127,12 +124,11 @@ fun RankDetailContent(
             .padding(bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val ranks = RankUtils.ranks
         val listState = rememberLazyListState()
         val snapFlingBehavior = rememberSnapFlingBehavior(lazyListState = listState)
 
-        LaunchedEffect(initialRankIndex) {
-            listState.scrollToItem(initialRankIndex)
+        LaunchedEffect(initialIndex) {
+            listState.scrollToItem(initialIndex)
         }
 
         LazyRow(
@@ -142,7 +138,7 @@ fun RankDetailContent(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            itemsIndexed(ranks) { index, rank ->
+            itemsIndexed(achievements) { index, achievement ->
                 val scale by remember {
                     derivedStateOf {
                         val layoutInfo = listState.layoutInfo
@@ -163,14 +159,11 @@ fun RankDetailContent(
                     }
                 }
 
-                RankDetailCard(
-                    rank = rank,
-                    prevRank = ranks.getOrNull(index - 1),
-                    userChips = userChips,
-                    userGamesPlayed = userGamesPlayed,
+                AchievementDetailCard(
+                    achievement = achievement,
                     modifier = Modifier
-                        .width(320.dp)
-                        .height(IntrinsicSize.Max)
+                        .width(340.dp)
+                        .height(380.dp)
                         .graphicsLayer {
                             scaleX = scale
                             scaleY = scale
@@ -186,7 +179,7 @@ fun RankDetailContent(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ranks.forEachIndexed { index, _ ->
+            achievements.forEachIndexed { index, _ ->
                 val isSelected by remember {
                     derivedStateOf {
                         val layoutInfo = listState.layoutInfo
@@ -204,8 +197,8 @@ fun RankDetailContent(
                 val animatedColor by animateColorAsState(
                     targetValue = if (isSelected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant.copy(.1f),
                     animationSpec = tween(
-                        durationMillis = 300, // Duration of the fade
-                        easing = FastOutSlowInEasing // Smooth acceleration/deceleration
+                        durationMillis = 300,
+                        easing = FastOutSlowInEasing
                     ),
                     label = "ColorFadeAnimation"
                 )
@@ -221,16 +214,13 @@ fun RankDetailContent(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
-private fun RankDetailSheetPreview() {
+private fun AchievementDetailSheetPreview() {
     BlackJackTheme {
-        RankDetailContent(
-            initialRankIndex = 1,
-            userChips = 1000,
-            userGamesPlayed = 1
+        AchievementDetailContent(
+            achievements = AchievementUtils.initialAchievements,
+            initialIndex = 0
         )
     }
 }

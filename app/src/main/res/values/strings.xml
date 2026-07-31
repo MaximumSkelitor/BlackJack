@@ -32,7 +32,7 @@
 
     <!-- Home/Ranks -->
     <string name="benefits">"Benefits: "</string>
-    <string name="requirements">"Requirements: "</string>
+    <string name="requirements_equals">"Requirements: "</string>
     <string name="req_credits">"Required Credits: "</string>
     <string name="req_games">"Required Games: "</string>
     <string name="your_rank">Your Rank</string>
@@ -120,6 +120,7 @@
     <string name="highest_chips_profile">Highest Credits: %d</string>
 
     <string name="balance">Balance</string>
+    <string name="career_credits">Career Credits</string>
     <string name="best">Best</string>
 
     <string name="games_played">Games Played</string>
@@ -205,13 +206,66 @@
 
     <string name="ok">OK</string>
     <string name="changelog">Changelog</string>
-    <string name="alert_dialog_cant_afford_pack_title">You can\'t afford this pack!</string>
-    <string name="alert_dialog_cant_afford_pack_message">You don\'t have enough credits to purchase this pack.</string>
-    <string name="dialog_purchase_confirmation_title">Are you sure you want to buy this card pack?</string>
-    <string name="dialog_purchase_confirmation_message">You will permanently lose %s credits after you buy this card pack.</string>
+    <string name="alerter_cant_afford_pack_title">You can\'t afford this pack!</string>
+    <string name="alerter_cant_afford_pack_message">You don\'t have enough credits to purchase this pack.</string>
+    <string name="alerter_already_owned_title">Already Owned</string>
+    <string name="alerter_already_owned_message">You already own this card pack.</string>
+    <string name="dialog_purchase_confirmation_title">Are you sure?</string>
+    <string name="dialog_purchase_confirmation_message">This item is %s credits. Do you want to buy this card pack?</string>
 
     <string name="view_more">View more</string>
 
     <string name="alert_dialog_error_title">Uh oh!</string>
     <string name="alert_dialog_error_message">An error has occurred. Please try again.</string>
+
+    <string name="rank_progress">Rank progress</string>
+    <string name="enter_username">Enter your username</string>
+
+    <string name="preferences_settings_option_desc">Configure your app</string>
+    <string name="username_settings_option_desc">Change your username</string>
+    <string name="discord_settings_option_desc">Report bugs or give feedback</string>
+    <string name="app_info_settings_option_desc">App version, version code, etc</string>
+    <string name="changelog_settings_option_desc">Explore new features</string>
+    <string name="credits_settings_option_desc">Credits to all the open source libraries used</string>
+    <string name="achievements_title">Achievements</string>
+    <string name="achievements_desc">Earn special rewards</string>
+
+    <string name="achievement_first_step_title">First Step</string>
+    <string name="achievement_first_step_desc">Play your first game</string>
+    <string name="achievement_veteran_title">Veteran</string>
+    <string name="achievement_veteran_desc">Play 100 games</string>
+    <string name="achievement_high_roller_title">High Roller</string>
+    <string name="achievement_high_roller_desc">Reach a best of 50,000 credits</string>
+    <string name="achievement_millionaire_title">Millionaire</string>
+    <string name="achievement_millionaire_desc">Reach a best of 1,000,000 credits</string>
+    <string name="achievement_unstoppable_title">Unstoppable</string>
+    <string name="achievement_unstoppable_desc">Play 500 games</string>
+
+    <string name="achievement_apprentice_title">Apprentice</string>
+    <string name="achievement_apprentice_desc">Reach 5,000 career credits</string>
+    <string name="achievement_hustler_title">Hustler</string>
+    <string name="achievement_hustler_desc">Reach 25,000 career credits</string>
+    <string name="achievement_grinder_title">Grinder</string>
+    <string name="achievement_grinder_desc">Reach 100,000 career credits</string>
+    <string name="achievement_legend_title">Casino Legend</string>
+    <string name="achievement_legend_desc">Reach 500,000 career credits</string>
+
+    <string name="achievement_unlocked_alert">Achievement Unlocked: %s</string>
+
+    <!-- Exclusive Achievement Packs -->
+    <string name="card_pack_emerald_ace">Emerald Ace</string>
+    <string name="card_pack_ruby_dealer">Ruby Dealer</string>
+    <string name="card_pack_midnight_sapphire">Midnight Sapphire</string>
+    <string name="card_pack_gold_rush">Gold Rush</string>
+    <string name="card_pack_royal_flush">Royal Flush</string>
+    <string name="claimed">Claimed</string>
+    <string name="credits_amount">Credits: %s</string>
+    <string name="exclusive_card_pack">Exclusive Card Pack: %s</string>
+    <string name="rewards">Rewards</string>
+    <string name="requirement">Requirement</string>
+    <string name="requirements">Requirements</string>
+    <string name="games_played_req">Games Played: %s</string>
+    <string name="highest_credits_req">Highest Credits: %s</string>
+    <string name="total_credits_req">Total Credits: %s</string>
+    <string name="career_credits_req">Career Credits: %s</string>
 </resources>

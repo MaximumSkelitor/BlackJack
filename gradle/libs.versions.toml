@@ -1,5 +1,5 @@
 [versions]
-agp = "9.3.0"
+agp = "9.3.1"
 #composeunstyled = "2.8.0"
 composablesCore = "1.49.9"
 coreKtx = "1.19.0"

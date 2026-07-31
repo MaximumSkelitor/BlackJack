@@ -14,6 +14,7 @@ import com.weberpackage.blackjack.home.presentation.screens.HomeScreenDest
 import com.weberpackage.blackjack.multiplayer.presentation.screens.MultiplayerScreenDest
 import com.weberpackage.blackjack.play_now.presentation.screens.PlayNowScreenDest
 import com.weberpackage.blackjack.practice.presentation.screens.PracticeScreenDest
+import com.weberpackage.blackjack.profile.presentation.screens.achievements.AchievementsScreenDest
 import com.weberpackage.blackjack.settings.presentation.screens.CreditsScreen
 import com.weberpackage.blackjack.settings.presentation.screens.PreferencesScreenDest
 import com.weberpackage.blackjack.settings.presentation.screens.SettingsScreenDest
@@ -44,6 +45,7 @@ fun RootNavGraph(
         homeNavGraph(navController)
         playNavGraph(navController)
         settingsNavGraph(navController)
+        profileNavGraph(navController)
     }
 }
 
@@ -118,6 +120,20 @@ fun NavGraphBuilder.settingsNavGraph(
         }
         composable<NavRoutes.SettingsDest.Changelog> {
             ChangelogScreenDestination(
+                navController = navController
+            )
+        }
+    }
+}
+
+fun NavGraphBuilder.profileNavGraph(
+    navController: NavHostController
+) {
+    navigation<NavRoutes.ProfileGraph>(
+        startDestination = NavRoutes.ProfileDest.Achievements
+    ) {
+        composable<NavRoutes.ProfileDest.Achievements> {
+            AchievementsScreenDest(
                 navController = navController
             )
         }

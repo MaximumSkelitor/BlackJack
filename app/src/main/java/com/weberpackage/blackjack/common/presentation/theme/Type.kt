@@ -1,30 +1,25 @@
 package com.weberpackage.blackjack.common.presentation.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
+import androidx.compose.ui.text.font.FontWeight
 import com.weberpackage.blackjack.R
 
-val provider = GoogleFont.Provider(
-    providerAuthority = "com.google.android.gms.fonts",
-    providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
+val Montserrat = FontFamily(
+    Font(R.font.montserrat_thin, FontWeight.Thin),
+    Font(R.font.montserrat_extralight, FontWeight.ExtraLight),
+    Font(R.font.montserrat_light, FontWeight.Light),
+    Font(R.font.montserrat_regular, FontWeight.Normal),
+    Font(R.font.montserrat_medium, FontWeight.Medium),
+    Font(R.font.montserrat_semibold, FontWeight.SemiBold),
+    Font(R.font.montserrat_bold, FontWeight.Bold),
+    Font(R.font.montserrat_extrabold, FontWeight.ExtraBold),
+    Font(R.font.montserrat_black, FontWeight.Black),
 )
 
-val bodyFontFamily = FontFamily(
-    Font(
-        googleFont = GoogleFont("Montserrat"),
-        fontProvider = provider,
-    )
-)
-
-val displayFontFamily = FontFamily(
-    Font(
-        googleFont = GoogleFont("Montserrat"),
-        fontProvider = provider,
-    )
-)
+val bodyFontFamily = Montserrat
+val displayFontFamily = Montserrat
 
 // Default Material 3 typography values
 val baseline = Typography()
@@ -46,4 +41,3 @@ val AppTypography = Typography(
     labelMedium = baseline.labelMedium.copy(fontFamily = bodyFontFamily),
     labelSmall = baseline.labelSmall.copy(fontFamily = bodyFontFamily),
 )
-

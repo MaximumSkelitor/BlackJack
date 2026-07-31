@@ -43,7 +43,7 @@
 
     <!-- Home/Ranks -->
     <string name="benefits">"Avantage : "</string>
-    <string name="requirements">Exigences:</string>
+    <string name="requirements_equals">Exigences:</string>
     <string name="req_credits">"Crédits requis : "</string>
     <string name="req_games">"Jeux requis : "</string>
     <string name="your_rank">Votre rang</string>
@@ -102,6 +102,7 @@
 
     <!-- Settings -->
     <string name="balance">Équilibre</string>
+    <string name="career_credits">Parcours professionnel</string>
     <string name="best">Meilleur</string>
     <string name="games_played">Matchs joués</string>
     <string name="my_card_packs">Mes paquets de cartes</string>
@@ -169,14 +170,60 @@
     <string name="navigation_section">Navigation</string>
     <string name="show_bottom_bar_title">Afficher la barre inférieure</string>
     <string name="changelog">Journal des modifications</string>
-    <string name="alert_dialog_cant_afford_pack_title">Vous ne pouvez pas acheter ce pack !</string>
-    <string name="alert_dialog_cant_afford_pack_message">Vous n\'avez pas assez de crédits pour acheter ce pack.</string>
-    <string name="dialog_purchase_confirmation_title">Êtes-vous sûr de vouloir acheter ce paquet de cartes ?</string>
-    <string name="dialog_purchase_confirmation_message">Vous perdrez définitivement %s crédits après avoir acheté ce pack de cartes.</string>
+    <string name="alerter_already_owned_message">Vous possédez déjà ce paquet de cartes.</string>
+    <string name="dialog_purchase_confirmation_title">Es-tu sûr?</string>
+    <string name="dialog_purchase_confirmation_message">Cet article coûte %s crédits. Voulez-vous acheter ce paquet de cartes ?</string>
     <string name="save_current_bet_title">Enregistrer le pari actuel</string>
     <string name="save_current_bet_desc">Conservez votre pari actuel jusqu\'à la fermeture de l\'application.</string>
     <string name="save_custom_bet_title">Enregistrer le pari personnalisé</string>
     <string name="view_more">Voir plus</string>
     <string name="alert_dialog_error_title">Oups !</string>
     <string name="alert_dialog_error_message">Une erreur s\'est produite. Veuillez réessayer.</string>
+    <string name="rank_progress">Progression du rang</string>
+    <string name="enter_username">Saisissez votre nom d\'utilisateur</string>
+    <string name="preferences_settings_option_desc">Configurez votre application</string>
+    <string name="username_settings_option_desc">Modifier votre nom d\'utilisateur</string>
+    <string name="discord_settings_option_desc">Signaler des bugs ou faire part de vos commentaires</string>
+    <string name="app_info_settings_option_desc">Version de l\'application, code de version, etc.</string>
+    <string name="changelog_settings_option_desc">Découvrez les nouvelles fonctionnalités</string>
+    <string name="credits_settings_option_desc">Crédits à toutes les bibliothèques open source utilisées</string>
+    <string name="achievements_title">Réalisations</string>
+    <string name="achievements_desc">Gagnez des récompenses spéciales</string>
+    <string name="achievement_first_step_title">Premier pas</string>
+    <string name="achievement_first_step_desc">Jouez votre première partie de blackjack.</string>
+    <string name="achievement_veteran_title">Vétéran</string>
+    <string name="achievement_veteran_desc">Jouez 100 parties de blackjack.</string>
+    <string name="achievement_high_roller_title">Gros joueur</string>
+    <string name="achievement_high_roller_desc">Atteindre un maximum de 50 000 crédits</string>
+    <string name="achievement_millionaire_title">Millionnaire</string>
+    <string name="achievement_millionaire_desc">Atteignez un maximum de 1 000 000 de crédits.</string>
+    <string name="achievement_unstoppable_title">Inarrêtable</string>
+    <string name="achievement_unstoppable_desc">Jouez 500 parties de blackjack.</string>
+    <string name="achievement_unlocked_alert">Succès débloqué : %s</string>
+    <string name="card_pack_emerald_ace">As d\'émeraude</string>
+    <string name="card_pack_ruby_dealer">Marchand de rubis</string>
+    <string name="card_pack_midnight_sapphire">Saphir de minuit</string>
+    <string name="card_pack_gold_rush">Ruée vers l\'or</string>
+    <string name="card_pack_royal_flush">Quinte royale</string>
+    <string name="claimed">Réclamé</string>
+    <string name="achievement_apprentice_title">Apprentie</string>
+    <string name="achievement_apprentice_desc">Atteignez 5 000 crédits en carrière</string>
+    <string name="achievement_hustler_title">Arnaqueur</string>
+    <string name="achievement_hustler_desc">Atteindre 25 000 crédits de carrière</string>
+    <string name="achievement_grinder_title">Broyeur</string>
+    <string name="achievement_grinder_desc">Atteignez 100 000 crédits de carrière.</string>
+    <string name="achievement_legend_title">Légende du casino</string>
+    <string name="achievement_legend_desc">Atteindre 500 000 crédits de carrière</string>
+    <string name="credits_amount">Crédits : %s</string>
+    <string name="exclusive_card_pack">Pack de cartes exclusif : %s</string>
+    <string name="rewards">Récompenses</string>
+    <string name="requirement">Exigence</string>
+    <string name="requirements">Exigence</string>
+    <string name="games_played_req">Parties jouées : %s</string>
+    <string name="highest_credits_req">Crédits maximums : %s</string>
+    <string name="total_credits_req">Total des crédits : %s</string>
+    <string name="career_credits_req">Crédits de carrière : %s</string>
+    <string name="alerter_cant_afford_pack_title">Vous ne pouvez pas vous offrir ce pack !</string>
+    <string name="alerter_cant_afford_pack_message">Vous n\'avez pas assez de crédits pour acheter ce pack.</string>
+    <string name="alerter_already_owned_title">Déjà possédé</string>
 </resources>

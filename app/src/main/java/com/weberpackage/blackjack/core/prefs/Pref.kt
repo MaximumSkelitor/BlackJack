@@ -24,5 +24,8 @@ data class Pref<T>(
         val saveCurrentBet = Pref("save_current_bet", false)
         val saveCustomBet = Pref("save_custom_bet", false)
         val gamesPlayed = Pref("games_played", 0L)
+        val careerCredits = Pref("career_credits", 0L)
+        val claimedAchievements = Pref("claimed_achievements", "")
+        val notifiedAchievements = Pref("notified_achievements", "")
     }
 }

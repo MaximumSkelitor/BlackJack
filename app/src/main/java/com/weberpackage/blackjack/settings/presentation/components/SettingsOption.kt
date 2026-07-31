@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,6 +41,7 @@ import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
 @Composable
 internal fun SettingsOption(
     @StringRes title: Int,
+    @StringRes desc: Int,
     description: String,
     onClick: () -> Unit,
     icon: ImageVector,
@@ -48,9 +50,9 @@ internal fun SettingsOption(
 
     Box(
         modifier = Modifier
+            .height(IntrinsicSize.Max)
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
-            .height(56.dp)
             .shadow(elevation = 8.dp, shape = cornerShape, clip = false)
             .background(Brush.horizontalGradient(colorStops = cardColorStops()), cornerShape)
             .clip(cornerShape)
@@ -69,24 +71,32 @@ internal fun SettingsOption(
             )
             Spacer(Modifier.width(12.dp)) // More standard material spacing
 
-            Text(
-                text = stringResource(title),
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.weight(1f) // Takes all remaining middle space
-            )
+            Column(Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(title),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                Text(
+                    text = stringResource(desc),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurface.copy(.5f),
+                )
+            }
+
 
             // Right Group: Description / Arrow
             Text(
                 text = description,
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(end = 8.dp)
             )
 
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = "Arrow"
             )
         }
@@ -106,12 +116,14 @@ private fun SettingsStructurePreview() {
                 title = R.string.preferences,
                 description = "",
                 onClick = {},
+                desc = R.string.preferences_settings_option_desc,
                 icon = Icons.Default.Tune
             )
             SettingsOption(
                 title = R.string.username,
                 description = stringResource(R.string.users_username, "Tester"),
                 onClick = {},
+                desc = R.string.username_settings_option_desc,
                 icon = Icons.Default.Badge,
             )
         }

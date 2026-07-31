@@ -12,6 +12,7 @@ import com.weberpackage.blackjack.core.prefs.Pref
 import com.weberpackage.blackjack.core.prefs.Prefs
 import com.weberpackage.blackjack.dashboard.presentation.contract.DashContract
 import com.weberpackage.blackjack.dashboard.presentation.model.DashState
+import com.weberpackage.blackjack.dashboard.presentation.utils.RankUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,10 +27,27 @@ class DashboardViewModel @Inject constructor(
         collectPrefsFlow()
     }
 
-    override fun setInitialState() = DashContract.State(
-        uiState = DashState(),
-        isInitialLoading = true,
-    )
+    override fun setInitialState(): DashContract.State {
+        val chips = prefs.get(Pref.totalChips)
+        val games = prefs.get(Pref.gamesPlayed)
+        val currentRank = RankUtils.getCurrentRank(chips, games)
+        val nextRank = RankUtils.getNextRank(chips, games)
+        val progress = nextRank?.let {
+            RankUtils.getRankProgress(it, chips, games, currentRank)
+        } ?: 1f
+
+        return DashContract.State(
+            uiState = DashState(
+                totalChips = chips,
+                gamesPlayed = games,
+                username = prefs.get(Pref.username),
+                currentRank = currentRank,
+                nextRank = nextRank,
+                rankProgress = progress
+            ),
+            isInitialLoading = true,
+        )
+    }
 
     override fun handleEvents(event: DashContract.Event) {
         when (event) {
@@ -40,14 +58,16 @@ class DashboardViewModel @Inject constructor(
 
     private fun collectPrefsFlow() {
         collectAndUpdateState(Pref.totalChips) {
-            copy(
+            val newState = copy(
                 uiState = uiState.copy(totalChips = it)
             )
+            newState.updateRankInfo()
         }
         collectAndUpdateState(Pref.gamesPlayed) {
-            copy(
+            val newState = copy(
                 uiState = uiState.copy(gamesPlayed = it)
             )
+            newState.updateRankInfo()
         }
         collectAndUpdateState(Pref.username) {
             copy(
@@ -56,6 +76,24 @@ class DashboardViewModel @Inject constructor(
             )
         }
         checkTotalChips()
+    }
+
+    private fun DashContract.State.updateRankInfo(): DashContract.State {
+        val chips = uiState.totalChips
+        val games = uiState.gamesPlayed
+        val currentRank = RankUtils.getCurrentRank(chips, games)
+        val nextRank = RankUtils.getNextRank(chips, games)
+        val progress = nextRank?.let {
+            RankUtils.getRankProgress(it, chips, games, currentRank)
+        } ?: 1f
+
+        return copy(
+            uiState = uiState.copy(
+                currentRank = currentRank,
+                nextRank = nextRank,
+                rankProgress = progress
+            )
+        )
     }
 
     private fun <T> collectAndUpdateState(

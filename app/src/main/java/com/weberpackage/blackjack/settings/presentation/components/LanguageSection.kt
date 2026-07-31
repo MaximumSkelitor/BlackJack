@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -79,40 +81,37 @@ internal fun LanguageSection(
                 OutlinedCard(
                     onClick = { menuExpanded = true },
                     modifier = Modifier
-                        .width(160.dp)
+                        .width(180.dp)
                         .height(50.dp),
                     shape = RoundedCornerShape(24.dp),
                     border = BorderStroke(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline
+                        width = 2.dp,
+                        color = MaterialTheme.colorScheme.outlineVariant.copy(.3f),
                     ),
                     colors = CardDefaults.outlinedCardColors(
-                        containerColor = MaterialTheme.colorScheme.inverseOnSurface.copy(0.5f)
+                        containerColor = Color.Transparent
                     )
                 ) {
-                    Box(
+                    Row(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(horizontal = 10.dp),
-                        contentAlignment = Alignment.CenterStart
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = stringResource(selectedLanguage.title),
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                            Icon(
-                                imageVector = Icons.Default.ArrowDropDown,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .rotate(arrowRotationDegree),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
+                        Text(
+                            text = stringResource(selectedLanguage.title),
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.weight(1f, fill = false)
+                        )
+                        Spacer(Modifier.width(4.dp))
+                        Icon(
+                            imageVector = Icons.Default.ArrowDropDown,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .rotate(arrowRotationDegree),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 }
 

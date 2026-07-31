@@ -92,6 +92,18 @@ class ShopViewModel @Inject constructor(
 
     private fun onPurchasePack(event: ShopContract.Event.OnPurchasePack) {
         val currentChips = prefs.get(Pref.totalChips)
+        val ownedPacks = viewState.value.ownedPacks
+
+        if (ownedPacks.contains(event.packId)) {
+            setEffect {
+                ShopContract.Effect.Notification(
+                    text = UiText(R.string.alerter_already_owned_message),
+                    error = true
+                )
+            }
+            return
+        }
+
         if (currentChips >= event.price) {
             showPurchaseConfirmationDialog(event)
         } else {
@@ -121,19 +133,14 @@ class ShopViewModel @Inject constructor(
     }
 
     private fun showCantAffordPackDialog() {
-        viewModelScope.launch {
-            DialogController.sendEvent(
-                DialogEvent(
-                    title = UiText(R.string.alert_dialog_cant_afford_pack_title),
-                    message = UiText(R.string.alert_dialog_cant_afford_pack_message),
-                    positiveAction = DialogAction(
-                        buttonText = UiText(R.string.ok),
-                        action = {}
-                    )
-                )
+        setEffect {
+            ShopContract.Effect.Notification(
+                text = UiText(R.string.alerter_cant_afford_pack_message),
+                error = true
             )
         }
     }
+
 
     private fun showPurchaseConfirmationDialog(event: ShopContract.Event.OnPurchasePack) {
         viewModelScope.launch {

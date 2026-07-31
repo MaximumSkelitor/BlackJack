@@ -54,6 +54,10 @@ fun BlackjackCard(
         3 -> Brush.verticalGradient(listOf(Color(0xFFF3E5F5), Color(0xFFE1BEE7))) // Purple tier
         4 -> Brush.verticalGradient(listOf(Color(0xFFFFF8E1), Color(0xFFFFECB3))) // Gold tier
         5 -> Brush.verticalGradient(listOf(Color(0xFFFFEBEE), Color(0xFFFFCDD2))) // Red tier
+        101 -> Brush.verticalGradient(listOf(Color(0xFFE8F5E9), Color(0xFFC8E6C9))) // Emerald Ace
+        102 -> Brush.verticalGradient(listOf(Color(0xFFFFEBEE), Color(0xFFFFCDD2))) // Ruby Dealer
+        103 -> Brush.verticalGradient(listOf(Color(0xFFFFF8E1), Color(0xFFFFECB3))) // Gold Rush
+        104 -> Brush.verticalGradient(listOf(Color(0xFFF3E5F5), Color(0xFFE1BEE7))) // Royal Flush
         else -> Brush.verticalGradient(listOf(Color.White, Color.White))
     }
 
@@ -63,6 +67,10 @@ fun BlackjackCard(
         3 -> Color(0xFF9C27B0)
         4 -> Color(0xFFFFC107)
         5 -> Color(0xFFE91E63)
+        101 -> Color(0xFF2E7D32)
+        102 -> Color(0xFFC62828)
+        103 -> Color(0xFFFFB300)
+        104 -> Color(0xFF6A1B9A)
         else -> Color.Transparent
     }
 
@@ -144,6 +152,10 @@ fun DownBlackJackCard(
         3 -> Brush.verticalGradient(listOf(Color(0xFFF3E5F5), Color(0xFFE1BEE7))) // Purple tier
         4 -> Brush.verticalGradient(listOf(Color(0xFFFFF8E1), Color(0xFFFFECB3))) // Gold tier
         5 -> Brush.verticalGradient(listOf(Color(0xFFFFEBEE), Color(0xFFFFCDD2))) // Red tier
+        101 -> Brush.verticalGradient(listOf(Color(0xFFE8F5E9), Color(0xFFC8E6C9))) // Emerald Ace
+        102 -> Brush.verticalGradient(listOf(Color(0xFFFFEBEE), Color(0xFFFFCDD2))) // Ruby Dealer
+        103 -> Brush.verticalGradient(listOf(Color(0xFFFFF8E1), Color(0xFFFFECB3))) // Gold Rush
+        104 -> Brush.verticalGradient(listOf(Color(0xFFF3E5F5), Color(0xFFE1BEE7))) // Royal Flush
         else -> Brush.verticalGradient(listOf(Color.White, Color.White))
     }
 
@@ -153,6 +165,10 @@ fun DownBlackJackCard(
         3 -> Color(0xFF9C27B0)
         4 -> Color(0xFFFFC107)
         5 -> Color(0xFFE91E63)
+        101 -> Color(0xFF2E7D32)
+        102 -> Color(0xFFC62828)
+        103 -> Color(0xFFFFB300)
+        104 -> Color(0xFF6A1B9A)
         else -> Color.Transparent
     }
 
@@ -161,6 +177,10 @@ fun DownBlackJackCard(
         3 -> Color(0xFF9C27B0).copy(alpha = 0.2f)
         4 -> Color(0xFFFFC107).copy(alpha = 0.2f)
         5 -> Color(0xFFE91E63).copy(alpha = 0.2f)
+        101 -> Color(0xFF2E7D32).copy(alpha = 0.2f)
+        102 -> Color(0xFFC62828).copy(alpha = 0.2f)
+        103 -> Color(0xFFFFB300).copy(alpha = 0.2f)
+        104 -> Color(0xFF6A1B9A).copy(alpha = 0.2f)
         else -> Color.Gray.copy(alpha = 0.15f)
     }
 
@@ -224,25 +244,46 @@ fun BlackjackCardsPreview() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            //Purchasable packs
+//            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+//                BlackjackCard(PlayCard(Suit.SPADES, Rank.ACE), packId = 1)
+//                DownBlackJackCard(packId = 1)
+//            }
+//            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+//                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 2)
+//                DownBlackJackCard(packId = 2)
+//            }
+//            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+//                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 3)
+//                DownBlackJackCard(packId = 3)
+//            }
+//            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+//                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 4)
+//                DownBlackJackCard(packId = 4)
+//            }
+//            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+//                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 5)
+//                DownBlackJackCard(packId = 5)
+//            }
+
+
+            // Non-purchasable packs
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                BlackjackCard(PlayCard(Suit.SPADES, Rank.ACE), packId = 1)
-                DownBlackJackCard(packId = 1)
+                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 101)
+                DownBlackJackCard(packId = 101)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 2)
-                DownBlackJackCard(packId = 2)
+                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 102)
+                DownBlackJackCard(packId = 102)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 3)
-                DownBlackJackCard(packId = 3)
+                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 103)
+                DownBlackJackCard(packId = 103)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 4)
-                DownBlackJackCard(packId = 4)
-            }
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 5)
-                DownBlackJackCard(packId = 5)
+                BlackjackCard(PlayCard(Suit.HEARTS, Rank.TEN), packId = 104)
+                DownBlackJackCard(packId = 104)
             }
         }
     }

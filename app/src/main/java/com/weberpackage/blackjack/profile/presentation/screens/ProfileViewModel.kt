@@ -6,6 +6,8 @@ import com.weberpackage.blackjack.core.prefs.Pref
 import com.weberpackage.blackjack.core.prefs.Prefs
 import com.weberpackage.blackjack.profile.presentation.contract.ProfileContract
 import com.weberpackage.blackjack.profile.presentation.model.ProfileState
+import com.weberpackage.blackjack.dashboard.presentation.utils.RankUtils
+import com.weberpackage.blackjack.profile.presentation.screens.achievements.utils.AchievementUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,11 +34,17 @@ class ProfileViewModel @Inject constructor(
                     prefs.set(Pref.highestChips, chips)
                 }
                 setState {
-                    copy(
+                    val newState = copy(
                         profileState = profileState.copy(totalChips = chips)
                     )
+                    newState.updateRankInfo()
                 }
             }
+        }
+        collectAndUpdateState(Pref.careerCredits) {
+            copy(
+                profileState = profileState.copy(careerCredits = it)
+            )
         }
         collectAndUpdateState(Pref.highestChips) {
             copy(
@@ -56,23 +64,71 @@ class ProfileViewModel @Inject constructor(
             )
         }
         collectAndUpdateState(Pref.gamesPlayed) {
-            copy(
+            val newState = copy(
                 profileState = profileState.copy(gamesPlayed = it)
             )
+            newState.updateRankInfo()
         }
     }
 
-    override fun setInitialState() = ProfileContract.State(
-        profileState = ProfileState(
-            username = prefs.get(Pref.username),
-            totalChips = prefs.get(Pref.totalChips),
-            highestChips = prefs.get(Pref.highestChips),
-            gamesPlayed = prefs.get(Pref.gamesPlayed),
-            ownedPacks = prefs.get(Pref.ownedPacks).split(",").filter { s -> s.isNotEmpty() }.map { s -> s.toInt() },
-            equippedPack = prefs.get(Pref.equippedPack),
-        ),
-        isInitialLoading = false,
-    )
+    private fun ProfileContract.State.updateRankInfo(): ProfileContract.State {
+        val chips = profileState.totalChips
+        val games = profileState.gamesPlayed
+        val currentRank = RankUtils.getCurrentRank(chips, games)
+        val nextRank = RankUtils.getNextRank(chips, games)
+        val progress = nextRank?.let {
+            RankUtils.getRankProgress(it, chips, games, currentRank)
+        } ?: 1f
+
+        val career = prefs.get(Pref.careerCredits)
+        val claimedIds = prefs.get(Pref.claimedAchievements).split(",").filter { it.isNotEmpty() }
+        val achievements = AchievementUtils.evaluateAchievements(games, profileState.highestChips.toLong(), chips.toLong(), career, claimedIds)
+        val unlocked = achievements.count { it.isUnlocked }
+
+        return copy(
+            profileState = profileState.copy(
+                currentRank = currentRank,
+                nextRank = nextRank,
+                rankProgress = progress,
+                unlockedAchievements = unlocked,
+                totalAchievements = achievements.size
+            )
+        )
+    }
+
+    override fun setInitialState(): ProfileContract.State {
+        val chips = prefs.get(Pref.totalChips)
+        val games = prefs.get(Pref.gamesPlayed)
+        val highest = prefs.get(Pref.highestChips)
+        val currentRank = RankUtils.getCurrentRank(chips, games)
+        val nextRank = RankUtils.getNextRank(chips, games)
+        val progress = nextRank?.let {
+            RankUtils.getRankProgress(it, chips, games, currentRank)
+        } ?: 1f
+
+        val career = prefs.get(Pref.careerCredits)
+        val claimedIds = prefs.get(Pref.claimedAchievements).split(",").filter { it.isNotEmpty() }
+        val achievements = AchievementUtils.evaluateAchievements(games, highest.toLong(), chips.toLong(), career, claimedIds)
+        val unlocked = achievements.count { it.isUnlocked }
+
+        return ProfileContract.State(
+            profileState = ProfileState(
+                username = prefs.get(Pref.username),
+                totalChips = chips,
+                highestChips = highest,
+                gamesPlayed = games,
+                careerCredits = prefs.get(Pref.careerCredits),
+                ownedPacks = prefs.get(Pref.ownedPacks).split(",").filter { s -> s.isNotEmpty() }.map { s -> s.toInt() },
+                equippedPack = prefs.get(Pref.equippedPack),
+                currentRank = currentRank,
+                nextRank = nextRank,
+                rankProgress = progress,
+                unlockedAchievements = unlocked,
+                totalAchievements = achievements.size
+            ),
+            isInitialLoading = false,
+        )
+    }
 
     override fun handleEvents(event: ProfileContract.Event) {
         when (event) {

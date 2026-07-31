@@ -13,7 +13,7 @@ fun StatColumn(label: String, value: String) {
         Text(
             text = value,
             style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.ExtraBold,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(

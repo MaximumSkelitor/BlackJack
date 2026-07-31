@@ -3,7 +3,7 @@ package com.weberpackage.blackjack.settings.presentation.components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
@@ -30,18 +30,19 @@ internal fun RadioButtonOption(
     Row(
         Modifier
             .fillMaxWidth()
-            .height(56.dp)
+            .heightIn(min = 56.dp)
             .selectable(
                 selected = selected, onClick = onClick, enabled = enabled, role = Role.RadioButton
             )
-            .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         RadioButton(
             selected = selected,
             onClick = null, // null recommended for accessibility with screen readers
             enabled = enabled
         )
-        Spacer(Modifier.width(3.dp))
+        Spacer(Modifier.width(8.dp))
         Icon(
             imageVector = appearanceImage, contentDescription = "Appearance Image"
         )
@@ -49,7 +50,9 @@ internal fun RadioButtonOption(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(start = 5.dp)
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .weight(1f)
         )
     }
 }

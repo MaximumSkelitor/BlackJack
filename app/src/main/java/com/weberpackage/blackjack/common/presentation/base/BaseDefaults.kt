@@ -22,6 +22,10 @@ fun formatChips(amount: Int): String {
     return NumberFormat.getNumberInstance(Locale.US).format(amount)
 }
 
+fun formatChipsLong(amount: Long): String {
+    return NumberFormat.getNumberInstance(Locale.US).format(amount)
+}
+
 fun formatChipsCompact(amount: Int): String {
     return when {
         amount >= 1_000_000 -> {

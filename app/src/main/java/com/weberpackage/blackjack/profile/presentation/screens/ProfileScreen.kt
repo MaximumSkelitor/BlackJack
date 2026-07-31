@@ -31,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -46,10 +47,15 @@ import com.weberpackage.blackjack.R
 import com.weberpackage.blackjack.common.presentation.base.SIDE_EFFECTS_KEY
 import com.weberpackage.blackjack.common.presentation.base.formatChips
 import com.weberpackage.blackjack.common.presentation.components.InitialLoadingProgress
+import com.weberpackage.blackjack.common.presentation.navigation.NavRoutes
 import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
 import com.weberpackage.blackjack.common.presentation.utils.safeNavigate
 import com.weberpackage.blackjack.common.presentation.utils.showAlerter
+import com.weberpackage.blackjack.dashboard.presentation.components.RankDetailBottomSheet
+import com.weberpackage.blackjack.dashboard.presentation.utils.RankUtils
+import com.weberpackage.blackjack.profile.presentation.components.AchievementsBar
 import com.weberpackage.blackjack.profile.presentation.components.EquippableCardPack
+import com.weberpackage.blackjack.profile.presentation.components.RankProgressBar
 import com.weberpackage.blackjack.profile.presentation.components.StatColumn
 import com.weberpackage.blackjack.profile.presentation.contract.ProfileContract
 import com.weberpackage.blackjack.profile.presentation.model.ProfileState
@@ -113,6 +119,7 @@ private fun ProfileScreen(
                 hazeState = hazeState,
                 state = state,
                 onEquipPack = { onEventSent(ProfileContract.Event.OnEquipPack(it)) },
+                onNavigationRequested = onNavigationRequested,
                 contentPadding = contentPadding,
             )
         }
@@ -124,13 +131,27 @@ fun ProfileScreenContent(
     hazeState: HazeState,
     state: ProfileContract.State,
     onEquipPack: (Int) -> Unit,
+    onNavigationRequested: (ProfileContract.Effect.Navigation) -> Unit,
     contentPadding: PaddingValues = PaddingValues()
 ) {
-    var currentEquipped by remember(state.profileState.equippedPack) { 
-        mutableIntStateOf(state.profileState.equippedPack) 
+    var currentEquipped by remember(state.profileState.equippedPack) {
+        mutableIntStateOf(state.profileState.equippedPack)
     }
+    var showRankSheet by remember { mutableStateOf(false) }
+
     val ownedPackItems = remember(state.profileState.ownedPacks) {
         cardPacks.filter { state.profileState.ownedPacks.contains(it.id) }
+    }
+
+    if (showRankSheet) {
+        val targetRank = state.profileState.nextRank ?: state.profileState.currentRank
+        val rankIndex = RankUtils.ranks.indexOf(targetRank)
+        RankDetailBottomSheet(
+            initialRankIndex = if (rankIndex != -1) rankIndex else 0,
+            userChips = state.profileState.totalChips,
+            userGamesPlayed = state.profileState.gamesPlayed,
+            onDismissRequest = { showRankSheet = false }
+        )
     }
 
     LazyVerticalGrid(
@@ -152,12 +173,15 @@ fun ProfileScreenContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                // Profile Picture
+                // Profile Picture and stats
                 Icon(
                     modifier = Modifier
                         .size(100.dp)
                         .border(
-                            BorderStroke(4.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)),
+                            BorderStroke(
+                                4.dp,
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+                            ),
                             CircleShape
                         )
                         .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
@@ -179,21 +203,47 @@ fun ProfileScreenContent(
 
                 Row(
                     modifier = Modifier.padding(vertical = 12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    StatColumn(
-                        label = stringResource(R.string.balance),
-                        value = formatChips(state.profileState.totalChips)
-                    )
                     StatColumn(
                         label = stringResource(R.string.best),
                         value = formatChips(state.profileState.highestChips)
+                    )
+                    StatColumn(
+                        label = stringResource(R.string.career_credits),
+                        value = formatChips(state.profileState.careerCredits.toInt())
                     )
                     StatColumn(
                         label = stringResource(R.string.games_played),
                         value = formatChips(state.profileState.gamesPlayed.toInt())
                     )
                 }
+
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    AchievementsBar(
+                        unlockedCount = state.profileState.unlockedAchievements,
+                        totalCount = state.profileState.totalAchievements,
+                        onClick = {
+                            onNavigationRequested(
+                                ProfileContract.Effect.Navigation.NavRoute(
+                                    NavRoutes.ProfileGraph
+                                )
+                            )
+                        }
+                    )
+
+                    RankProgressBar(
+                        rank = state.profileState.nextRank,
+                        progress = state.profileState.rankProgress,
+                        isExpanded = showRankSheet,
+                        onClick = { showRankSheet = true }
+                    )
+                }
+
+
 
                 HorizontalDivider(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
@@ -268,7 +318,8 @@ fun ProfileScreenPreview() {
                 ),
                 isInitialLoading = false
             ),
-            onEquipPack = {}
+            onEquipPack = {},
+            onNavigationRequested = {}
         )
     }
 }

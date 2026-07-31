@@ -332,8 +332,6 @@ private val mediumContrastDarkColorScheme = darkColorScheme(
     surfaceContainer = surfaceContainerDarkMediumContrast,
     surfaceContainerHigh = surfaceContainerHighDarkMediumContrast,
     surfaceContainerHighest = surfaceContainerHighestDarkMediumContrast,
-//    cardColorLow = cardColorLowDarkMediumContrast,
-//    cardColorLower = cardColorLowerDarkMediumContrast
 )
 
 @Suppress("unused")

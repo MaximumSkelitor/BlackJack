@@ -58,6 +58,7 @@ fun CardPackSection(
     onPurchase: (CardPackItem) -> Unit
 ) {
     val listState = rememberLazyListState()
+    val purchasablePacks = remember { cardPacks.filter { it.id < 100 } }
 
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -67,7 +68,7 @@ fun CardPackSection(
         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        itemsIndexed(cardPacks) { index, item ->
+        itemsIndexed(purchasablePacks) { index, item ->
             val scale by remember {
                 derivedStateOf {
                     val layoutInfo = listState.layoutInfo
@@ -126,7 +127,7 @@ fun CardPackPurchaseCard(
             .size(width = 240.dp, height = 240.dp)
             .clip(cornerShape)
             .background(Brush.verticalGradient(colorStops = cardColors))
-            .clickable(enabled = !isOwned) { onClick() },
+            .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Column(

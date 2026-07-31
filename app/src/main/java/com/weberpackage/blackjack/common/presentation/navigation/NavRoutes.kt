@@ -56,4 +56,13 @@ sealed class NavRoutes {
         data object Changelog : SettingsDest()
     }
 
+    @Serializable
+    data object ProfileGraph
+
+    @Serializable
+    sealed class ProfileDest {
+        @Serializable
+        data object Achievements : ProfileDest()
+    }
+
 }

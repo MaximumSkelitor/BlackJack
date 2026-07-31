@@ -3,9 +3,10 @@ package com.weberpackage.blackjack.settings.presentation.screens
 import android.content.res.Configuration
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -70,6 +71,7 @@ internal fun PreferencesScreen(
     onNavigationRequested: (SettingsContract.Effect.Navigation) -> Unit
 ) {
     val hazeState = rememberHazeState()
+    val scrollState = rememberLazyListState()
 
     HandleSideEffects(
         effectFlow = effectFlow,
@@ -87,16 +89,16 @@ internal fun PreferencesScreen(
             )
         }
     ) { contentPadding ->
-        Column(
+        LazyColumn(
+            state = scrollState,
             modifier = Modifier
                 .hazeSource(hazeState)
                 .fillMaxSize()
                 .padding(contentPadding)
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
+            item {
                 AppearanceSection(
                     currentTheme = state.appTheme,
                     onThemeSelected = {
@@ -105,6 +107,8 @@ internal fun PreferencesScreen(
                         )
                     }
                 )
+            }
+            item {
                 LanguageSection(
                     selectedLanguage = state.language,
                     onLanguageSelected = {
@@ -113,26 +117,30 @@ internal fun PreferencesScreen(
                         )
                     }
                 )
+            }
+            item {
                 GameplaySection(
-                editCustomBetOption = state.creditsSelected,
-                onSelectedEditCustomBet = {
-                    onEventSent(
-                        SettingsContract.Event.OnSelectCredits(!state.creditsSelected)
-                    )
-                },
-                saveCurrentBetOption = state.saveCurrentBetSelected,
-                onSaveCurrentBet = {
-                    onEventSent(
-                        SettingsContract.Event.OnSelectSaveCurrentBet(!state.saveCurrentBetSelected)
-                    )
-                },
-                saveCustomBetOption = state.saveCustomBetSelected,
-                onSaveCustomBet = {
-                    onEventSent(
-                        SettingsContract.Event.OnSelectSaveCustomBet(!state.saveCustomBetSelected)
-                    )
-                }
-            )
+                    editCustomBetOption = state.creditsSelected,
+                    onSelectedEditCustomBet = {
+                        onEventSent(
+                            SettingsContract.Event.OnSelectCredits(!state.creditsSelected)
+                        )
+                    },
+                    saveCurrentBetOption = state.saveCurrentBetSelected,
+                    onSaveCurrentBet = {
+                        onEventSent(
+                            SettingsContract.Event.OnSelectSaveCurrentBet(!state.saveCurrentBetSelected)
+                        )
+                    },
+                    saveCustomBetOption = state.saveCustomBetSelected,
+                    onSaveCustomBet = {
+                        onEventSent(
+                            SettingsContract.Event.OnSelectSaveCustomBet(!state.saveCustomBetSelected)
+                        )
+                    }
+                )
+            }
+            item {
                 NavigationSection(
                     showBottomBar = state.showBottomBar,
                     onShowBottomBar = {

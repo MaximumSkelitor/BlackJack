@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 internal fun CreditItem(name: String, url: String) {
     val uriHandler = LocalUriHandler.current
 
-
     Column(
         modifier = Modifier
             .fillMaxWidth()

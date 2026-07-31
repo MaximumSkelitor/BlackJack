@@ -8,6 +8,10 @@
       "logs": [
         {
           "type": "new",
+          "text": "New achievements screen that rewards users exclusive card packs and/or credits if completed"
+        },
+        {
+          "type": "new",
           "text": "Reworked rank UI and new Games Played requirement "
         },
         {

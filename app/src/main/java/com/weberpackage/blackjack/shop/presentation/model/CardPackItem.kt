@@ -28,7 +28,7 @@ val cardPacks = listOf(
         nameResId = R.string.card_pack_1,
         price = 0,
         icon = Icons.Default.Style,
-        color = Color(0xFFA6A6A6), // Green
+        color = Color(0xFFA6A6A6),
         sampleCards = listOf(
             PlayCard(Suit.SPADES, Rank.ACE),
             PlayCard(Suit.SPADES, Rank.ACE)
@@ -77,5 +77,37 @@ val cardPacks = listOf(
             PlayCard(Suit.SPADES, Rank.ACE),
             PlayCard(Suit.SPADES, Rank.ACE)
         )
+    ),
+    CardPackItem(
+        id = 101,
+        nameResId = R.string.card_pack_emerald_ace,
+        price = 0,
+        icon = Icons.Default.Style,
+        color = Color(0xFF2E7D32),
+        sampleCards = listOf(PlayCard(Suit.SPADES, Rank.ACE), PlayCard(Suit.DIAMONDS, Rank.ACE))
+    ),
+    CardPackItem(
+        id = 102,
+        nameResId = R.string.card_pack_ruby_dealer,
+        price = 0,
+        icon = Icons.Default.AutoAwesome,
+        color = Color(0xFFC62828),
+        sampleCards = listOf(PlayCard(Suit.HEARTS, Rank.KING), PlayCard(Suit.HEARTS, Rank.QUEEN))
+    ),
+    CardPackItem(
+        id = 103,
+        nameResId = R.string.card_pack_gold_rush,
+        price = 0,
+        icon = Icons.Default.Verified,
+        color = Color(0xFFFFB300),
+        sampleCards = listOf(PlayCard(Suit.DIAMONDS, Rank.TEN), PlayCard(Suit.DIAMONDS, Rank.NINE))
+    ),
+    CardPackItem(
+        id = 104,
+        nameResId = R.string.card_pack_royal_flush,
+        price = 0,
+        icon = Icons.Default.WorkspacePremium,
+        color = Color(0xFF6A1B9A),
+        sampleCards = listOf(PlayCard(Suit.SPADES, Rank.ACE), PlayCard(Suit.SPADES, Rank.KING))
     )
 )

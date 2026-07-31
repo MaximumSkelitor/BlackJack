@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
@@ -31,19 +32,21 @@ fun SwitchOption(
     Row(
         Modifier
             .fillMaxWidth()
-            .height(56.dp)
+            .heightIn(min = 56.dp)
             .selectable(
                 selected = selected, onClick = onClick, enabled = enabled
             )
-            .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Switch(
             onCheckedChange = null,
             checked = selected,
             enabled = enabled
         )
-        Spacer(Modifier.width(3.dp))
+        Spacer(Modifier.width(8.dp))
         Column(
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
         ) {
@@ -56,7 +59,7 @@ fun SwitchOption(
             Text(
                 text = desc,
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(start = 5.dp)
+                modifier = Modifier.padding(start = 5.dp),
             )
             Spacer(Modifier.height(3.dp))
         }

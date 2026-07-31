@@ -45,7 +45,7 @@
 
     <!-- Home/Ranks -->
     <string name="benefits">"Vorteil: "</string>
-    <string name="requirements">Anforderungen:</string>
+    <string name="requirements_equals">Anforderungen:</string>
     <string name="req_credits">"Erforderliche Credits: "</string>
     <string name="req_games">"Erforderliche Spiele: "</string>
     <string name="your_rank">Dein Rang</string>
@@ -105,6 +105,7 @@
 
     <!-- Settings -->
     <string name="balance">Gleichgewicht</string>
+    <string name="career_credits">Berufliche Stationen</string>
     <string name="best">Am besten</string>
     <string name="games_played">Gespielte Spiele</string>
     <string name="my_card_packs">Meine Kartenpakete</string>
@@ -169,14 +170,60 @@
     <string name="navigation_section">Navigation</string>
     <string name="show_bottom_bar_title">Untere Leiste anzeigen</string>
     <string name="changelog">Änderungsprotokoll</string>
-    <string name="alert_dialog_cant_afford_pack_title">Du kannst dieses Paket nicht kaufen!</string>
-    <string name="alert_dialog_cant_afford_pack_message">Du hast nicht genügend Credits, um dieses Paket zu kaufen.</string>
-    <string name="dialog_purchase_confirmation_title">Sind Sie sicher, dass Sie dieses Kartenpaket kaufen möchten?</string>
-    <string name="dialog_purchase_confirmation_message">Du verlierst dauerhaft %s Credits, nachdem du dieses Kartenpaket gekauft hast.</string>
+    <string name="alerter_already_owned_message">Du besitzt dieses Kartenpaket bereits.</string>
+    <string name="dialog_purchase_confirmation_title">Bist du sicher?</string>
+    <string name="dialog_purchase_confirmation_message">Dieser Artikel kostet %s Credits. Möchtest du dieses Kartenpaket kaufen?</string>
     <string name="save_current_bet_title">Aktuelle Wette speichern</string>
     <string name="save_current_bet_desc">Speichere deinen aktuellen Einsatz, bis du die App schließt.</string>
     <string name="save_custom_bet_title">Individuelle Wette speichern</string>
     <string name="view_more">Mehr anzeigen</string>
     <string name="alert_dialog_error_title">Oh je!</string>
     <string name="alert_dialog_error_message">Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</string>
+    <string name="rank_progress">Rangfortschritt</string>
+    <string name="enter_username">Geben Sie Ihren Benutzernamen ein.</string>
+    <string name="preferences_settings_option_desc">Konfigurieren Sie Ihre App</string>
+    <string name="username_settings_option_desc">Ändern Sie Ihren Benutzernamen</string>
+    <string name="discord_settings_option_desc">Fehler melden oder Feedback geben</string>
+    <string name="app_info_settings_option_desc">App-Version, Versionscode usw.</string>
+    <string name="changelog_settings_option_desc">Entdecken Sie neue Funktionen</string>
+    <string name="credits_settings_option_desc">Dank an alle verwendeten Open-Source-Bibliotheken.</string>
+    <string name="achievements_title">Errungenschaften</string>
+    <string name="achievements_desc">Verdiene dir besondere Belohnungen</string>
+    <string name="achievement_first_step_title">Erster Schritt</string>
+    <string name="achievement_first_step_desc">Spielen Sie Ihre erste Runde Blackjack.</string>
+    <string name="achievement_veteran_title">Veteran</string>
+    <string name="achievement_veteran_desc">Spiele 100 Runden Blackjack.</string>
+    <string name="achievement_high_roller_title">High Roller</string>
+    <string name="achievement_high_roller_desc">Erreiche einen Höchststand von 50.000 Credits.</string>
+    <string name="achievement_millionaire_title">Millionär</string>
+    <string name="achievement_millionaire_desc">Erreiche einen Höchststand von 1.000.000 Credits.</string>
+    <string name="achievement_unstoppable_title">Unaufhaltsam</string>
+    <string name="achievement_unstoppable_desc">Spiele 500 Runden Blackjack.</string>
+    <string name="achievement_unlocked_alert">Erfolg freigeschaltet: %s</string>
+    <string name="card_pack_emerald_ace">Smaragd-Ass</string>
+    <string name="card_pack_ruby_dealer">Rubinhändler</string>
+    <string name="card_pack_midnight_sapphire">Mitternachtssaphir</string>
+    <string name="card_pack_gold_rush">Goldrausch</string>
+    <string name="card_pack_royal_flush">Royal Flush</string>
+    <string name="claimed">Beansprucht</string>
+    <string name="achievement_apprentice_title">Lehrling</string>
+    <string name="achievement_apprentice_desc">Erreiche 5.000 Karriere-Credits.</string>
+    <string name="achievement_hustler_title">Hustler</string>
+    <string name="achievement_hustler_desc">Erreiche 25.000 Karriere-Credits.</string>
+    <string name="achievement_grinder_title">Schleifer</string>
+    <string name="achievement_grinder_desc">Erreiche 100.000 Karriere-Credits.</string>
+    <string name="achievement_legend_title">Casino-Legende</string>
+    <string name="achievement_legend_desc">Erreiche 500.000 Karriere-Credits.</string>
+    <string name="credits_amount">Credits: %s</string>
+    <string name="exclusive_card_pack">Exklusives Kartenpaket: %s</string>
+    <string name="rewards">Belohnungen</string>
+    <string name="requirement">Erfordernis</string>
+    <string name="requirements">Erfordernis</string>
+    <string name="games_played_req">Gespielte Spiele: %s</string>
+    <string name="highest_credits_req">Höchste Credits: %s</string>
+    <string name="total_credits_req">Gesamt-Credits: %s</string>
+    <string name="career_credits_req">Karriere-Credits: %s</string>
+    <string name="alerter_cant_afford_pack_title">Du kannst dir dieses Paket nicht leisten!</string>
+    <string name="alerter_cant_afford_pack_message">Du hast nicht genügend Credits, um dieses Paket zu kaufen.</string>
+    <string name="alerter_already_owned_title">Bereits im Besitz</string>
 </resources>

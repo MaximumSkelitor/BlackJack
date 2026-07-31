@@ -55,12 +55,14 @@ fun RankRow(
     onClick: () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val progress = RankUtils.getRankProgress(
-        rank = rank,
-        userChips = userChips,
-        userGamesPlayed = userGamesPlayed,
-        prevRank = prevRank
-    )
+    val progress = remember(userChips, userGamesPlayed, rank, prevRank) {
+        RankUtils.getRankProgress(
+            rank = rank,
+            userChips = userChips,
+            userGamesPlayed = userGamesPlayed,
+            prevRank = prevRank
+        )
+    }
 
     val updatedProgress = (progress * 100).roundToInt()
 

@@ -6,8 +6,6 @@ import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material.icons.filled.WorkspacePremium
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -110,29 +108,34 @@ object RankUtils {
         return ranks.lastOrNull { chips >= it.requiredChips }?.multiplier ?: 1.0f
     }
 
-    // TODO: Move to viewmodel
-    @Composable
+    fun getCurrentRank(chips: Int, gamesPlayed: Long): RankData {
+        return ranks.lastOrNull { chips >= it.requiredChips && gamesPlayed >= it.requiredGamesPlayed } ?: ranks.first()
+    }
+
+    fun getNextRank(chips: Int, gamesPlayed: Long): RankData? {
+        val currentRankIndex = ranks.indexOf(getCurrentRank(chips, gamesPlayed))
+        return ranks.getOrNull(currentRankIndex + 1)
+    }
+
     fun getRankProgress(
         rank: RankData,
         userChips: Int,
         userGamesPlayed: Long,
         prevRank: RankData? = null,
     ): Float {
-        return remember(userChips, userGamesPlayed, rank, prevRank) {
-            val startChips = prevRank?.requiredChips ?: 0
-            val startGames = prevRank?.requiredGamesPlayed ?: 0L
+        val startChips = prevRank?.requiredChips ?: 0
+        val startGames = prevRank?.requiredGamesPlayed ?: 0L
 
-            val chipRange = (rank.requiredChips - startChips).toFloat()
-            val chipProgress = if (chipRange > 0) {
-                ((userChips - startChips).toFloat() / chipRange).coerceIn(0f, 1f)
-            } else 1f
+        val chipRange = (rank.requiredChips - startChips).toFloat()
+        val chipProgress = if (chipRange > 0) {
+            ((userChips - startChips).toFloat() / chipRange).coerceIn(0f, 1f)
+        } else 1f
 
-            val gameRange = (rank.requiredGamesPlayed - startGames).toFloat()
-            val gameProgress = if (gameRange > 0) {
-                ((userGamesPlayed - startGames).toFloat() / gameRange).coerceIn(0f, 1f)
-            } else 1f
+        val gameRange = (rank.requiredGamesPlayed - startGames).toFloat()
+        val gameProgress = if (gameRange > 0) {
+            ((userGamesPlayed - startGames).toFloat() / gameRange).coerceIn(0f, 1f)
+        } else 1f
 
-            (chipProgress + gameProgress) / 2f
-        }
+        return (chipProgress + gameProgress) / 2f
     }
 }

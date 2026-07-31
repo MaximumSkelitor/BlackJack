@@ -4,10 +4,11 @@ import android.content.res.Configuration
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Badge
@@ -114,6 +115,7 @@ fun SettingsScreenContent(
 ) {
     val hazeState = rememberHazeState()
     val uriHandler = LocalUriHandler.current
+    val scrollState = androidx.compose.foundation.lazy.rememberLazyListState()
 
     HandleSideEffects(
         effectFlow = effectFlow,
@@ -131,21 +133,23 @@ fun SettingsScreenContent(
             )
         }
     ) { contentPadding ->
-        Column(
-            modifier = Modifier.hazeSource(hazeState),
-            verticalArrangement = Arrangement.spacedBy(5.dp)
+        LazyColumn(
+            state = scrollState,
+            modifier = Modifier
+                .fillMaxSize()
+                .hazeSource(hazeState)
+                .padding(contentPadding),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding)
-                    .padding(top = 10.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+            item {
                 SettingsOption(
                     title = R.string.preferences,
                     description = "",
+                    desc = R.string.preferences_settings_option_desc,
                     onClick = {
                         onNavigationRequested(
                             SettingsContract.Effect.Navigation.NavRoute(
@@ -155,6 +159,8 @@ fun SettingsScreenContent(
                     },
                     icon = Icons.Default.Tune
                 )
+            }
+            item {
                 SettingsOption(
                     title = R.string.username,
                     description = state.username,
@@ -165,22 +171,31 @@ fun SettingsScreenContent(
                             )
                         )
                     },
+                    desc = R.string.username_settings_option_desc,
                     icon = Icons.Default.Badge
                 )
+            }
+            item {
                 SettingsOption(
                     title = R.string.join_discord,
                     description = "",
                     onClick = { uriHandler.openUri("https://discord.gg/MktkU63CZn") },
+                    desc = R.string.discord_settings_option_desc,
                     icon = Icons.Default.Forum
                 )
+            }
+            item {
                 SettingsOption(
                     title = R.string.dialog_app_info_title,
                     description = "",
                     onClick = {
                         onEventSent(SettingsContract.Event.ShowAppInfo)
                     },
+                    desc = R.string.app_info_settings_option_desc,
                     icon = Icons.Default.Info
                 )
+            }
+            item {
                 SettingsOption(
                     title = R.string.changelog,
                     description = "",
@@ -191,8 +206,11 @@ fun SettingsScreenContent(
                             )
                         )
                     },
+                    desc = R.string.changelog_settings_option_desc,
                     icon = Icons.Filled.FiberNew
                 )
+            }
+            item {
                 SettingsOption(
                     title = R.string.credits_license,
                     description = "",
@@ -203,16 +221,18 @@ fun SettingsScreenContent(
                             )
                         )
                     },
+                    desc = R.string.credits_settings_option_desc,
                     icon = Icons.Filled.Copyright
                 )
-                Spacer(modifier = Modifier.weight(1f))
+            }
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
                 Text(
                     text = "BlackJack v${BuildConfig.VERSION_NAME}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f),
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(bottom = 100.dp) // Prevents the text from hugging the screen edge
+                        .padding(bottom = 32.dp) // Prevents the text from hugging the screen edge
                 )
             }
         }

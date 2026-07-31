@@ -24,6 +24,7 @@ import com.weberpackage.blackjack.common.presentation.state.rememberEventDialogS
 import com.weberpackage.blackjack.common.presentation.theme.BlackJackTheme
 import com.weberpackage.blackjack.common.presentation.utils.DialogController
 import com.weberpackage.blackjack.common.presentation.utils.ObserveAsEvents
+import com.weberpackage.blackjack.common.presentation.utils.showAlerter
 import com.weberpackage.blackjack.core.di.ReceiverModule.AdminFilter
 import com.weberpackage.blackjack.core.prefs.Prefs
 import com.weberpackage.blackjack.core.receiver.AdminReceiver
@@ -115,6 +116,12 @@ class MainActivity : AppCompatActivity() {
             effectFlow.onEach { effect ->
                 when (effect) {
                     is MainContract.Effect.CheckForAppUpdates -> checkForUpdates()
+                    is MainContract.Effect.Notification -> {
+                        this@MainActivity.showAlerter(
+                            message = effect.text,
+                            isError = effect.error
+                        )
+                    }
                     else -> {}
                 }
             }.collect()
